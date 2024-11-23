@@ -1,5 +1,5 @@
 ## Library Management System (Reboot)
 
--- An update web version is to be released into this repository
+-- The updated web app version is to be released into this repository
 
--- Kindly refer this Doc : https://docs.google.com/document/d/1Z-HPkH0flA4vLvXLIVHBakgeexiYY5GGX7aribq_bPw/edit?usp=sharing
+-- Kindly refer this Doc for more Details : https://docs.google.com/document/d/1Z-HPkH0flA4vLvXLIVHBakgeexiYY5GGX7aribq_bPw/edit?usp=sharing
