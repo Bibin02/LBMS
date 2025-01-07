@@ -1,0 +1,5 @@
+# Ignore Development Directories
+
+/java-backend
+/react-frontend
+/tomcat-build
