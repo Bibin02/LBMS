@@ -1,28 +1,16 @@
-version: '3.8'
-
 services:
-  tomcat:
-    image: tomcat:9.0
-    container_name: tomcat_container
-    ports:
-      - "8080:8080"
-    volumes:
-      - ./target/yourapp.war:/usr/local/tomcat/webapps/yourapp.war
-    depends_on:
-      - mysql
-
-  mysql:
-    image: mysql:8.0
-    container_name: mysql_container
+  postgres:
+    image: postgres:15
+    container_name: postgres_container
+    restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root_password
-      MYSQL_DATABASE: your_database_name
-      MYSQL_USER: your_username
-      MYSQL_PASSWORD: your_password
+      POSTGRES_USER: system
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: lbms
     ports:
-      - "3306:3306"
+      - "7000:7000"
     volumes:
-      - mysql_data:/var/lib/mysql
+      - postgres_data:/var/lib/postgresql/data
 
 volumes:
-  mysql_data:
+  postgres_data:
