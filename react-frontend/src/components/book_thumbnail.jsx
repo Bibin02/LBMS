@@ -1,22 +1,34 @@
 import React from 'react'
 import BookThumbnailDetails from './book_thumbnail_details'
+import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
+
+function openPreview() {
+  alert("Preview")
+}
 
 const BookThumbnail = (props) => {
   return (
     <>
         <div className="thumbnail-outer-box">
             <div className="book-image-container">
-                <img src={props.img_src} alt="Book.jpg" />
+                <img src={props.imageSource} alt="Book.jpg" />
             </div>
             {<BookThumbnailDetails
                 bookname={props.bkdata.bookname}
                 cost={props.bkdata.cost}
                 rating={props.bkdata.rating}
             />}
-            <button className="button preview-button">Preview</button>
+            <button className="button preview-button" onClick={openPreview}>Preview</button>
+            <div className="button view-button"><Link to={`/books/${props.bkdata.bookname}`}>View Book</Link></div>
         </div>
     </>
   )
+}
+
+BookThumbnailDetails.propTypes = {
+    imageSource: PropTypes.string,
+    bkdata: PropTypes.object,
 }
 
 export default BookThumbnail
