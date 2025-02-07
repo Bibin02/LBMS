@@ -1,11 +1,19 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import ContentMenu from "./content_menu";
+import Navigate from "./navigate";
+import PreviewPanel from "./preview_panel";
 
 export function Home() {
+
+    const [isPreview, setIsPreview] = useState(false);
+
     return (
         <>
-            <li>
-                <Link to={"/login"}>Login</Link>
-            </li>
+            {<Navigate/>}
+
+            {<ContentMenu/>}
+
+            {isPreview == true ? <PreviewPanel/> : null}
         </>
     )
 }
