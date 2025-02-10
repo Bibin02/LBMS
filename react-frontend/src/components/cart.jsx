@@ -26,6 +26,7 @@ const Cart = () => {
                   totalCost += item.cost;
                   return (<CartItem
                     key = {index}
+                    bookUid = {item.bookUid}
                     bookName = {item.name}
                     previewImage = {item.img}
                     quantity = {item.quantity}

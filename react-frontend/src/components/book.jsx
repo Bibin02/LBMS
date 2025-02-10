@@ -7,10 +7,30 @@ const Book = () => {
     const {bookid} = useParams();
     const [bookJson, setBookJson] = useState({});
     const [reviewsJson, setReviewsJson] = useState({data: []});
+    const [cartItemCount, setCartItemCount] = useState(1);
 
     async function getData() {
       setBookJson(await fetchJSON("/book.json"));
       setReviewsJson(await fetchJSON("/reviews.json"));
+    }
+
+    function addCartCount() {
+      if (cartItemCount < 5) {
+        setCartItemCount(cartItemCount+1);
+      }
+    }
+    function subCartCount() {
+      if (cartItemCount > 1) {
+        setCartItemCount(cartItemCount-1);
+      }
+    }
+    function deleteCartItem() {
+      // Cart delete logic
+      alert("Book deleted from Cart")
+    }
+    function addToCart() {
+      // Cart add logic
+      alert("Book added to Cart Successfully")
     }
 
     useEffect( ()=>{
@@ -40,9 +60,22 @@ const Book = () => {
                 <span className="book-rating-span">{bookJson.rating}</span>
               </div>
             </div>
+            <div className="cart-context-container">
+              <button className="buttons add-to-cart" onClick={addToCart}>Add to Cart</button>
+              <div className="number-icons">
+                <i className="delete-icon" onClick={deleteCartItem}>#</i>
+                <i className="add-icon" onClick={addCartCount}>+</i>
+                <span className="cart-count">{cartItemCount}</span>
+                <i className="subtract-icon" onClick={subCartCount}>-</i>
+              </div>
+            </div>
             <div className="link-buttons">
-              <Link to={"/cart"}><button className="add-to-cart">Add to Cart</button></Link>
-              <Link to={"/orders"}><button className="buy-direct">{ bookJson.bookSellStatus ? "Buy Now" : "Lend Now" }</button></Link>
+              <Link to={"/cart"}><button className="buttons add-to-cart">View Cart</button></Link>
+              <Link to={"/orders"}>
+                <button className="buttons buy-direct">
+                  { bookJson.bookSellStatus ? "Buy Now" : "Lend Now" }
+                </button>
+              </Link>
             </div>
           </div>
 

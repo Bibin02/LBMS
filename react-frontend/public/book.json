@@ -1,6 +1,7 @@
 {
-    "imageSource": "src.jpg",
+    "bookUid": "book001",
     "bookName": "Book1",
+    "imageSource": "src.jpg",
     "authorName": "auth1, auth 2",
     "bookSellStatus": false,
     "sellerName": "seller1",
