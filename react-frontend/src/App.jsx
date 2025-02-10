@@ -6,6 +6,7 @@ import { Home } from './components/home';
 import Cart from './components/cart';
 import Book from './components/book';
 import UserDashboard from './components/user_dashboard';
+import Orders from './components/orders';
 
 import "./styles/App.css";
 
@@ -17,6 +18,7 @@ function App() {
           <Route index element={<Home/>}/>
           <Route path='/login' element={<Login/>}/>
           <Route path='/cart' element={<Cart/>}/>
+          <Route path='/orders' element={<Orders/>}/>
           <Route path='/users/:userid' element={<UserDashboard/>}/>
           <Route path='/books/:bookid' element={<Book/>}/>
         </Routes>

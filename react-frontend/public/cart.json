@@ -1,0 +1,32 @@
+{
+    "data":[
+        {"bookName": "Book 1",
+         "previewImage": "src.jpg",
+         "quantity": 3,
+         "cost": 250,
+        "isLend": true,
+        "lendDuration": 10000000
+        },
+        {"bookName": "Book 1",
+         "previewImage": "src.jpg",
+         "quantity": 3,
+         "cost": 250,
+        "isLend": true,
+        "lendDuration": 1560000
+        },
+        {"bookName": "Book 1",
+         "previewImage": "src.jpg",
+         "quantity": 3,
+         "cost": 250,
+        "isLend": false,
+        "lendDuration": 10000000
+        },
+        {"bookName": "Book 1",
+         "previewImage": "src.jpg",
+         "quantity": 3,
+         "cost": 250,
+        "isLend": true,
+        "lendDuration": 490000
+        }
+    ]
+}

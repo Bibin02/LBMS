@@ -1,0 +1,10 @@
+{
+    "data": [
+        {"rating": 4.5, "context": "lorem ipsum"},
+        {"rating": 2.5, "context": "lorem ipsum"},
+        {"rating": 4.5, "context": "lorem ipsum"},
+        {"rating": 1.5, "context": "lorem ipsum"},
+        {"rating": 3.5, "context": "lorem ipsum"},
+        {"rating": 4.0, "context": "lorem ipsum"}
+    ]
+}

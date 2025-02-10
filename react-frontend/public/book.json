@@ -1,0 +1,13 @@
+{
+    "imageSource": "src.jpg",
+    "bookName": "Book1",
+    "authorName": "auth1, auth 2",
+    "bookSellStatus": false,
+    "sellerName": "seller1",
+    "publicationName": "publication1",
+    "costSymbol": "₹",
+    "cost": "1000",
+    "rating": "5.0",
+    "stock": 25,
+    "bookDescription": "Description : Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium quae temporibus distinctio officia unde similique commodi. Deleniti excepturi fuga sunt quidem dolorem laboriosam. Officiis illo optio id voluptate repellat quae."
+}
