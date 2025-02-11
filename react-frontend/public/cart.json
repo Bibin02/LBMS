@@ -16,7 +16,7 @@
          "quantity": 3,
          "cost": 250,
         "isLend": true,
-        "lendDuration": 1560000
+        "lendDuration": 2000000000
         },
         {
         "bookUid": "book003",
@@ -25,7 +25,7 @@
          "quantity": 3,
          "cost": 250,
         "isLend": false,
-        "lendDuration": 10000000
+        "lendDuration": 1000000000
         },
         {
         "bookUid": "book004",
@@ -34,7 +34,7 @@
          "quantity": 3,
          "cost": 250,
         "isLend": true,
-        "lendDuration": 490000
+        "lendDuration": 4900000000
         }
     ]
 }

@@ -1,9 +1,9 @@
 {
     "data": [
-        {"img_src": "src1.jpg", "bkdata": {"bookname": "Book 1", "cost": 100, "rating": 5}},
-        {"img_src": "src2.jpg", "bkdata": {"bookname": "Book 2", "cost": 100, "rating": 4.5}},
-        {"img_src": "src3.jpg", "bkdata": {"bookname": "Book 3", "cost": 100, "rating": 3.5}},
-        {"img_src": "src4.jpg", "bkdata": {"bookname": "Book 4", "cost": 100, "rating": 4.5}},
-        {"img_src": "src5.jpg", "bkdata": {"bookname": "Book 5", "cost": 100, "rating": 4.7}}
+        {"img_src": "src1.jpg", "bkdata": {"bookUid": "book001", "bookname": "Book 1", "cost": 100, "rating": 5, "doPreview": true}},
+        {"img_src": "src2.jpg", "bkdata": {"bookUid": "book002", "bookname": "Book 2", "cost": 100, "rating": 4.5, "doPreview": true}},
+        {"img_src": "src3.jpg", "bkdata": {"bookUid": "book003", "bookname": "Book 3", "cost": 100, "rating": 3.5, "doPreview": false}},
+        {"img_src": "src4.jpg", "bkdata": {"bookUid": "book004", "bookname": "Book 4", "cost": 100, "rating": 4.5, "doPreview": false}},
+        {"img_src": "src5.jpg", "bkdata": {"bookUid": "book004", "bookname": "Book 5", "cost": 100, "rating": 4.7, "doPreview": true}}
     ]
 }

@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import Navigate from './navigate'
 import fetchJSON from '../services/dataFetcher';
+import { getLocalCurrency, convertTo, calculateLendDuration } from '../utils/converters';
 import CartItem from './cart_item';
 
 const Cart = () => {
 
   const [cartJson, setCartJson] = useState({data: []})
   let totalCost = 0;
+  const { currency, currencyVal } = getLocalCurrency();
 
   async function getData() {
     setCartJson(await fetchJSON("/cart.json"));
@@ -27,12 +29,13 @@ const Cart = () => {
                   return (<CartItem
                     key = {index}
                     bookUid = {item.bookUid}
-                    bookName = {item.name}
+                    bookName = {item.bookName}
                     previewImage = {item.img}
                     quantity = {item.quantity}
-                    cost = {item.cost}
+                    currency = {currency}
+                    cost = {convertTo(item.cost, currencyVal)}
                     isLend = {item.isLend}
-                    lendDuration = {item.lendDuration}
+                    lendDuration = {calculateLendDuration(item.lendDuration)}
                   />)
                 })}
               </div>
@@ -40,8 +43,8 @@ const Cart = () => {
             <div className="summary-container">
               <div className="summary-inner-container">
                 <div className="purchase-cost">
-                  <span className="currency">{"Rs"}</span>
-                  <span className="total-cost">{totalCost}</span>
+                  <span className="currency">{currency}</span>
+                  <span className="total-cost">{convertTo(totalCost, currencyVal)}</span>
                 </div>
                 <button className="purchase-button">Purchase</button>
               </div>

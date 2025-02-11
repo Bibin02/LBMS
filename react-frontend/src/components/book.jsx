@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import fetchJSON from '../services/dataFetcher'
 import Reviews from './reviews';
+import StarRating from './star_rating';
+import Navigate from './navigate';
 
 const Book = () => {
     const {bookid} = useParams();
@@ -38,6 +40,9 @@ const Book = () => {
     }, [])
   return (
     <>
+
+        <Navigate/>
+
         <h1 className="text-indigo-600 m-12">Book {bookid}</h1>
 
         <div className="preview-panel">
@@ -56,17 +61,19 @@ const Book = () => {
               <span className="prize-symbol"><i className="prize-symbol-icon">{bookJson.costSymbol}</i></span>
               <span className="book-prize-span">{bookJson.cost}</span>
               <div className="rating-panel">
-                <div className="rating-stars"><i className="stars-img"></i></div>
-                <span className="book-rating-span">{bookJson.rating}</span>
+                <div className="rating">
+                  <i className="stars-icon"><StarRating rating={bookJson.rating} /></i>
+                  <div className="rating-val">{bookJson.rating}</div>
+                </div>
               </div>
             </div>
             <div className="cart-context-container">
-              <button className="buttons add-to-cart" onClick={addToCart}>Add to Cart</button>
+              <button className="buttons add-to-cart" onClick={addToCart}><i className="cart-icon"> </i>Add to Cart</button>
               <div className="number-icons">
-                <i className="delete-icon" onClick={deleteCartItem}>#</i>
-                <i className="add-icon" onClick={addCartCount}>+</i>
+                <i className="buttons delete-icon" onClick={deleteCartItem}>#</i>
+                <i className="buttons add-icon" onClick={addCartCount}>+</i>
                 <span className="cart-count">{cartItemCount}</span>
-                <i className="subtract-icon" onClick={subCartCount}>-</i>
+                <i className="buttons subtract-icon" onClick={subCartCount}>-</i>
               </div>
             </div>
             <div className="link-buttons">
