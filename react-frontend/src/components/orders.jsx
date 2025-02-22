@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import Navigate from './navigate'
 import fetchJSON from '../services/dataFetcher';
 import OrderItem from './order_item';
+import NavigationMenu from './navigation_menu';
 
 const Orders = () => {
 
@@ -18,7 +18,7 @@ const Orders = () => {
 
   return (
     <>
-        <Navigate/>
+        <NavigationMenu/>
         <div className="outer-container body-container">
             <div className="order-list-container">
                 {ordersJson.data.map((order, id)=>(

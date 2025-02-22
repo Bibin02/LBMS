@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import fetchJSON from '../services/dataFetcher'
 import Reviews from './reviews';
 import StarRating from './star_rating';
-import Navigate from './navigate';
+import NavigationMenu from './navigation_menu';
 
 const Book = () => {
     const {bookid} = useParams();
@@ -41,7 +41,7 @@ const Book = () => {
   return (
     <>
 
-        <Navigate/>
+        <NavigationMenu/>
 
         <h1 className="text-indigo-600 m-12">Book {bookid}</h1>
 

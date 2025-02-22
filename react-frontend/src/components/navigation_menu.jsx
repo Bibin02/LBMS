@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from "react-router-dom";
 import getUserId from '../services/getUserId';
 
-const Navigate = () => {
+const NavigationMenu = () => {
 
   const [isLogin, setIsLogin] = useState(false);
   const userid = getUserId();
@@ -39,4 +39,4 @@ const Navigate = () => {
   )
 }
 
-export default Navigate
+export default NavigationMenu;

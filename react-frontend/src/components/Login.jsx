@@ -1,11 +1,11 @@
 import InputField from "./input_field";
-import Navigate from "./navigate";
 import "../styles/login.css"
+import NavigationMenu from "./navigation_menu";
 
 export function Login() {
     return (
         <>
-            {<Navigate/>}
+            {<NavigationMenu/>}
 
             {<InputField/>}
         </>
