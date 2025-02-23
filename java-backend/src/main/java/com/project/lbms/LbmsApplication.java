@@ -9,9 +9,9 @@ import com.project.lbms.repository.SampleRepo;
 public class LbmsApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(LbmsApplication.class, args);
-
-		System.out.println(new SampleRepo().getUsers());
+		
+		SampleRepo sampleRepo = SpringApplication.run(LbmsApplication.class, args).getBean(SampleRepo.class);
+		System.out.println(sampleRepo.getUsers());
 		
 	}
 
