@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import fetchJSON from '../services/dataFetcher';
-import { convertTo, getLocalCurrency } from '../utils/converters';
+import { convertTo, getExtraCharges, getLocalCurrency } from '../utils/converters';
 
 const OrderDispatch = () => {
 
@@ -9,6 +9,9 @@ const OrderDispatch = () => {
     const [orderJson, setOrderJson] = useState({});
 
     const { currency, currencyVal } = getLocalCurrency();
+
+    const { charges } = getExtraCharges();
+    let totalCharges = 0;
 
     async function getData() {
       setOrderJson(await fetchJSON("/order.json"))
@@ -37,14 +40,31 @@ const OrderDispatch = () => {
                   <div className="order-details">
 
                     {!orderJson.isPaid ? 
-                      <div className="payment-span">
-                        <span className="currency">{currency}</span>
-                        <span className="total-cost">{convertTo(orderJson.totalCost, currencyVal)}</span>
-                        <Link to={'/'}> 
-                          <button className="buttons">
-                            Complete Payment
-                          </button>
-                        </Link>
+                      <div className="payment">
+                        <div className="prize-tag">
+                          <span className="cost-name">Total Cost</span>
+                          <span className="currency">{currency}</span>
+                          <span className="total-cost">{convertTo(orderJson.totalCost, currencyVal)}</span>
+                        </div>
+                        {charges.map( (charge, index)=>{
+                          totalCharges += charge.value;
+                          return(<div key={index} className="prize-tag">
+                            <span className="cost-name">{charge.chargeName}</span>
+                            <span className="currency">{currency}</span>
+                            <span className="charges-cost">{convertTo(charge.value, currencyVal)}</span>
+                          </div>)
+                        })}
+                        <div className="prize-tag">
+                          <span className="currency">{currency}</span>
+                          <span className="final-cost">{convertTo(orderJson.totalCost + totalCharges, currencyVal)}</span>
+                        </div>
+                        <div className="payment-button">
+                          <Link to={'/'}> 
+                            <button className="buttons">
+                              Complete Payment
+                            </button>
+                          </Link>
+                        </div>
                       </div> : null
                     }
                     

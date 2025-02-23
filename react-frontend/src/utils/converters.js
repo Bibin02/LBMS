@@ -15,3 +15,12 @@ export function calculateLendDuration(milliseconds) {
     let lendExpiryDate = new Date(Date.now() + Number(milliseconds));
     return ("From " + (currDate).toDateString() + " To " + (lendExpiryDate).toDateString());
 }
+
+export function getExtraCharges() {
+    return {
+        charges: [
+            {chargeName: "Tax", value: 2},
+            {chargeName: "Convenience Fee", value: 0.1}
+        ]
+    }
+}
