@@ -20,6 +20,7 @@ const BookThumbnail = (props) => {
                 bookUid={props.bkdata.bookUid}
                 bookname={props.bkdata.bookname}
                 cost={props.bkdata.cost}
+                discount={props.bkdata.discount}
                 rating={props.bkdata.rating}
             />}
             <button className="buttons preview-button" onClick={openPreview} disabled={props.bkdata.doPreview}>Preview</button>

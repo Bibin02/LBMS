@@ -24,3 +24,7 @@ export function getExtraCharges() {
         ]
     }
 }
+
+export function calculateDiscount(originalCost, discountPercentage) {
+    return (originalCost - (originalCost * discountPercentage / 100)).toFixed(2);
+}

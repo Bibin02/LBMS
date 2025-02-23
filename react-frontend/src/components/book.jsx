@@ -4,12 +4,14 @@ import fetchJSON from '../services/dataFetcher'
 import Reviews from './reviews';
 import StarRating from './star_rating';
 import NavigationMenu from './navigation_menu';
+import { calculateDiscount, convertTo, getLocalCurrency } from '../utils/converters';
 
 const Book = () => {
     const {bookid} = useParams();
     const [bookJson, setBookJson] = useState({});
     const [reviewsJson, setReviewsJson] = useState({data: []});
     const [cartItemCount, setCartItemCount] = useState(1);
+    const { currency, currencyVal } = getLocalCurrency();
 
     async function getData() {
       setBookJson(await fetchJSON("/book.json"));
@@ -57,14 +59,37 @@ const Book = () => {
               <span className="seller-name-span">{bookJson.sellerName}</span>
               <span className="publication-name-span">{bookJson.publicationName}</span>
             </div>
-            <div className="book-prize">
-              <span className="prize-symbol"><i className="prize-symbol-icon">{bookJson.costSymbol}</i></span>
-              <span className="book-prize-span">{bookJson.cost}</span>
-              <div className="rating-panel">
-                <div className="rating">
-                  <i className="stars-icon"><StarRating rating={bookJson.rating} /></i>
-                  <div className="rating-val">{bookJson.rating}</div>
+            <div className="book-prize-container">
+              {bookJson.discount ? 
+              <div className="prize-discount-container">
+                <div className="discount-prize">
+                  <span className="prize-symbol"><i className="prize-symbol-icon">{currency}</i></span>
+                  <span className="book-prize-span">{convertTo(calculateDiscount(bookJson.cost, bookJson.discount), currencyVal)}</span>
                 </div>
+                <div className="discount-percent-box">
+                  <div className="discount-percent-symbol">
+                    <span>{bookJson.discount}%</span>
+                  </div>
+                </div>
+                <div className="og-prize-old">
+                  <del className='strike-through'>
+                    <span className="prize-symbol"><i className="prize-symbol-icon">{currency}</i></span>
+                    <span className="book-prize-span">{convertTo(bookJson.cost, currencyVal)}</span>
+                  </del>
+                </div>
+              </div> 
+              : 
+              // else part
+              <div className="og-prize">
+                <span className="prize-symbol"><i className="prize-symbol-icon">{currency}</i></span>
+                <span className="book-prize-span">{convertTo(bookJson.cost, currencyVal)}</span>
+              </div>
+              }
+            </div>
+            <div className="rating-panel">
+              <div className="rating">
+                <i className="stars-icon"><StarRating rating={bookJson.rating} /></i>
+                <div className="rating-val">{bookJson.rating}</div>
               </div>
             </div>
             <div className="cart-context-container">
