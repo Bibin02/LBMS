@@ -1,8 +1,25 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { loadMeta } from '../config/pageMetaLoader'
 
 const Signup = () => {
 
     const [user, setUser] = useState({})
+
+    const meta = {
+        title: 'E - Library Signup',
+        description: 'Signup to Enjoy your Book Store',
+        canonical: 'http://example.com/path/to/page',
+        meta: {
+            charset: 'utf-8',
+            name: {
+                keywords: 'react,meta,document,html,tags,blablabla'
+            }
+        }
+    }
+
+    useEffect( ()=>{
+        loadMeta(meta);
+    }, [])
 
     function changeHandler(e) {
         const name = e.target.name;
