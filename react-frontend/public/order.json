@@ -1,0 +1,16 @@
+{
+    "fetchStatus": true,
+    "reason": "Not found",
+    "orderStatus": "Order Dispatched",
+    "items": [
+        {"imgsrc": "book.jpg",
+            "name": "book1",
+            "quantity": 2},
+
+        {"imgsrc": "book.jpg",
+            "name": "book2",
+            "quantity": 5}
+    ],
+    "totalCost": 500,
+    "isPaid": false
+}

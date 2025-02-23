@@ -1,5 +1,1 @@
-# Ignore Development Directories
-
-/java-backend
-/react-frontend
-/tomcat-build
+# Ignore folder as per the branch needs.

@@ -1,0 +1,40 @@
+{
+    "data":[
+        {
+        "bookUid": "book001",
+        "bookName": "Book 1",
+         "previewImage": "src.jpg",
+         "quantity": 3,
+         "cost": 250,
+        "isLend": true,
+        "lendDuration": 10000000
+        },
+        {
+        "bookUid": "book002",
+        "bookName": "Book 1",
+         "previewImage": "src.jpg",
+         "quantity": 3,
+         "cost": 250,
+        "isLend": true,
+        "lendDuration": 2000000000
+        },
+        {
+        "bookUid": "book003",
+        "bookName": "Book 1",
+         "previewImage": "src.jpg",
+         "quantity": 3,
+         "cost": 250,
+        "isLend": false,
+        "lendDuration": 1000000000
+        },
+        {
+        "bookUid": "book004",
+        "bookName": "Book 1",
+         "previewImage": "src.jpg",
+         "quantity": 3,
+         "cost": 250,
+        "isLend": true,
+        "lendDuration": 4900000000
+        }
+    ]
+}
