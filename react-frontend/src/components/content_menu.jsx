@@ -5,40 +5,49 @@ import { debounce } from '../utils/opitmizer';
 import useHandleScroll from '../hooks/useHandleScroll';
 
 const ContentMenu = () => {
-    const [json, setJson] = useState({data: []});
+    const [feed, setFeed] = useState([]);
     const [needFeed, setNeedFeed] = useState(true);
-
-    let isLoading = false;
-
+    const [isLoading, setIsLoading] = useState(true);
+    const [pagesLoaded, setPagesLoaded] = useState(0);
+    
     // adding debounce to the eventListner
-    // window.addEventListener("scroll", debounce(useHandleScroll(setNeedFeed), 500));
+    window.addEventListener("scroll", debounce(() => useHandleScroll(setNeedFeed), 500));
 
     async function getBookThumbnails() {
-        if (needFeed) {
-            isLoading = true;
-            setJson(await fetchJSON("/bookthumbnail.json"));
-            isLoading = false;
-            setNeedFeed(false);
-        }  
+        setIsLoading(true);
+        // setJson(...json, await fetchJSON("/bookthumbnail.json"));  
+        const newFeed = await fetchJSON("/bookthumbnail.json");
+        setFeed((feed)=> [...feed, newFeed]);  
+        console.log("Data Loading");       
+        setIsLoading(false);
+        setNeedFeed(false);
     }
 
     useEffect(function (){
-        if (needFeed && !isLoading) {
+        if (needFeed && pagesLoaded < 10) {
             getBookThumbnails();
+            setPagesLoaded(pagesLoaded+1);
         }
     }, [needFeed]);
 
   return (
     <>
         <div className="outer-container container">
-            {json.data.map((bkjson, index)=>(
-                <BookThumbnail
-                    key = {index}
-                    imageSource = {bkjson.img_src}
-                    bkdata = {bkjson.bkdata}
-                />
-            ))}
+            {feed.map( (json, page)=>{
+                return (
+                <div className="inner-container container" key={page}>
+                    {json.data.map((bkjson, index)=>(
+                        <BookThumbnail
+                            key = {index}
+                            imageSource = {bkjson.img_src}
+                            bkdata = {bkjson.bkdata}
+                        />
+                    ))}
+                    {isLoading ? <div className="loading-bar">Loading ... </div> : null}
+                </div>)
+            })}
         </div>
+        
     </>
   )
 }
