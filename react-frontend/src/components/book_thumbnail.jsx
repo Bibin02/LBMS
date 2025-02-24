@@ -10,21 +10,27 @@ function openPreview() {
 const BookThumbnail = (props) => {
   return (
     <>
-        <div className="thumbnail-outer-box">
+        <div className="thumbnail-outer-box container">
             <Link className='linkage' to={`/books/${props.bkdata.bookUid}`}>
-              <div className="book-image-container">
+              <div className="book-image-container container">
                   <img src={props.imageSource} alt="Book.jpg" />
               </div>
             </Link>
-            {<BookThumbnailDetails
+            {
+              <BookThumbnailDetails
                 bookUid={props.bkdata.bookUid}
                 bookname={props.bkdata.bookname}
                 cost={props.bkdata.cost}
                 discount={props.bkdata.discount}
                 rating={props.bkdata.rating}
-            />}
-            <button className="buttons preview-button" onClick={openPreview} disabled={props.bkdata.doPreview}>Preview</button>
-            <div className="buttons view-button"><Link to={`/books/${props.bkdata.bookname}`}>View Book</Link></div>
+              />
+            }
+            <div className="buttons-container">
+              <Link to={`/books/${props.bkdata.bookname}`}>
+                <button className="preview-button buttons">View Book</button>
+              </Link>
+              {props.bkdata.doPreview ? <button className="preview-button buttons" onClick={openPreview}>Preview</button> : null}
+            </div>
         </div>
     </>
   )

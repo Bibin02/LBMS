@@ -72,17 +72,18 @@ const Signup = () => {
     }
   return (
     <>
-        <div className="container outer-box">
-            <div id='input-tag-root' className="input-container">
+        <main className="container outer-box">
+            <section id='input-tag-root' className="input-container">
                 <input className='input-field' placeholder='Email' type="text" name="email" id="uid" onChange={changeHandler}/>
                 <input className='input-field' placeholder='Password' type="password" name="password" id="pass" onChange={changeHandler}/>
                 <input className='input-field' placeholder='Confirm Password' type="text" name="confirmPassword" id="cnf-pass" onChange={changeHandler}/>
-            </div>
+            </section>
 
-            <button id='lgn-btn' className='buttons login-button' type="button" onClick={clearAction}>Clear</button>
-
-            <button id='sgnup-btn' className='buttons login-button' type="button" onClick={createAccount}>Create Account</button>
-        </div>
+            <section className="buttons-container">
+                <button id='lgn-btn' className='buttons login-button' type="button" onClick={clearAction}>Clear</button>
+                <button id='sgnup-btn' className='buttons login-button' type="button" onClick={createAccount}>Create Account</button>
+            </section>
+        </main>
     </>
   )
 }

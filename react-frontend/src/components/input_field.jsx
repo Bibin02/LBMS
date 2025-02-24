@@ -21,7 +21,7 @@ const InputField = () => {
 
   return (
     <>
-        <div className="login-container outer-box">
+        <section className="inner-container container">
             <div className="input-container">
                 <input className='input-field-login' type="text" name="username" id="uid" onChange={changeHandler}/>
                 <input className='input-field-login' type="password" name="password" id="pwd" onChange={changeHandler}/>
@@ -32,7 +32,7 @@ const InputField = () => {
             <div className="signup-query">Create an account ?</div>
 
             <Link to={'/signup'}><button id='sgnup-btn' className='login-button' type="button">Register</button></Link>
-        </div>
+        </section>
     </>
   )
 }

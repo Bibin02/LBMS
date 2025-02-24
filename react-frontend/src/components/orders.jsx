@@ -18,9 +18,10 @@ const Orders = () => {
 
   return (
     <>
+      <main className="outer-container container">
         <NavigationMenu/>
-        <div className="outer-container body-container">
-            <div className="order-list-container">
+        <div className="inner-container constainer">
+            <div className="order-list container">
                 {ordersJson.data.map((order, id)=>(
                     <OrderItem
                         key = {id}
@@ -31,6 +32,7 @@ const Orders = () => {
                 ))}
             </div>
         </div>
+      </main>
     </>
   )
 }
