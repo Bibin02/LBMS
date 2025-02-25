@@ -6,6 +6,7 @@ import StarRating from './star_rating';
 import NavigationMenu from './navigation_menu';
 import { getLocalCurrency } from '../utils/paymentUtils';
 import { calculateDiscount, convertCurrency } from '../utils/utility';
+import BookDescriptionTable from './book_description_table';
 
 const Book = () => {
     const {bookid} = useParams();
@@ -117,9 +118,9 @@ const Book = () => {
             </aside>
 
             <section className="book-description-container">
-              <ul className="description-points">
-                <li className="description-points">{bookJson.bookDescription}</li>
-              </ul>
+              <BookDescriptionTable
+                tableData={bookJson.bookDescription ? bookJson.bookDescription : {}}
+              />
             </section>
 
             <section className="reviews-container">
