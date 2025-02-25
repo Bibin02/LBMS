@@ -11,7 +11,7 @@ const ComponentDispatcher = (props) => {
     }
 
     return (loadedComponents[props.targetComponentName] ? 
-        React.createElement(loadedComponents[props.targetComponentName]) : <p>Some error occured !</p>);
+        React.createElement(loadedComponents[props.targetComponentName], {userData: props.targetComponentProps}) : <p>Some error occured !</p>);
 }
 
 ComponentDispatcher.propTypes = {

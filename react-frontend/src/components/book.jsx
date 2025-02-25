@@ -59,8 +59,10 @@ const Book = () => {
               <div className="book-name"><span className="book-name-span">{bookJson.bookName}</span></div>
               <div className="author-name"><span className="author-name-span">{bookJson.authorName}</span></div>
               <div className="seller-container">
-                <span className="seller-name-span">{bookJson.sellerName}</span>
-                <span className="publication-name-span">{bookJson.publicationName}</span>
+                <Link to={`/users/${bookJson.sellerName}`}>
+                  <div className="seller-name-span">{bookJson.sellerName}</div>
+                </Link>
+                <div className="publication-name-span">{bookJson.publicationName}</div>
               </div>
               <div className="book-prize-container">
                 {bookJson.discount ? 

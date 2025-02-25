@@ -2,13 +2,14 @@ import React, { useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
 import NavigationMenu from './navigation_menu';
 import ComponentDispatcher from './component_dispatcher';
+import { getUserId, getUserData } from '../services/userService';
 
 const UserDashboard = () => {
     const {userid} = useParams();
-
-    const menus = ["UserHome", "ChangeUserPassword", "ChangeUserDetails", "Logout"];
-    
+    const menus = (userid === getUserId()) ? ["UserHome", "ChangeUserPassword", "ChangeUserDetails", "Logout"] : ["UserHome"];
     const [currMenu, setCurrMenu] = useState(menus[0]);
+    
+    const userData = getUserData(userid);
 
     function selectMenu(event) {
       setCurrMenu(menus[event.target.dataset.key]);
@@ -45,6 +46,7 @@ const UserDashboard = () => {
           <div className="content-container container">
               <ComponentDispatcher
                 targetComponentName = {currMenu}
+                targetComponentProps = {userData}
               />
           </div>
         </div>

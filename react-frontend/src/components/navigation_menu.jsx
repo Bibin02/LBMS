@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useLocation } from "react-router-dom";
-import getUserId from '../services/getUserId';
+import { getUserId } from '../services/userService';
 
 const NavigationMenu = () => {
 
   const [isLogin, setIsLogin] = useState(false);
-  const [isHomelocation, setIsHomeLocation] = useState(useLocation().pathname === '/');
+  const isHomelocation = useLocation().pathname === '/';
 
   const userid = getUserId();
 
@@ -38,7 +38,7 @@ const NavigationMenu = () => {
                     <li><Link to={"/"}>Home</Link></li>
                     {isLogin ? <li><Link to={`/users/${userid}`}>Hello {userid}</Link></li> : <li><Link to={"/login"}>Login</Link></li>}
                     <li><Link to={"/cart"}>Cart</Link></li>
-                    <li><Link to={"/orders"}>Orders</Link></li>
+                    {isLogin ? <li><Link to={"/orders"}>Orders</Link></li> : null }
                 </ul>
             </div>
         </div>
