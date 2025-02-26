@@ -1,29 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import { Link, useLocation } from "react-router-dom";
-import { getUserId } from '../services/userService';
+import { AppContext } from './app_context';
 
 const NavigationMenu = () => {
 
-  const [isLogin, setIsLogin] = useState(false);
+  const { isUserLogin, loginUserId } = useContext(AppContext);
   const isHomelocation = useLocation().pathname === '/';
-
-  const userid = getUserId();
-
-  function checkLogin() {
-    // local check only
-    let isLoggedIn = true;
-
-    if (isLoggedIn) {
-      setIsLogin(true)
-    }
-    else{
-      setIsLogin(false);
-    }
-  }
-
-  useEffect( () => {
-    checkLogin()
-  }, [])
 
   return (
     <>
@@ -36,9 +18,9 @@ const NavigationMenu = () => {
             <div className="navbar-links">
                 <ul>
                     <li><Link to={"/"}>Home</Link></li>
-                    {isLogin ? <li><Link to={`/users/${userid}`}>Hello {userid}</Link></li> : <li><Link to={"/login"}>Login</Link></li>}
+                    {isUserLogin ? <li><Link to={`/users/${loginUserId}`}>Hello {loginUserId}</Link></li> : <li><Link to={"/login"}>Login</Link></li>}
                     <li><Link to={"/cart"}>Cart</Link></li>
-                    {isLogin ? <li><Link to={"/orders"}>Orders</Link></li> : null }
+                    {isUserLogin ? <li><Link to={"/orders"}>Orders</Link></li> : null }
                 </ul>
             </div>
         </div>

@@ -7,11 +7,11 @@ export function Home() {
     return (
         <>
             <main className="container">
-                {<NavigationMenu/>}
+                <NavigationMenu/>
 
-                {<ContentMenu/>}
+                <ContentMenu/>
 
-                {<FooterContent/>}
+                <FooterContent/>
             </main>
         </>
     )

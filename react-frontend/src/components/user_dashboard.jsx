@@ -1,12 +1,16 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
 import NavigationMenu from './navigation_menu';
 import ComponentDispatcher from './component_dispatcher';
-import { getUserId, getUserData } from '../services/userService';
+import { getUserData } from '../services/userService';
+import { AppContext } from './app_context';
 
 const UserDashboard = () => {
-    const {userid} = useParams();
-    const menus = (userid === getUserId()) ? ["UserHome", "ChangeUserPassword", "ChangeUserDetails", "Logout"] : ["UserHome"];
+  
+    const { isUserLogin, loginUserId } = useContext(AppContext);
+    const { userid } = useParams();
+    const isLoginUser = (userid === loginUserId && isUserLogin);
+    const menus = (isLoginUser) ? ["UserHome", "ChangeUserPassword", "ChangeUserDetails", "Logout"] : ["UserHome"];
     const [currMenu, setCurrMenu] = useState(menus[0]);
     
     const userData = getUserData(userid);
@@ -23,8 +27,8 @@ const UserDashboard = () => {
           <div className="profile-container">
 
             <div className="profile-pic-container">
-              <div className="profile-pic"><img src={"&"} /></div>
-              <div className="add-profile-pic">+</div>
+              <div className="profile-pic"><img src={""} />&</div>
+              {isLoginUser ? <div className="add-profile-pic">+</div> : null}
             </div>
 
             <div className="profile-menus">

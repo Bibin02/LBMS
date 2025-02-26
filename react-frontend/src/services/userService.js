@@ -11,3 +11,9 @@ export function getUserData(userId) {
         userDetails: {a: 1, b:2, c:3}
       }
 }
+
+export function validateUserLogin(userObject) {
+    // API call
+    
+    return true;
+}
