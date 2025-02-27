@@ -4,6 +4,7 @@
     "imageSource": "src.jpg",
     "authorName": "auth1, auth 2",
     "bookSellStatus": false,
+    "bookLendDuration": 29839849,
     "sellerName": "seller1",
     "publicationName": "publication1",
     "cost": "10",

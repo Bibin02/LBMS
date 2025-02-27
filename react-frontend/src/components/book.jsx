@@ -1,47 +1,77 @@
-import React, { useEffect, useState } from 'react'
+import '../styles/book.css'
+
+import React, { useContext, useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import BookDescriptionTable from './book_description_table';
 import fetchJSON from '../services/dataFetcher'
 import Reviews from './reviews';
 import StarRating from './star_rating';
 import NavigationMenu from './navigation_menu';
 import { getLocalCurrency } from '../utils/paymentUtils';
-import { calculateDiscount, convertCurrency } from '../utils/utility';
-import BookDescriptionTable from './book_description_table';
-
-import '../styles/book.css'
+import { calculateDiscount, calculateLendDuration, convertCurrency } from '../utils/utility';
+import { AppContext } from './app_context';
 
 const Book = () => {
-    const {bookid} = useParams();
-    const [bookJson, setBookJson] = useState({});
-    const [reviewsJson, setReviewsJson] = useState({data: []});
-    const [cartItemCount, setCartItemCount] = useState(1);
+    const { bookid } = useParams();
     const { currency, currencyVal } = getLocalCurrency();
-
-    async function getData() {
-      setBookJson(await fetchJSON("/book.json"));
-      setReviewsJson(await fetchJSON("/reviews.json"));
-    }
+    const [ bookJson, setBookJson ] = useState({});
+    const [ reviewsJson, setReviewsJson ] = useState({data: []});
+    const [ cartBasketCount, setBasketCount ] = useState(1);
+    const { cartJson } = useContext(AppContext);
 
     function addCartCount() {
-      if (cartItemCount < 5) {
-        setCartItemCount(cartItemCount+1);
+      if (cartBasketCount < 5 && cartBasketCount <= bookJson.stock) {
+        setBasketCount(cartBasketCount+1);
       }
     }
     function subCartCount() {
-      if (cartItemCount > 1) {
-        setCartItemCount(cartItemCount-1);
+      if (cartBasketCount > 1) {
+        setBasketCount(cartBasketCount-1);
       }
     }
-    function deleteCartItem() {
-      // Cart delete logic
-      alert("Book deleted from Cart")
-    }
+
     function addToCart() {
       // Cart add logic
-      alert("Book added to Cart Successfully")
-    }
+      if (true) { // If cart added, cartJson state Updates
+          
+          let foundIndex = -1;
+          let notFoundMatch = cartJson.data.every((cartBook, index) => {
+              if (cartBook.bookUid == bookJson.bookUid){
+                  foundIndex = index
+                  return false;
+              }
+              return true;
+          });
+  
+          const cartJsonData = {
+              bookUid: bookJson.bookUid,
+              bookName: bookJson.bookName,
+              previewImage: bookJson.imageSource,
+              quantity: cartBasketCount,
+              cost: calculateDiscount((cartBasketCount * bookJson.cost), bookJson.discount ? bookJson.discount : 0),
+              isLend: (!bookJson.bookSellStatus),
+              lendDuration: bookJson.bookLendDuration
+          };
+  
+          if (notFoundMatch) {
+              cartJson.data = [...cartJson.data, cartJsonData];
+          }
+          else{
+              cartJson.data[foundIndex] = cartJsonData;
+          }
+  
+          alert("Book added to Cart Successfully");
+      }
+      else{
+        alert("Error Occured")
+      }
+  }
 
     useEffect( ()=>{
+      const getData = async () => {
+        setBookJson(await fetchJSON("/book.json"));
+        setReviewsJson(await fetchJSON("/reviews.json"));
+      }
       getData();
     }, [])
   return (
@@ -53,10 +83,12 @@ const Book = () => {
           <h1 className="text-indigo-600 m-12">Book {bookid}</h1>
 
           <div className="inner-container container">
-            <figure className="image-preview left-panel">
+            <div className="left-panel container">
+              <figure className="image-preview">
               <img src={bookJson.imageSource} alt="preview_Book.jpg" />
               <figcaption>{bookJson.bookName}</figcaption>
             </figure>
+            </div>
 
             <aside className="context-preview right-panel">
               <div className="book-name"><span className="book-name-span">{bookJson.bookName}</span></div>
@@ -67,12 +99,22 @@ const Book = () => {
                 </Link>
                 <div className="publication-name-span">{bookJson.publicationName}</div>
               </div>
+              {!bookJson.bookSellStatus ? 
+                <div className="lend-properties">
+                  <div className="lend-properties-span">
+                    Lend Duration : <em>{calculateLendDuration(bookJson.bookLendDuration)}</em>
+                  </div>
+                </div>
+                : null
+              }
               <div className="book-prize-container">
                 {bookJson.discount ? 
                 <div className="prize-discount-container">
                   <div className="discount-prize">
-                    <span className="prize-symbol"><i className="prize-symbol-icon">{currency}</i></span>
-                    <span className="book-prize-span">{convertCurrency(calculateDiscount(bookJson.cost, bookJson.discount), currencyVal)}</span>
+                    <span className="prize-symbol-icon">{currency}</span>
+                    <span className="book-prize-span">
+                      {convertCurrency(calculateDiscount(bookJson.cost, bookJson.discount), currencyVal)}
+                    </span>
                   </div>
                   <div className="discount-percent-box">
                     <div className="discount-percent-symbol">
@@ -81,8 +123,10 @@ const Book = () => {
                   </div>
                   <div className="og-prize-old">
                     <del className='strike-through'>
-                      <span className="prize-symbol"><i className="prize-symbol-icon">{currency}</i></span>
-                      <span className="book-prize-span">{convertCurrency(bookJson.cost, currencyVal)}</span>
+                      <span className="prize-symbol-icon">{currency}</span>
+                      <span className="book-prize-span">
+                        {convertCurrency(bookJson.cost, currencyVal)}
+                      </span>
                     </del>
                   </div>
                 </div> 
@@ -94,19 +138,38 @@ const Book = () => {
                 </div>
                 }
               </div>
+              {bookJson.stock < 5 ? 
+                <div className="limited-stock">
+                  <div className="stock-span">
+                    <span>Limited Number of Stocks <br /> Avalilable Books: {bookJson.stock}</span>
+                  </div>
+                </div> 
+                : null
+              }
               <div className="rating-panel">
                 <div className="rating">
-                  <i className="stars-icon"><StarRating rating={bookJson.rating} /></i>
-                  <div className="rating-val">{bookJson.rating}</div>
+                  <div className="stars-icon">
+                    <StarRating rating={bookJson.rating}/>
+                  </div>
+                  <div className="rating-val">
+                    {bookJson.rating}
+                  </div>
                 </div>
               </div>
               <div className="cart-context-container">
-                <button className="buttons add-to-cart" onClick={addToCart}><i className="cart-icon"> </i>Add to Cart</button>
+                <button className="buttons add-to-cart" onClick={addToCart}>
+                  <div className="cart-icon"> <img src="" alt="|_|" /> <span>Add to Cart</span> </div>
+                </button>
                 <div className="number-icons">
-                  <i className="buttons delete-icon" onClick={deleteCartItem}>#</i>
-                  <i className="buttons add-icon" onClick={addCartCount}>+</i>
-                  <span className="cart-count">{cartItemCount}</span>
-                  <i className="buttons subtract-icon" onClick={subCartCount}>-</i>
+                  <div className="buttons add-icon" onClick={addCartCount}>
+                    <img src="" alt="+" />
+                  </div>
+                  <div className="cart-count">
+                    <span className="cart-count-span">{cartBasketCount}</span>
+                  </div>
+                  <div className="buttons subtract-icon" onClick={subCartCount}>
+                    <img src="" alt="-" />
+                  </div>
                 </div>
               </div>
               <div className="link-buttons">

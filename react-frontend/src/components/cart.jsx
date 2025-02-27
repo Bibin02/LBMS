@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import fetchJSON from '../services/dataFetcher';
+import React, { useContext, useEffect, useState } from 'react'
 import { getLocalCurrency } from '../utils/paymentUtils';
 import { convertCurrency, calculateLendDuration } from '../utils/utility';
+import { AppContext } from './app_context';
 import CartItem from './cart_item';
 import NavigationMenu from './navigation_menu';
 
@@ -9,26 +9,16 @@ import '../styles/cart.css'
 
 const Cart = () => {
 
-  const [cartJson, setCartJson] = useState({data: []})
-  let totalCost = 0;
+  const { cartJson, totalCartCost, cartBookCount } = useContext(AppContext);
   const { currency, currencyVal } = getLocalCurrency();
-
-  async function getData() {
-    setCartJson(await fetchJSON("/cart.json"));
-  }
-
-  useEffect( ()=>{
-    getData();
-  }, [])
 
   return (
     <>
         <NavigationMenu/>
-        <main className="outer-container body-container">
+        <main className="outer-container container">
             <div className="cart-list container">
               <div className="cart-items-box">
                 {cartJson.data.map((item, index)=>{
-                  totalCost += item.cost;
                   return (<CartItem
                     key = {index}
                     bookUid = {item.bookUid}
@@ -45,11 +35,26 @@ const Cart = () => {
             </div>
             <aside className="summary container">
               <div className="summary-inner container">
-                <div className="purchase-cost">
-                  <span className="currency">{currency}</span>
-                  <span className="total-cost">{convertCurrency(totalCost, currencyVal)}</span>
+                <div className="summary-inner-item">                 
+                  <div className="cost-summary">
+                    <strong> Total Cost </strong>
+                  </div>
+                  <div className="prize-tag">
+                    <em className="currency">{currency}</em>
+                    <em className="total-cost">{convertCurrency(totalCartCost, currencyVal)}</em>
+                  </div>
                 </div>
-                <button className="purchase-button">Purchase</button>
+                <div className="summary-inner-item">                 
+                  <div className="quantity-summary">
+                    <strong> Total Cart Items </strong>
+                  </div>
+                  <div className="prize-tag">
+                    <em className="quantity">{cartBookCount}</em>
+                  </div>
+                </div>
+                <div className="purchace-flex">
+                  <button className="purchase-button buttons">Purchase</button>
+                </div>
               </div>
             </aside>
         </main>
