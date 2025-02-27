@@ -1,20 +1,40 @@
 *{
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family:'Segoe UI', "Tahoma", "Geneva", "Verdana", "sans-serif"
 }
 
-
-
-
+main{
+    background-color: #fff;
+}
 
 button{
-    padding: 3px;
+
+    background-color: antiquewhite;
+    font-size: 1rem;
+    font-weight: 500;
+
+    padding: 0.5em;
+
+    border: 2px solid transparent;
+    border-radius: 5px;
+
+    margin: 5px;
+
+}
+button:focus{
+    border: 2px solid brown;
+    transition-duration: 0.25s;
+    transition-property: background-color;
+    background-color: burlywood;
 }
 button:hover{
     cursor: pointer;
-    /* background-color: blue; */
+    transition-duration: 0.25s;
+    transition-property: background-color;
+    background-color: burlywood;
 
 }
 
-.buttons:hover{
-    cursor: pointer;
+
+.container{
+    padding: 0.3em;
 }
