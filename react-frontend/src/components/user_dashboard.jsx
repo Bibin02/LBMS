@@ -5,6 +5,8 @@ import ComponentDispatcher from './component_dispatcher';
 import { getUserData } from '../services/userService';
 import { AppContext } from './app_context';
 
+import '../styles/user_dashboard.css'
+
 const UserDashboard = () => {
   
     const { isUserLogin, loginUserId } = useContext(AppContext);

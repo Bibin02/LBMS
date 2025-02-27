@@ -2,6 +2,8 @@ import React, { useContext } from 'react'
 import { Link, useLocation } from "react-router-dom";
 import { AppContext } from './app_context';
 
+import '../styles/nav_menu.css'
+
 const NavigationMenu = () => {
 
   const { isUserLogin, loginUserId } = useContext(AppContext);

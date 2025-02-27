@@ -4,6 +4,8 @@ import fetchJSON from '../services/dataFetcher';
 import { getExtraCharges, getLocalCurrency } from '../utils/paymentUtils';
 import { convertCurrency } from '../utils/utility';
 
+import '../styles/order_dispatch.css'
+
 const OrderDispatch = () => {
 
     const [searchParams] = useSearchParams();

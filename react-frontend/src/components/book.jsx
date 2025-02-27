@@ -8,6 +8,8 @@ import { getLocalCurrency } from '../utils/paymentUtils';
 import { calculateDiscount, convertCurrency } from '../utils/utility';
 import BookDescriptionTable from './book_description_table';
 
+import '../styles/book.css'
+
 const Book = () => {
     const {bookid} = useParams();
     const [bookJson, setBookJson] = useState({});

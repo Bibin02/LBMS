@@ -3,6 +3,8 @@ import fetchJSON from '../services/dataFetcher';
 import OrderItem from './order_item';
 import NavigationMenu from './navigation_menu';
 
+import '../styles/orders.css'
+
 const Orders = () => {
 
     const [ordersJson, setOrdersJson] = useState({data: []});

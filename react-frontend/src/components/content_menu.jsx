@@ -4,6 +4,8 @@ import fetchJSON from '../services/dataFetcher';
 import { debounce } from '../utils/opitmizer';
 import useHandleScroll from '../hooks/useHandleScroll';
 
+import '../styles/content_menu.css'
+
 const ContentMenu = () => {
     const [feed, setFeed] = useState([]);
     const [needFeed, setNeedFeed] = useState(true);

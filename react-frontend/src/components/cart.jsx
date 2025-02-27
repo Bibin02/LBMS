@@ -5,6 +5,8 @@ import { convertCurrency, calculateLendDuration } from '../utils/utility';
 import CartItem from './cart_item';
 import NavigationMenu from './navigation_menu';
 
+import '../styles/cart.css'
+
 const Cart = () => {
 
   const [cartJson, setCartJson] = useState({data: []})

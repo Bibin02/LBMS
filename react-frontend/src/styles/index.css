@@ -1,0 +1,20 @@
+*{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+
+
+
+
+button{
+    padding: 3px;
+}
+button:hover{
+    cursor: pointer;
+    /* background-color: blue; */
+
+}
+
+.buttons:hover{
+    cursor: pointer;
+}
