@@ -17,7 +17,7 @@ const Book = () => {
     const [ bookJson, setBookJson ] = useState({});
     const [ reviewsJson, setReviewsJson ] = useState({data: []});
     const [ cartBasketCount, setBasketCount ] = useState(1);
-    const { cartJson } = useContext(AppContext);
+    const { cartJson, setCartJson } = useContext(AppContext);
 
     function addCartCount() {
       if (cartBasketCount < 5 && cartBasketCount <= bookJson.stock) {
@@ -54,10 +54,15 @@ const Book = () => {
           };
   
           if (notFoundMatch) {
-              cartJson.data = [...cartJson.data, cartJsonData];
+              setCartJson([...cartJson.data, cartJsonData]);
           }
           else{
-              cartJson.data[foundIndex] = cartJsonData;
+            setCartJson(prevCartJson => ({
+              ...prevCartJson, // Keep other properties of cartJson
+              data: prevCartJson.data.map((item, index) =>
+                index === foundIndex ? cartJsonData : item // Replace only the matched index
+              )
+            }));
           }
   
           alert("Book added to Cart Successfully");

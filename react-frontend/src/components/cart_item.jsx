@@ -4,7 +4,7 @@ import { AppContext } from './app_context';
 
 const CartItem = (props) => {
 
-  const { cartJson } = useContext(AppContext);
+  const { cartJson, setCartJson } = useContext(AppContext);
 
   function deleteFromCart() {
     // Cart remove logic
@@ -18,7 +18,10 @@ const CartItem = (props) => {
     });
 
     if (true) { // If removed, cartJson state Updates
-        cartJson.data.splice(foundIndex, 1);
+        setCartJson(prevCartJson => ({
+          ...prevCartJson, // Keep other properties of cartJson
+          data: prevCartJson.data.filter((_, index) => index !== foundIndex) // Remove item immutably
+        }));
         alert("Book removed from Cart Successfully")
     }
     else{

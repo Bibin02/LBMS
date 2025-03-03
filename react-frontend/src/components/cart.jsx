@@ -16,6 +16,8 @@ const Cart = () => {
     <>
         <NavigationMenu/>
         <main className="outer-container container">
+          { cartBookCount > 0 ? 
+          <div className="inner-container container">
             <div className="cart-list container">
               <div className="cart-items-box">
                 {cartJson.data.map((item, index)=>{
@@ -57,6 +59,17 @@ const Cart = () => {
                 </div>
               </div>
             </aside>
+          </div>
+          :
+          <div className="inner-container container">
+            <div className="bg-image-container">
+              <figure className="bg-image">
+                <img src="empty-cart" alt="! |_|" />
+                <figcaption>Cart is Empty !</figcaption>
+              </figure>
+            </div>
+          </div>
+          }
         </main>
     </>
   )
