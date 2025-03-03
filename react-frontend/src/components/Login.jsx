@@ -15,7 +15,7 @@ export function Login() {
 
     function loginAction(){
         if (validateUserLogin(user)) {
-            setLoginUserId(user.uid)
+            setLoginUserId(user.username)
             setIsUserLogin(true);
         }
     }
