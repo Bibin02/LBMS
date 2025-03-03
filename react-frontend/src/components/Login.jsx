@@ -11,10 +11,11 @@ export function Login() {
 
     const [user, setUser] = useState({});
 
-    const { setIsUserLogin } = useContext(AppContext);
+    const { setIsUserLogin, setLoginUserId } = useContext(AppContext);
 
     function loginAction(){
         if (validateUserLogin(user)) {
+            setLoginUserId(user.uid)
             setIsUserLogin(true);
         }
     }
