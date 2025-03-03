@@ -9,7 +9,7 @@ import '../styles/user_dashboard.css'
 
 const UserDashboard = () => {
   
-    const { isUserLogin, loginUserId } = useContext(AppContext);
+    const { isUserLogin, setIsUserLogin, loginUserId, setLoginUserId } = useContext(AppContext);
     const { userid } = useParams();
     const isLoginUser = (userid === loginUserId && isUserLogin);
     const menus = (isLoginUser) ? ["UserHome", "ChangeUserPassword", "ChangeUserDetails", "Logout"] : ["UserHome"];
@@ -20,6 +20,12 @@ const UserDashboard = () => {
     function selectMenu(event) {
       setCurrMenu(menus[event.target.dataset.key]);
     }
+
+    function logoutAction() {
+      setLoginUserId(null);
+      setIsUserLogin(false);
+    }
+
   return (
     <>
       <main className="outer-container container">
@@ -39,7 +45,7 @@ const UserDashboard = () => {
                   return (
                     <div key={index}> {
                       menuName == "Logout" ? 
-                        (<Link to={"/"}><div className="menuitem buttons" data-key={index}>{menuName}</div></Link>) 
+                        (<Link to={"/"} onClick={logoutAction}><div className="menuitem buttons" data-key={index}>{menuName}</div></Link>) 
                         : 
                         (<div className="menuitem buttons" data-key={index} onClick={selectMenu}>{menuName}</div>)
                       }

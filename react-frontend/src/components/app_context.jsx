@@ -7,8 +7,7 @@ export const AppContext = createContext();
 
 export const AppContextProvider = ({ children }) => {
     
-  const loginUserId = getUserId();
-
+  const [ loginUserId, setLoginUserId ] = useState(getUserId());
   const [ isUserLogin, setIsUserLogin ] = useState(false);
   const [ searchBook, setSearchBook ] = useState("");
   const [ cartJson, setCartJson ] = useState({data: []})
@@ -38,7 +37,7 @@ export const AppContextProvider = ({ children }) => {
         value={
           { 
             isUserLogin, setIsUserLogin,
-            loginUserId, 
+            loginUserId, setLoginUserId,
             searchBook, setSearchBook,
             cartJson, setCartJson,
             cartBookCount, setCartBookCount,
