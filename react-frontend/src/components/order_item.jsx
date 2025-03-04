@@ -6,7 +6,7 @@ const OrderItem = (props) => {
     <>
         <Link to={`/order?oid=${props.orderId}`} className='container'>
           <section className="order-label container">
-            <div className="order-id"><em>{props.orderId}</em></div>
+            <div className="order-id">Order Id <em>{props.orderId}</em></div>
             <div className="order-status"><strong>{props.orderStatus}</strong></div>
           </section>
         </Link>

@@ -22,7 +22,7 @@ const Orders = () => {
     <>
       <main className="outer-container container">
         <NavigationMenu/>
-        <div className="inner-container constainer">
+        <div className="inner-container container">
             <div className="order-list container">
                 {ordersJson.data.map((order, id)=>(
                     <OrderItem
