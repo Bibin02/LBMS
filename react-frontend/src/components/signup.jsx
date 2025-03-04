@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { loadMeta } from '../config/pageMetaLoader'
 
 import '../styles/signup.css'
+import useChangeHandler from '../hooks/useChangeHandler'
 
 const Signup = () => {
 
@@ -23,17 +24,9 @@ const Signup = () => {
         loadMeta(meta);
     }, [])
 
-    function changeHandler(e) {
-        const name = e.target.name;
-        const value = e.target.name == "checked" ? e.target.checked : e.target.value;
-    
-        setUser({...user, [name]: value});
-    }
-
     function clearAction() {
         setUser({});
         document.querySelectorAll("#root input").forEach(input => {
-            input.value = ""
             input.style.borderColor = ""; 
         });
     }
@@ -65,7 +58,6 @@ const Signup = () => {
         if (!validateContentEntry()) {
             return;
         }
-        console.log(user);
         
         if (validatePassword()){
             alert("Account Created Successfully")
@@ -75,16 +67,27 @@ const Signup = () => {
   return (
     <>
         <main className="container outer-box">
-            <section id='input-tag-root' className="input-container">
-                <input className='input-field' placeholder='Email' type="text" name="email" id="uid" onChange={changeHandler}/>
-                <input className='input-field' placeholder='Password' type="password" name="password" id="pass" onChange={changeHandler}/>
-                <input className='input-field' placeholder='Confirm Password' type="text" name="confirmPassword" id="cnf-pass" onChange={changeHandler}/>
-            </section>
-
-            <section className="buttons-container">
-                <button id='lgn-btn' className='buttons login-button' type="button" onClick={clearAction}>Clear</button>
-                <button id='sgnup-btn' className='buttons login-button' type="button" onClick={createAccount}>Create Account</button>
-            </section>
+            <form id='input-tag-root' className="input-container"> {/* method='put' action='/api/v1/users/create' */}
+                <label htmlFor="email">
+                    Email ID
+                    <input className='input-field' type="text" name="email" id="uid" 
+                        required onChange={(e)=>useChangeHandler(user, e, setUser)}/>
+                </label>
+                <label htmlFor="password">
+                    Password
+                    <input className='input-field' type="password" name="password" id="pass" 
+                        required onChange={(e)=>useChangeHandler(user, e, setUser)}/>
+                </label>
+                <label htmlFor="confirmPassword">
+                    Confirm your Password
+                    <input className='input-field' type="text" name="confirmPassword" id="cnf-pass" 
+                        required onChange={(e)=>useChangeHandler(user, e, setUser)}/>
+                </label>
+                <div className="buttons container">
+                    <button id='lgn-btn' className='buttons login-button' type="reset" onClick={clearAction}>Clear</button>
+                    <div id='sgnup-btn' className='buttons login-button' onClick={createAccount}>Create Account</div>
+                </div>
+            </form>
         </main>
     </>
   )
