@@ -18,8 +18,12 @@ const BookThumbnailDetails = (props) => {
               {props.discount ?
               <div className="discount-percent-box prize-tag">
                 <em className="prize">
-                  <span className="currency">{currency}</span>
-                  {convertCurrency(calculateDiscount(props.cost, props.discount), currencyVal)}
+                  <span className="currency">{currency}
+                    {convertCurrency(calculateDiscount(props.cost, props.discount), currencyVal)}
+                  </span>
+                  <sub className='strike-container'><del>
+                    <span className="strike">{convertCurrency(props.cost, currencyVal)}</span>
+                  </del></sub>
                 </em>
                 <div className="discount-percent-container">
                   <span className="dicount-percent">{props.discount}% off</span>

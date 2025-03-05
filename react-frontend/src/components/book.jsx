@@ -7,6 +7,7 @@ import fetchJSON from '../services/dataFetcher'
 import Reviews from './reviews';
 import StarRating from './star_rating';
 import NavigationMenu from './navigation_menu';
+import RecommendedBooks from './recommended_books';
 import { getLocalCurrency } from '../utils/paymentUtils';
 import { calculateDiscount, calculateLendDuration, convertCurrency } from '../utils/utility';
 import { AppContext } from './app_context';
@@ -103,6 +104,15 @@ const Book = () => {
                   <div className="seller-name-span">{bookJson.sellerName}</div>
                 </Link>
                 <div className="publication-name-span">{bookJson.publicationName}</div>
+              </div>
+              <div className="key-words-container">
+                <ul className="key-words-list">
+                  {bookJson.keywords?.map((keyword, index)=>(
+                    <li className="key-word" key={index}>
+                      {keyword}
+                    </li>
+                  ))}
+                </ul>
               </div>
               {!bookJson.bookSellStatus ? 
                 <div className="lend-properties">
@@ -202,6 +212,12 @@ const Book = () => {
                   />
                 ))}
               </ul>
+            </section>
+
+            <section className="books-recommended-container">
+                <RecommendedBooks
+                  keywords = {bookJson.keywords}
+                />
             </section>
           </div>
         </main>
