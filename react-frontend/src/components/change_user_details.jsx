@@ -1,10 +1,25 @@
 import React from 'react'
-import InputField from './input_field'
+import renderTableRows from '../services/renderTableRows'
 
-const ChangeUserDetails = () => {
+const ChangeUserDetails = (props) => {
   return (
     <>
-        <InputField/>
+      <div className="outer-container container">
+          <div className='table-container container'>
+            {
+              props.userData.userId ? 
+              (<table className="user-description table">
+                  <tbody className="table-body">
+                      {renderTableRows(props.userData)}
+                  </tbody>
+              </table>)
+              : 
+              (<div className="error-message">
+                User not found !
+              </div>)
+            }
+          </div>
+      </div>
     </>
   )
 }

@@ -12,10 +12,11 @@ const UserDashboard = () => {
     const { isUserLogin, setIsUserLogin, loginUserId, setLoginUserId } = useContext(AppContext);
     const { userid } = useParams();
     const isLoginUser = (userid === loginUserId && isUserLogin);
-    const menus = (isLoginUser) ? ["UserHome", "ChangeUserPassword", "ChangeUserDetails", "Logout"] : ["UserHome"];
+    let menus = (isLoginUser) ? ["UserHome", "ChangeUserPassword", "ChangeUserDetails", "Logout"] : ["UserHome"];
+    const userData = getUserData(userid);
+    (isLoginUser && userData.isSeller) ? menus = [...menus, "AddBook","ViewBook", "RemoveBook"] : null;
     const [currMenu, setCurrMenu] = useState(menus[0]);
     
-    const userData = getUserData(userid);
 
     function selectMenu(event) {
       setCurrMenu(menus[event.target.dataset.key]);

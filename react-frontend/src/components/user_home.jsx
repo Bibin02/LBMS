@@ -6,7 +6,7 @@ const UserHome = (props) => {
   return (
     <>
         <div className="inner-container container">
-          <pre>
+          <div className='table-container container'>
             {
               props.userData.userId ? 
               (<table className="user-description table">
@@ -19,7 +19,7 @@ const UserHome = (props) => {
                 User not found !
               </div>)
             }
-          </pre>
+          </div>
         </div>
     </>
   )

@@ -8,6 +8,7 @@ export function getUserData(userId) {
         userId: userId,
         userName: "UserName",
         userDescription: "User Description: Lorem ipsum",
+        isSeller: true,
         userDetails: {a: 1, b:2, c:3}
       }
 }
