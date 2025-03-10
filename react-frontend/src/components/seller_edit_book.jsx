@@ -5,14 +5,22 @@ const SellerEditBook = props => {
   return (
     <>
         <div className="inner-container container">
-            <h1>bookUid: {props.bookUid}</h1>
+          <div className="back-button"
+              onClick={()=>{
+                props.setEditBookId(null);
+                props.setDoEditBook(false)
+              }}
+            >
+            <div className="back-icon">{"<-"}</div>
+          </div>
+          <h1>bookUid: {props.bookUid}</h1>
         </div>
     </>
   )
 }
 
 SellerEditBook.propTypes = {
-  bookUid: PropTypes.string.isRequired
+  bookUid: PropTypes.number.isRequired
 }
 
 export default SellerEditBook
