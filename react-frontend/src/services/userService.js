@@ -18,3 +18,7 @@ export function validateUserLogin(userObject) {
     
     return true;
 }
+
+export function getIsUserLogin() {
+    return true; // temp set for login bypass.
+}

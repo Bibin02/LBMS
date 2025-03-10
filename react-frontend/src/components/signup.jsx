@@ -68,17 +68,17 @@ const Signup = () => {
     <>
         <main className="container outer-box">
             <form id='input-tag-root' className="input-container"> {/* method='put' action='/api/v1/users/create' */}
-                <label htmlFor="email">
+                <label htmlFor="uid">
                     Email ID
                     <input className='input-field' type="text" name="email" id="uid" 
                         required onChange={(e)=>useChangeHandler(user, e, setUser)}/>
                 </label>
-                <label htmlFor="password">
+                <label htmlFor="pass">
                     Password
                     <input className='input-field' type="password" name="password" id="pass" 
                         required onChange={(e)=>useChangeHandler(user, e, setUser)}/>
                 </label>
-                <label htmlFor="confirmPassword">
+                <label htmlFor="cnf-pass">
                     Confirm your Password
                     <input className='input-field' type="text" name="confirmPassword" id="cnf-pass" 
                         required onChange={(e)=>useChangeHandler(user, e, setUser)}/>

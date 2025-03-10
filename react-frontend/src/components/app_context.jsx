@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
-import { getUserId } from "../services/userService";
+import { getIsUserLogin, getUserId } from "../services/userService";
 import fetchJSON from "../services/dataFetcher";
 
 export const AppContext = createContext();
@@ -8,7 +8,7 @@ export const AppContext = createContext();
 export const AppContextProvider = ({ children }) => {
     
   const [ loginUserId, setLoginUserId ] = useState(getUserId());
-  const [ isUserLogin, setIsUserLogin ] = useState(false);
+  const [ isUserLogin, setIsUserLogin ] = useState(getIsUserLogin());
   const [ searchBook, setSearchBook ] = useState("");
   const [ cartJson, setCartJson ] = useState({data: []})
   const [ cartBookCount, setCartBookCount ] = useState(isUserLogin ? 2 : 0);

@@ -3,14 +3,13 @@ import PropTypes from 'prop-types'
 import UserHome from './user_home';
 import ChangeUserDetails from './change_user_details';
 import ChangeUserPassword from './change_user_password';
-import ViewBook from './view_book';
-import RemoveBook from './remove_book';
-import AddBook from './add_book';
+import SellerAddBook from './seller_add_book';
+import SellerViewBook from './seller_view_book';
 
 const ComponentDispatcher = (props) => {
 
     const loadedComponents = {
-        UserHome, ChangeUserPassword, ChangeUserDetails, AddBook, RemoveBook, ViewBook
+        UserHome, ChangeUserPassword, ChangeUserDetails, SellerAddBook, SellerViewBook
     }
 
     return (loadedComponents[props.targetComponentName] ? 

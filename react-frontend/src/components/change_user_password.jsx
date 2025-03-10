@@ -14,12 +14,12 @@ const ChangeUserPassword = () => {
         <div className="form-container container">
           <label htmlFor="oldPassword">
               Enter your old password
-              <input className='input-field' type="password" name="oldPassword"
+              <input className='input-field' type="password" id="oldPassword"
                   required onChange={(e)=>useChangeHandler(pass, e, setPass)}/>
           </label>
           <label htmlFor="newPassword">
               Enter your new password
-              <input className='input-field' type="text" name="newPassword" 
+              <input className='input-field' type="text" id="newPassword" 
                   required onChange={(e)=>useChangeHandler(pass, e, setPass)}/>
           </label>
           <button className="buttons submit-button" onClick={changePassword}>

@@ -14,7 +14,7 @@ const UserDashboard = () => {
     const isLoginUser = (userid === loginUserId && isUserLogin);
     let menus = (isLoginUser) ? ["UserHome", "ChangeUserPassword", "ChangeUserDetails", "Logout"] : ["UserHome"];
     const userData = getUserData(userid);
-    (isLoginUser && userData.isSeller) ? menus = [...menus, "AddBook","ViewBook", "RemoveBook"] : null;
+    (isLoginUser && userData.isSeller) ? menus = [...menus, "SellerAddBook","SellerViewBook"] : null;
     const [currMenu, setCurrMenu] = useState(menus[0]);
     
 
