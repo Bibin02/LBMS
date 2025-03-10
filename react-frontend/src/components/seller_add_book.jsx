@@ -15,7 +15,7 @@ const SellerAddBook = props => {
             <button className='buttons input-choice' type="button" 
               onClick={
                 ()=>{setIsUseForm(false); 
-                    navigate(`/users/${props.userData.userId}`)}
+                    navigate(`/users/${props.propsObject.userData.userId}`)}
                 }>
                 Add via Excel file</button>
           </div>

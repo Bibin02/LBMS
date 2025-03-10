@@ -8,10 +8,10 @@ const UserHome = (props) => {
         <div className="inner-container container">
           <div className='table-container container'>
             {
-              props.userData.userId ? 
+              props.propsObject.userData.userId ? 
               (<table className="user-description table">
                   <tbody className="table-body">
-                      {renderTableRows(props.userData)}
+                      {renderTableRows(props.propsObject.userData)}
                   </tbody>
               </table>)
               : 

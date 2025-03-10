@@ -13,7 +13,11 @@ const ComponentDispatcher = (props) => {
     }
 
     return (loadedComponents[props.targetComponentName] ? 
-        React.createElement(loadedComponents[props.targetComponentName], {userData: props.targetComponentProps}) : <p>Some error occured !</p>);
+        React.createElement(loadedComponents[props.targetComponentName], {propsObject: props.targetComponentProps}) : 
+            <div className='error-dialogbox'>
+                <p>Some error occured !</p>
+            </div>
+        );
 }
 
 ComponentDispatcher.propTypes = {

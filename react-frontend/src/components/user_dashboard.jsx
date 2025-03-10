@@ -13,7 +13,7 @@ const UserDashboard = () => {
     const { userid } = useParams();
     const isLoginUser = (userid === loginUserId && isUserLogin);
     let menus = (isLoginUser) ? ["UserHome", "ChangeUserPassword", "ChangeUserDetails", "Logout"] : ["UserHome"];
-    const userData = getUserData(userid);
+    const [userData, setUserData] = useState(getUserData(userid));
     (isLoginUser && userData.isSeller) ? menus = [...menus, "SellerAddBook","SellerViewBook"] : null;
     const [currMenu, setCurrMenu] = useState(menus[0]);
     
@@ -59,7 +59,8 @@ const UserDashboard = () => {
           <div className="content-container container">
               <ComponentDispatcher
                 targetComponentName = {currMenu}
-                targetComponentProps = {userData}
+                targetComponentProps = {{userData: userData, setUserData: setUserData}}
+                
               />
           </div>
         </div>

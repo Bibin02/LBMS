@@ -60,8 +60,4 @@ const SellerViewBook = props => {
   }
 }
 
-SellerViewBook.propTypes = {
-  userData: PropTypes.object.isRequired
-}
-
 export default SellerViewBook
