@@ -11,7 +11,7 @@ import NavigationMenu from './navigation_menu';
 
 const Cart = () => {
 
-  const { cartJson, totalCartCost, cartBookCount } = useContext(AppContext);
+  const { cartJson, setCartJson, totalCartCost, cartBookCount } = useContext(AppContext);
   const { currency, currencyVal } = getLocalCurrency();
 
   return (
@@ -57,7 +57,7 @@ const Cart = () => {
                   </div>
                 </div>
                 <div className="purchace-flex">
-                  <button className="purchase-button buttons" onClick={()=>placeOrder(cartJson)}>Purchase</button>
+                  <button className="purchase-button buttons" onClick={()=>placeOrder(cartJson, setCartJson)}>Purchase</button>
                 </div>
               </div>
             </aside>

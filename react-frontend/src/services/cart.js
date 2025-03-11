@@ -57,6 +57,9 @@ export function deleteFromCart(setCartJson, bookUid) {
     }
   }
 
-export function placeOrder(cartJson) {
-    return true;
+export function placeOrder(cartJson, setCartJson) {
+    if (true) { // Order placed Successfully,
+        setCartJson({ data: [] });
+        alert("Order Placed Successfully.")
+    }
 }
