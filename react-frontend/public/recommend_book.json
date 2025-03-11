@@ -1,0 +1,10 @@
+{
+    "data": [
+        {"imgSrc": "Book.jpg", "bookName": "Book 1", "rating": 5},
+        {"imgSrc": "Book.jpg", "bookName": "Book 2", "rating": 4.5},
+        {"imgSrc": "Book.jpg", "bookName": "Book 3", "rating": 3.5},
+        {"imgSrc": "Book.jpg", "bookName": "Book 4", "rating": 2.5},
+        {"imgSrc": "Book.jpg", "bookName": "Book 5", "rating": 4},
+        {"imgSrc": "Book.jpg", "bookName": "Book 6", "rating": 1}
+    ]
+}

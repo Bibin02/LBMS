@@ -3,11 +3,11 @@ import '../styles/book.css'
 import React, { useContext, useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import BookDescriptionTable from './book_description_table';
-import fetchJSON from '../services/dataFetcher'
+import fetchJSON, { fetchJSONQuery } from '../services/dataFetcher'
 import Reviews from './reviews';
 import StarRating from './star_rating';
 import NavigationMenu from './navigation_menu';
-import RecommendedBooks from './recommended_books';
+import BookThumbnailMini from './book_thumbnail_mini';
 import { getLocalCurrency } from '../utils/paymentUtils';
 import { calculateDiscount, calculateLendDuration, convertCurrency } from '../utils/utility';
 import { AppContext } from './app_context';
@@ -19,7 +19,8 @@ const Book = () => {
     const [ reviewsJson, setReviewsJson ] = useState({data: []});
     const [ cartBasketCount, setBasketCount ] = useState(1);
     const { cartJson, setCartJson } = useContext(AppContext);
-
+    const [bookThumbnailJson, setBookThumbnailJson] = useState({ data: []});
+    
     function addCartCount() {
       if (cartBasketCount < 5 && cartBasketCount <= bookJson.stock) {
         setBasketCount(cartBasketCount+1);
@@ -77,6 +78,7 @@ const Book = () => {
       const getData = async () => {
         setBookJson(await fetchJSON("/book.json"));
         setReviewsJson(await fetchJSON("/reviews.json"));
+        setBookThumbnailJson(await fetchJSONQuery("/recommend_book.json", {keywords: bookJson.keywords}))
       }
       getData();
     }, [])
@@ -214,9 +216,10 @@ const Book = () => {
               </ul>
             </section>
 
-            <section className="books-recommended-container">
-                <RecommendedBooks
-                  keywords = {bookJson.keywords}
+            <section className="books-recommended container">
+              <h3 className="title">Recommended Books</h3>
+                <BookThumbnailMini
+                  bookThumbnailJson={bookThumbnailJson}
                 />
             </section>
           </div>
