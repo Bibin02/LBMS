@@ -1,57 +1,62 @@
-export function addToCart(cartJson, bookJson, quantity) {
+import { calculateDiscount } from "../utils/utility";
+
+export function addToCart(setCartJson, bookJson, cartBasketCount) {
     // Cart add logic
     if (true) { // If cart added, cartJson state Updates
         
-        let foundIndex = -1;
-        let notFoundMatch = cartJson.data.every((cartBook, index) => {
-            if (cartBook.bookUid == bookJson.bookUid){
-                foundIndex = index
-                return false;
-            }
-            return true;
-        });
-
-        const cartJsonData = {
+        const cartBookData = {
             bookUid: bookJson.bookUid,
             bookName: bookJson.bookName,
             previewImage: bookJson.imageSource,
-            quantity: quantity,
-            cost: bookJson.cost,
+            quantity: cartBasketCount,
+            cost: calculateDiscount((cartBasketCount * bookJson.cost), bookJson.discount ? bookJson.discount : 0),
             isLend: (!bookJson.bookSellStatus),
             lendDuration: bookJson.bookLendDuration
         };
 
+        let notFoundMatch = true;
+
+        setCartJson(prevCartJson => ({
+            ...prevCartJson, // Keep other properties of cartJson
+            data: prevCartJson.data.map((book) =>{
+                    if(book.bookUid === bookJson.bookUid){ // Replace only the matched index
+                        notFoundMatch = false;
+                        return cartBookData;
+                    }
+                    else{
+                        return book; 
+                    }
+                }
+            )
+          }));
         if (notFoundMatch) {
-            cartJson.data = [...cartJson.data, cartJsonData];
-        }
-        else{
-            cartJson.data[foundIndex] = cartJsonData;
+            setCartJson(prevCartJson => ({
+                ...prevCartJson,
+                data: [...prevCartJson.data, cartBookData]
+            }));
         }
 
         alert("Book added to Cart Successfully");
     }
     else{
-
+      alert("Error Occured")
     }
 }
 
-
-export function deleteFromCart(cartJson, bookUid) {
-    // Cart remove logic
-    let foundIndex = -1;
-    cartJson.data.every((cartBook, index) => {
-        if (cartBook.bookUid == bookUid){
-            foundIndex = index
-            return false;
-        }
-        return true;
-    });
+export function deleteFromCart(setCartJson, bookUid) {
 
     if (true) { // If removed, cartJson state Updates
-        delete cartJson.data[foundIndex];
+        setCartJson(prevCartJson => ({
+          ...prevCartJson, // Keep other properties of cartJson
+          data: prevCartJson.data.filter((cartBook) => cartBook.bookUid !== bookUid) // Remove item immutably
+        }));
         alert("Book removed from Cart Successfully")
     }
     else{
 
     }
+  }
+
+export function placeOrder(cartJson) {
+    return true;
 }

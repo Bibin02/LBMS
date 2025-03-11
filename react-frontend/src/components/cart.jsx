@@ -1,11 +1,13 @@
+import '../styles/cart.css'
+
 import React, { useContext, useEffect, useState } from 'react'
 import { getLocalCurrency } from '../utils/paymentUtils';
 import { convertCurrency, calculateLendDuration } from '../utils/utility';
 import { AppContext } from './app_context';
+import { placeOrder } from '../services/cart';
 import CartItem from './cart_item';
 import NavigationMenu from './navigation_menu';
 
-import '../styles/cart.css'
 
 const Cart = () => {
 
@@ -55,7 +57,7 @@ const Cart = () => {
                   </div>
                 </div>
                 <div className="purchace-flex">
-                  <button className="purchase-button buttons">Purchase</button>
+                  <button className="purchase-button buttons" onClick={()=>placeOrder(cartJson)}>Purchase</button>
                 </div>
               </div>
             </aside>

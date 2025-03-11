@@ -1,33 +1,12 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { AppContext } from './app_context';
+import { deleteFromCart } from '../services/cart';
 
 const CartItem = (props) => {
 
-  const { cartJson, setCartJson } = useContext(AppContext);
+  const { setCartJson } = useContext(AppContext);
 
-  function deleteFromCart() {
-    // Cart remove logic
-    let foundIndex = -1;
-    cartJson.data.every((cartBook, index) => {
-        if (cartBook.bookUid === props.bookUid){
-            foundIndex = index
-            return false;
-        }
-        return true;
-    });
-
-    if (true) { // If removed, cartJson state Updates
-        setCartJson(prevCartJson => ({
-          ...prevCartJson, // Keep other properties of cartJson
-          data: prevCartJson.data.filter((_, index) => index !== foundIndex) // Remove item immutably
-        }));
-        alert("Book removed from Cart Successfully")
-    }
-    else{
-
-    }
-  }
   return (
     <>
         <Link className='book-thumbnail container' to={`/books/${props.bookUid}`}>
@@ -47,7 +26,7 @@ const CartItem = (props) => {
             <span className="lend-duration">{props.lendDuration}</span>
         </div>) : null}
         <div className="remove-from-cart">
-          <button className="buttons remove-from-cart" onClick={deleteFromCart}>
+          <button className="buttons remove-from-cart" onClick={()=>deleteFromCart(setCartJson, props.bookUid)}>
             <i className="delete-book"></i> Remove 
           </button>
         </div>

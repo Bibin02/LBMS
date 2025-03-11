@@ -11,6 +11,7 @@ import BookThumbnailMini from './book_thumbnail_mini';
 import { getLocalCurrency } from '../utils/paymentUtils';
 import { calculateDiscount, calculateLendDuration, convertCurrency } from '../utils/utility';
 import { AppContext } from './app_context';
+import { addToCart } from '../services/cart';
 
 const Book = () => {
     const { bookid } = useParams();
@@ -31,57 +32,15 @@ const Book = () => {
         setBasketCount(cartBasketCount-1);
       }
     }
-
-    function addToCart() {
-      // Cart add logic
-      if (true) { // If cart added, cartJson state Updates
-          
-          let foundIndex = -1;
-          let notFoundMatch = cartJson.data.every((cartBook, index) => {
-              if (cartBook.bookUid == bookJson.bookUid){
-                  foundIndex = index
-                  return false;
-              }
-              return true;
-          });
-  
-          const cartJsonData = {
-              bookUid: bookJson.bookUid,
-              bookName: bookJson.bookName,
-              previewImage: bookJson.imageSource,
-              quantity: cartBasketCount,
-              cost: calculateDiscount((cartBasketCount * bookJson.cost), bookJson.discount ? bookJson.discount : 0),
-              isLend: (!bookJson.bookSellStatus),
-              lendDuration: bookJson.bookLendDuration
-          };
-  
-          if (notFoundMatch) {
-              setCartJson([...cartJson.data, cartJsonData]);
-          }
-          else{
-            setCartJson(prevCartJson => ({
-              ...prevCartJson, // Keep other properties of cartJson
-              data: prevCartJson.data.map((item, index) =>
-                index === foundIndex ? cartJsonData : item // Replace only the matched index
-              )
-            }));
-          }
-  
-          alert("Book added to Cart Successfully");
-      }
-      else{
-        alert("Error Occured")
-      }
-  }
-
     useEffect( ()=>{
       const getData = async () => {
-        setBookJson(await fetchJSON("/book.json"));
+        setBookJson(await fetchJSONQuery("/book.json", {bookUid: bookid}));
         setReviewsJson(await fetchJSON("/reviews.json"));
         setBookThumbnailJson(await fetchJSONQuery("/recommend_book.json", {keywords: bookJson.keywords}))
       }
       getData();
     }, [])
+
   return (
     <>
         <main className="outer-container container">
@@ -174,7 +133,7 @@ const Book = () => {
                 </div>
               </div>
               <div className="cart-context-container">
-                <button className="buttons add-to-cart" onClick={addToCart}>
+                <button className="buttons add-to-cart" onClick={()=>addToCart(setCartJson, bookJson, cartBasketCount)}>
                   <div className="cart-icon"> <img src="" alt="|_|" /> <span>Add to Cart</span> </div>
                 </button>
                 <div className="number-icons">
