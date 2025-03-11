@@ -4,7 +4,7 @@ import { getDisplayName } from "../utils/utility";
 export default function renderTableRows(data, parentKey = "") {
     return Object.entries(data).map(([key, value], index) => {
       
-        const fullKey = parentKey ? `${parentKey} → ${key}` : key; // Keep track of nesting
+        const fullKey = parentKey ? `${getDisplayName(parentKey)} → ${key}` : key; // Keep track of nesting
     
         if (typeof value === "object" && value !== null) {
           return (renderTableRows(value, fullKey)); /* Recursively render nested objects */

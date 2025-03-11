@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
 import NavigationMenu from './navigation_menu';
 import ComponentDispatcher from './component_dispatcher';
-import { formatUserDataToEdit, getUserData } from '../services/userService';
+import { getUserData } from '../services/userService';
 import { AppContext } from './app_context';
 
 import '../styles/user_dashboard.css'
@@ -60,7 +60,7 @@ const UserDashboard = () => {
           <div className="content-container container">
               <ComponentDispatcher
                 targetComponentName = {currMenu}
-                targetComponentProps = {{userData: formatUserDataToEdit(userData), setUserData: setUserData}}
+                targetComponentProps = {{userData: userData}}
                 
               />
           </div>
