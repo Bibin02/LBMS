@@ -29,6 +29,7 @@ const SellerEditBook = props => {
           <FormEdit 
             jsonData = {bookJson}
             setJsonData = {setBookJson}
+            formAction = {`/books/${props.bookUid}`}
           />
         </div>
     </>

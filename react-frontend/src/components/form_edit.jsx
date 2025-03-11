@@ -1,12 +1,29 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import useChangeHandler from '../hooks/useChangeHandler'
+import { defaultSubmitHandler } from '../utils/submitHandlers';
+import NotificationPanel from './notification_panel';
 
 const FormEdit = props => {
 
+    const [previewMessage, setPreviewMessage] = useState(null);
+
+    function useChangeHandler2(jsonData, datakey, event, setter) {
+        let addons = jsonData[datakey];
+        addons[event.target.id] = event.target.value;
+
+        setter({...jsonData, [datakey] : addons});
+    }
+
   return (
     <>
-        <form action="" method="post" className='change-details-form container'>
+        <NotificationPanel
+            previewMessage= {previewMessage}
+            setPreviewMessage={setPreviewMessage}
+        />
+
+        <form onSubmit={(e)=>defaultSubmitHandler(props.jsonData, props.formAction, e, setPreviewMessage)} 
+        className='change-details-form container'>
             {Object.entries(props.jsonData)?.map(([datakey, datavalue], index)=>{
                 if (typeof(datavalue) === 'object' && !Array.isArray(datavalue)) {
                     return(<div className="label-container" key={index}>
@@ -15,7 +32,7 @@ const FormEdit = props => {
                             <label htmlFor={datakeyinner} className="label-item" key={innerindex}>
                                 {datakeyinner}
                                 <input type="text" name={datakeyinner} id={datakeyinner} value={datavalueinner} 
-                                    onChange={(e)=>{useChangeHandler(props.jsonData[datakey], e, props.setJsonData)}}
+                                    onChange={(e)=>{useChangeHandler2(props.jsonData, datakey, e, props.setJsonData)}}
                                 />
                             </label>)
                         })}

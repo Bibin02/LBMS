@@ -1,31 +1,26 @@
 import React, { useState } from 'react'
-import { useSearchParams } from 'react-router-dom';
-import { getStatusMessage } from '../exceptions/exceptionHandlers';
+import { defaultSubmitHandler } from '../utils/submitHandlers';
+import NotificationPanel from './notification_panel';
 
 const SellerAddBookFile = () => {
-    const [searchParams] = useSearchParams();
-    const statusCode = searchParams.get("statusCode");
-    const [doPreviewMessage, setDoPreviewMessage] = useState(statusCode ? true : false);
+    const [previewMessage, setPreviewMessage] = useState(null);
   return (
     <>
-        <form action="" className='file-upload-form'>
+        <NotificationPanel
+            previewMessage= {previewMessage}
+            setPreviewMessage={setPreviewMessage}
+        />
+        <form onSubmit={(e)=>defaultSubmitHandler("bookJson", "props.formAction", e, setPreviewMessage)} 
+          className='file-upload-form'>
             <label htmlFor="xl-file">
                 Upload the Excel file
                 <input id='xl-file' type="file" />
             </label> 
+
+            <button type="submit" className='buttons form-submit'>
+                Parse Data
+            </button>
         </form>
-        {doPreviewMessage ? 
-        <div className="preview-panel container">
-            <div className="preview-message">
-                <span className="message-span">
-                    {getStatusMessage(Number(statusCode))}
-                </span>
-            </div>
-            <div className="close-message" onClick={()=>setDoPreviewMessage(false)}>
-                <div className="close-icon button">X</div>
-            </div>
-        </div>
-        : null }
     </>
   )
 }

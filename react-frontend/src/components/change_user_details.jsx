@@ -8,6 +8,7 @@ const ChangeUserDetails = (props) => {
           <FormEdit
             jsonData = {props.propsObject.userData}
             setJsonData = {props.propsObject.setUserData}
+            formAction = {`/users/${props.propsObject.userData.userId}`}
            />
       </div>
     </>

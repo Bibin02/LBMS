@@ -27,11 +27,11 @@ export function Login() {
 
                 <div className="inner-container container">
                     <div className="input-container">
-                        <label htmlFor="uid">
-                            User name <input className='input-field-login' type="text" name="username" id="uid" onChange={(e) => useChangeHandler(user, e, setUser)}/>
+                        <label htmlFor="username">
+                            User name <input className='input-field-login' type="text" id="username" onChange={(e) => useChangeHandler(user, e, setUser)}/>
                         </label>
-                        <label htmlFor="pwd">
-                            Password <input className='input-field-login' type="password" name="password" id="pwd" onChange={(e) => useChangeHandler(user, e, setUser)}/>
+                        <label htmlFor="password">
+                            Password <input className='input-field-login' type="password" id="password" onChange={(e) => useChangeHandler(user, e, setUser)}/>
                         </label>
                     </div>
 
