@@ -1,14 +1,13 @@
 import React, { useContext } from 'react'
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { AppContext } from './app_context';
 
 import '../styles/nav_menu.css'
 
 const NavigationMenu = () => {
 
-  const { searchBook, setSearchBook, isUserLogin, loginUserId, cartBookCount } = useContext(AppContext);
+  const { isUserLogin, loginUserId, cartBookCount } = useContext(AppContext);
   const isHomelocation = useLocation().pathname === '/';
-  const navigator = useNavigate();
 
   return (
     <>
@@ -25,11 +24,11 @@ const NavigationMenu = () => {
               {isHomelocation ? 
               <div className="search-bar nav-bar-item">
                 <div className="search-bar-container">
-                  <form action="" method="get">
-                    <input type="text" name="search" id="searchContent" onChange={(e)=>setSearchBook(e.target.value)}/>
-                    <div className="search-icon-box" onClick={()=>navigator(`/?search=${searchBook}`)}>
+                  <form action="/" method="get">
+                    <input type="text" name="search" id="searchContent"/>
+                    <button className="search-icon-box" type='submit'>
                       <img src="" alt="?" />
-                    </div>
+                    </button>
                   </form>
                 </div>
               </div> : null }

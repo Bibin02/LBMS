@@ -15,7 +15,7 @@ const RecommendedBooks = props => {
 }
 
 RecommendedBooks.propTypes = {
-
+  keywords: PropTypes.any.isRequired
 }
 
 export default RecommendedBooks

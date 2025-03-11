@@ -9,7 +9,6 @@ export const AppContextProvider = ({ children }) => {
     
   const [ loginUserId, setLoginUserId ] = useState(getUserId());
   const [ isUserLogin, setIsUserLogin ] = useState(getIsUserLogin());
-  const [ searchBook, setSearchBook ] = useState("");
   const [ cartJson, setCartJson ] = useState({data: []})
   const [ cartBookCount, setCartBookCount ] = useState(isUserLogin ? 2 : 0);
   const [ totalCartCost, setTotalCartCost ] = useState(0);
@@ -38,7 +37,6 @@ export const AppContextProvider = ({ children }) => {
           { 
             isUserLogin, setIsUserLogin,
             loginUserId, setLoginUserId,
-            searchBook, setSearchBook,
             cartJson, setCartJson,
             cartBookCount, setCartBookCount,
             totalCartCost, setTotalCartCost

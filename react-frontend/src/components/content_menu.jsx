@@ -1,26 +1,27 @@
 import React, { useEffect, useState } from 'react'
 import BookThumbnail from './book_thumbnail'
-import fetchJSON from '../services/dataFetcher';
+import { fetchJSONQuery } from '../services/dataFetcher';
 import { debounce } from '../utils/opitmizer';
 import useHandleScroll from '../hooks/useHandleScroll';
 
 import '../styles/content_menu.css'
+import { useSearchParams } from 'react-router-dom';
 
 const ContentMenu = () => {
     const [feed, setFeed] = useState([]);
     const [needFeed, setNeedFeed] = useState(true);
     const [isLoading, setIsLoading] = useState(true);
     const [pagesLoaded, setPagesLoaded] = useState(0);
+
+    const [searchParams] = useSearchParams();
     
     // adding debounce to the eventListner
     window.addEventListener("scroll", debounce(() => useHandleScroll(setNeedFeed), 500));
 
     async function getBookThumbnails() {
-        setIsLoading(true);
-        // setJson(...json, await fetchJSON("/bookthumbnail.json"));  
-        const newFeed = await fetchJSON("/bookthumbnail.json");
+        setIsLoading(true); 
+        const newFeed = await fetchJSONQuery("/bookthumbnail.json", {search: searchParams.get("search")});
         setFeed((feed)=> [...feed, newFeed]);  
-        console.log("Data Loading");       
         setIsLoading(false);
         setNeedFeed(false);
     }
@@ -35,19 +36,25 @@ const ContentMenu = () => {
   return (
     <>
         <div className="outer-container container">
-            {feed.map( (json, page)=>{
-                return (
-                <div className="inner-container container" key={page}>
-                    {json.data.map((bkjson, index)=>(
-                        <BookThumbnail
-                            key = {index}
-                            imageSource = {bkjson.img_src}
-                            bkdata = {bkjson.bkdata}
-                        />
-                    ))}
-                    {isLoading ? <div className="loading-bar">Loading ... </div> : null}
-                </div>)
-            })}
+            <div className="inner-container container">
+                {feed.map( (json, page)=>{
+                    return (
+                    <div className="thumbnail-container container" key={page}>
+                        {json.data.map((bkjson, index)=>(
+                            <BookThumbnail
+                                key = {index}
+                                imageSource = {bkjson.img_src}
+                                bkdata = {bkjson.bkdata}
+                            />
+                        ))}
+                    </div>
+                    )
+                })}
+            </div>
+            {isLoading && <div className="loading-bar">
+                <span className="loading-bar"> ... Loading ... </span>
+            </div>
+            }
         </div>
         
     </>
