@@ -2,10 +2,11 @@ import React, { useContext, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
 import NavigationMenu from './navigation_menu';
 import ComponentDispatcher from './component_dispatcher';
-import { getUserData } from '../services/userService';
+import { formatUserDataToEdit, getUserData } from '../services/userService';
 import { AppContext } from './app_context';
 
 import '../styles/user_dashboard.css'
+import { getDisplayName } from '../utils/utility';
 
 const UserDashboard = () => {
   
@@ -48,7 +49,7 @@ const UserDashboard = () => {
                       menuName == "Logout" ? 
                         (<Link to={"/"} onClick={logoutAction}><div className="menuitem buttons" data-key={index}>{menuName}</div></Link>) 
                         : 
-                        (<div className="menuitem buttons" data-key={index} onClick={selectMenu}>{menuName}</div>)
+                        (<div className="menuitem buttons" data-key={index} onClick={selectMenu}>{getDisplayName(menuName)}</div>)
                       }
                     </div>
                   )
@@ -59,7 +60,7 @@ const UserDashboard = () => {
           <div className="content-container container">
               <ComponentDispatcher
                 targetComponentName = {currMenu}
-                targetComponentProps = {{userData: userData, setUserData: setUserData}}
+                targetComponentProps = {{userData: formatUserDataToEdit(userData), setUserData: setUserData}}
                 
               />
           </div>

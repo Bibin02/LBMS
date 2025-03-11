@@ -9,7 +9,7 @@ const SellerEditBook = props => {
 
   useEffect (()=>{
     const getData = async () => {
-      let jsonData = await fetchJSON("/book.json");
+      let jsonData = await fetchJSON("/seller_book_edit.json");
       setBookJson(jsonData);
     }
     getData();

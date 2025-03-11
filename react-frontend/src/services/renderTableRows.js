@@ -1,4 +1,5 @@
 import React from "react";
+import { getDisplayName } from "../utils/utility";
 
 export default function renderTableRows(data, parentKey = "") {
     return Object.entries(data).map(([key, value], index) => {
@@ -13,7 +14,7 @@ export default function renderTableRows(data, parentKey = "") {
             React.createElement(
                 "tr",
                 { className: "table-data-row", key: index },
-                React.createElement("td", { className: "table-data-col user-property" }, fullKey),
+                React.createElement("td", { className: "table-data-col user-property" }, getDisplayName(fullKey)),
                 React.createElement("td", { className: "table-data-col user-property-value" }, String(value))
               )              
           );

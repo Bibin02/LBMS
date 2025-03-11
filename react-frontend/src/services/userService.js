@@ -13,6 +13,15 @@ export function getUserData(userId) {
       }
 }
 
+export function formatUserDataToEdit(userData) {
+    return {
+        userId: userData.userId,
+        userName: userData.userName,
+        userDescription: "User Description: Lorem ipsum",
+        userDetails: {a: 1, b:2, c:3}
+      }
+}
+
 export function validateUserLogin(userObject) {
     // API call
     

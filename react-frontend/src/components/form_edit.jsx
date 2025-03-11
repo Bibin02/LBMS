@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import useChangeHandler from '../hooks/useChangeHandler'
 import { defaultSubmitHandler } from '../utils/submitHandlers';
 import NotificationPanel from './notification_panel';
+import { getDisplayName } from '../utils/utility';
 
 const FormEdit = props => {
 
@@ -41,7 +42,7 @@ const FormEdit = props => {
                 else {
                     return (
                     <label htmlFor={datakey} className="label-item" key={index}>
-                        {datakey}
+                        {getDisplayName(datakey)}
                         <input type="text" name={datakey} id={datakey} value={datavalue} 
                             onChange={(e)=>{useChangeHandler(props.jsonData, e, props.setJsonData)}}
                         />
