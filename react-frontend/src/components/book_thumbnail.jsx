@@ -12,9 +12,10 @@ const BookThumbnail = (props) => {
     <>
         <div className="thumbnail-outer-box container">
             <Link className='linkage' to={`/books/${props.bkdata.bookUid}`}>
-              <div className="book-image-container container">
-                  <img src={props.imageSource} alt="Book.jpg" />
-              </div>
+              <figure className="book-image-container container">
+                  <img src={props.imageSource ? props.imageSource : "/images/Book.jpg" } alt="Book.jpg" />
+                  <figcaption className='book-title'>{props.bkdata.bookname}</figcaption>
+              </figure>
             </Link>
             {
               <BookThumbnailDetails

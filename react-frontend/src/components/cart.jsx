@@ -27,7 +27,7 @@ const Cart = () => {
                     key = {index}
                     bookUid = {item.bookUid}
                     bookName = {item.bookName}
-                    previewImage = {item.img}
+                    previewImage = {item.img ? item.img : "/images/Book.jpg" }
                     quantity = {item.quantity}
                     currency = {currency}
                     cost = {convertCurrency(item.cost, currencyVal)}

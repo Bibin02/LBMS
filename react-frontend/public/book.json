@@ -1,7 +1,7 @@
 {
     "bookUid": "book001",
     "bookName": "Book1",
-    "imageSource": "src.jpg",
+    "imageSource": "/images/Book2.jpg",
     "authorName": "auth1, auth 2",
     "bookSellStatus": false,
     "bookLendDuration": 29839849,

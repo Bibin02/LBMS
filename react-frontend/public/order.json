@@ -3,12 +3,12 @@
     "reason": "Not found",
     "orderStatus": "Order Dispatched",
     "items": [
-        {"imgsrc": "book.jpg",
-            "name": "book1",
+        {"imgsrc": "/images/Book3.avif",
+            "name": "Book1",
             "quantity": 2},
 
-        {"imgsrc": "book.jpg",
-            "name": "book2",
+        {"imgsrc": "/images/Book3.avif",
+            "name": "Book2",
             "quantity": 5}
     ],
     "totalCost": 500,

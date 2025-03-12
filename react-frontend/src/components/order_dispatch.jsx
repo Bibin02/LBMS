@@ -35,7 +35,7 @@ const OrderDispatch = () => {
                   {orderJson.items.map((item, index)=>(
                       <div className="order-book" key={index}>
                           <figure className="order-book-thumbnail">
-                            <img src={item.imgsrc} alt="src.jpg" />
+                            <img src={item.imgsrc ? item.imgsrc : "/images/Book.jpg" } alt="src.jpg" />
                           </figure>
                           <aside className="details-container">
                             <div className="order-book-name">{item.name}</div>

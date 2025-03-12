@@ -59,7 +59,7 @@ const Book = () => {
           <div className="inner-container container">
             <div className="left-panel container">
               <figure className="image-preview">
-              <img src={bookJson.imageSource} alt="preview_Book.jpg" />
+              <img src={bookJson.imageSource ? bookJson.imageSource : "/images/Book.jpg" } alt="preview_Book.jpg" />
               <figcaption>{bookJson.bookName}</figcaption>
             </figure>
             </div>
