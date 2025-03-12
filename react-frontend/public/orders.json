@@ -3,7 +3,7 @@
         {"orderId": "101",
         "orderStatus": "Payment Complete",
         "items": [
-            {"imgsrc": "Book.jpg",
+            {"imgsrc": "/images/Book.jpg",
              "name": "Book1",
              "quantity": 2}
         ]

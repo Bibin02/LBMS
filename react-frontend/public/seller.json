@@ -1,0 +1,10 @@
+{
+    "sellerId": 101,
+    "sellerName": "Seller A",
+    "totalBooks": 125,
+    "soldBooks": 30,
+    "onDelivery": 5, 
+    "totalEarnings": 30
+
+
+}
