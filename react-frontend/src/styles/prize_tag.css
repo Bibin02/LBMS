@@ -1,0 +1,26 @@
+.prize-tag{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 5px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.discount-prize{
+    color: green;
+    font-weight: 700;
+}
+
+.strike-container{
+    color: brown;
+    font-weight: 500;
+    font-size: small;
+}
+
+.discount-percent-container{
+    width: 45px;
+    background-color: yellow;
+    border: 2px dashed black;
+    border-radius: 50%;
+}

@@ -23,14 +23,12 @@ const NavigationMenu = () => {
 
               {isHomelocation ? 
               <div className="search-bar nav-bar-item">
-                <div className="search-bar-container">
-                  <form action="/" method="get">
-                    <input type="text" name="search" id="searchContent"/>
-                    <button className="search-icon-box" type='submit'>
-                      <img src="" alt="?" />
-                    </button>
-                  </form>
-                </div>
+                <form action="/" method="get" className="search-bar-container">
+                  <input type="text" name="search" id="searchContent"/>
+                  <button className="search-icon-box" type='submit'>
+                    <img src="" alt="?" />
+                  </button>
+                </form>
               </div> : null }
 
               {isUserLogin ? 
@@ -48,7 +46,7 @@ const NavigationMenu = () => {
               }
 
               {isUserLogin ? 
-                <div className='nav-orders-container nav-bar-item'>
+                <div className='nav-bar-item'>
                   <Link to={"/orders"}>Orders</Link>
                 </div> 
                 : null 
@@ -58,12 +56,14 @@ const NavigationMenu = () => {
                 <Link to={"/cart"}>
                   <div className="cart-icon-container">
                     <div className="cart-icon">
-                      <img src="" alt="|_|" />
+                      <img src="/images/cart.jpg" alt="|_|" />
                       <div className="cart-item-count">
                         {cartBookCount}
                       </div>
                     </div>
-                    Cart
+                    <div className="cart-name">
+                      Cart
+                    </div>
                   </div>
                 </Link>
               </div>

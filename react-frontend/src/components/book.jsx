@@ -50,12 +50,9 @@ const Book = () => {
 
   return (
     <>
+        <NavigationMenu/>
         <main className="outer-container container">
-
-          <NavigationMenu/>
-
-          <h1 className="text-indigo-600 m-12">Book {bookid}</h1>
-
+          <h1 className="text-indigo-600 m-12">Book {bookJson.bookName}</h1>
           <div className="inner-container container">
             <div className="left-panel container">
               <figure className="image-preview">

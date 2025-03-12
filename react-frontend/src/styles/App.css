@@ -1,0 +1,67 @@
+/* @import "./book.css";
+@import "./cart.css"; */
+@import "./content_menu.css";
+/* @import "./footer.css"; */
+@import "./login.css";
+@import "./nav_menu.css";
+/* @import "./order_dispatch.css";
+@import "./orders.css";
+@import "./signup.css";
+@import "./user_dashboard.css"; */
+
+
+
+main{
+    background-color: #fff;
+    position: relative;
+}
+
+button{
+    font-weight: 500;
+    margin: 5px;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    padding: 0.5em;
+}
+
+button:hover{
+    cursor: pointer;
+    transition-duration: 0.25s;
+    transition-property: background-color;
+    background-color: gray;
+
+}
+
+a{
+    color: black;
+    text-decoration: none;
+}
+a:visited{
+    color: black;
+}
+
+
+label{
+    display: block;
+}
+
+input{
+    margin: 5px;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+input[type="radio"]{
+    display: inline;
+}
+
+figure{
+    width: 200px;
+    height: 200px;
+}
+
+figure img {
+    width: 100%;   
+    height: 100%;   
+    object-fit: cover; /* Ensures the image fills the figure while maintaining aspect ratio */
+}

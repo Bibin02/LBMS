@@ -36,10 +36,10 @@ const ContentMenu = () => {
   return (
     <>
         <div className="outer-container container">
-            <div className="inner-container container">
+            <div className="feeds-container">
                 {feed.map( (json, page)=>{
                     return (
-                    <div className="thumbnail-container container" key={page}>
+                    <div className="single-feed-container" key={page}>
                         {json.data.map((bkjson, index)=>(
                             <BookThumbnail
                                 key = {index}

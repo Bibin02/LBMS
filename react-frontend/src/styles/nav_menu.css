@@ -1,0 +1,60 @@
+.navbar-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: gainsboro;
+
+    font-size: large;
+    font-weight: 500;
+}
+
+.nav-bar-item{
+    min-height: 60px;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* Home URL */
+
+
+/* Search Bar */
+.search-bar-container{
+    display: flex;
+    height: 40px;
+}
+
+/* Profile container */
+
+
+/* Orders link */
+
+
+/* cart link */
+.cart-icon-container{
+    height: 50px;
+}
+
+.cart-icon{
+    position: relative;
+    top: 5px;
+}
+
+.cart-item-count{
+    position: absolute;
+    left: 30px;
+    top: -5px;
+    width: 20px;
+    height: 20px;
+    background-color: lightgreen;
+    border-radius: 50%;
+}
+
+.cart-name{
+    position: absolute;
+    top: 35px;
+}
