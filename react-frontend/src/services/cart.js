@@ -63,3 +63,11 @@ export function placeOrder(cartJson, setCartJson) {
         alert("Order Placed Successfully.")
     }
 }
+
+export function placeSingleOrder(bookJson, cartBookCount) {
+    let orderId = null;
+    orderId = 101;
+    if (orderId !== null) { // Order placed Successfully,
+        return orderId;
+    }
+}

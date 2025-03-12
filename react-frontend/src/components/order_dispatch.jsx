@@ -5,6 +5,7 @@ import { getExtraCharges, getLocalCurrency } from '../utils/paymentUtils';
 import { convertCurrency } from '../utils/utility';
 
 import '../styles/order_dispatch.css'
+import NavigationMenu from './navigation_menu';
 
 const OrderDispatch = () => {
 
@@ -16,17 +17,17 @@ const OrderDispatch = () => {
     const { charges } = getExtraCharges();
     let totalCharges = 0;
 
-    async function getData() {
-      setOrderJson(await fetchJSON("/order.json"))
-    }
-
     useEffect( ()=>{
+      const getData = async () => {
+        setOrderJson(await fetchJSON("/order.json"))
+      }
       getData();
     }, [])
     
   return (
     <>
         <main className="container outer-container">
+            <NavigationMenu/>
             <h1>Order ID : {searchParams.get("oid")}</h1>
             {orderJson.fetchStatus ? (
               <div className="container inner-container">

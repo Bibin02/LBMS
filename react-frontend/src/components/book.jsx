@@ -1,7 +1,7 @@
 import '../styles/book.css'
 
 import React, { useContext, useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import BookDescriptionTable from './book_description_table';
 import fetchJSON, { fetchJSONQuery } from '../services/dataFetcher'
 import Reviews from './reviews';
@@ -11,15 +11,16 @@ import BookThumbnailMini from './book_thumbnail_mini';
 import { getLocalCurrency } from '../utils/paymentUtils';
 import { calculateDiscount, calculateLendDuration, convertCurrency } from '../utils/utility';
 import { AppContext } from './app_context';
-import { addToCart } from '../services/cart';
+import { addToCart, placeSingleOrder } from '../services/cart';
 
 const Book = () => {
     const { bookid } = useParams();
+    const navigate = useNavigate();
     const { currency, currencyVal } = getLocalCurrency();
     const [ bookJson, setBookJson ] = useState({});
     const [ reviewsJson, setReviewsJson ] = useState({data: []});
     const [ cartBasketCount, setBasketCount ] = useState(1);
-    const { cartJson, setCartJson } = useContext(AppContext);
+    const { setCartJson } = useContext(AppContext);
     const [bookThumbnailJson, setBookThumbnailJson] = useState({ data: []});
     
     function addCartCount() {
@@ -32,6 +33,12 @@ const Book = () => {
         setBasketCount(cartBasketCount-1);
       }
     }
+
+    function bookBuyHandler() {
+      const orderId = placeSingleOrder(bookJson, cartBasketCount);
+      orderId !== null && navigate(`/order?oid=${orderId}`);
+    }
+
     useEffect( ()=>{
       const getData = async () => {
         setBookJson(await fetchJSONQuery("/book.json", {bookUid: bookid}));
@@ -150,11 +157,9 @@ const Book = () => {
               </div>
               <div className="link-buttons">
                 <Link to={"/cart"}><button className="buttons add-to-cart">View Cart</button></Link>
-                <Link to={"/orders"}>
-                  <button className="buttons buy-direct">
-                    { bookJson.bookSellStatus ? "Buy Now" : "Lend Now" }
-                  </button>
-                </Link>
+                <button className="buttons buy-direct" onClick={bookBuyHandler}>
+                  { bookJson.bookSellStatus ? "Buy Now" : "Lend Now" }
+                </button>
               </div>
             </aside>
 
