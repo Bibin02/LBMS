@@ -1,6 +1,7 @@
 import React from 'react'
 import renderTableRows from '../services/renderTableRows'
 import SellerDashboard from './seller_dashboard'
+import LendBooksDisplay from './lend_books_display'
 
 const UserHome = ({propsObject}) => {
   
@@ -15,7 +16,15 @@ const UserHome = ({propsObject}) => {
                         {renderTableRows(propsObject.userData)}
                     </tbody>
                 </table>
-                {propsObject.userData.isSeller && <SellerDashboard sellerId={propsObject.userData.userId}/>}
+                {propsObject.userData.isSeller ? 
+                  <SellerDashboard 
+                    sellerId={propsObject.userData.userId}
+                  />
+                  :
+                  <LendBooksDisplay
+                    userId={propsObject.userData.userId}
+                  />
+                }
               </>)
               : 
               (<div className="error-message">

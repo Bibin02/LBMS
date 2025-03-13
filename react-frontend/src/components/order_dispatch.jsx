@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import fetchJSON from '../services/dataFetcher';
+import { fetchJSONQuery } from '../services/dataFetcher';
 import { getExtraCharges, getLocalCurrency } from '../utils/paymentUtils';
 import { convertCurrency } from '../utils/utility';
 
 import '../styles/order_dispatch.css'
 import NavigationMenu from './navigation_menu';
+import OrderProgress from './order_progress';
 
 const OrderDispatch = () => {
 
@@ -19,7 +20,7 @@ const OrderDispatch = () => {
 
     useEffect( ()=>{
       const getData = async () => {
-        setOrderJson(await fetchJSON("/order.json"))
+        setOrderJson(await fetchJSONQuery("/order.json", {orderId: searchParams.get("oid")}))
       }
       getData();
     }, [])
@@ -76,10 +77,10 @@ const OrderDispatch = () => {
                         </div>
                       </div> : null
                     }
-                    
-                    <div className="order-progress">
-                      {orderJson.orderStatus}
-                    </div>
+                    <OrderProgress
+                      orderStatusCode={orderJson.orderStatusCode}
+                      orderStatus={orderJson.orderStatus}
+                    />
                 </aside>
               </div>
             ) : (

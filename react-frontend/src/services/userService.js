@@ -7,9 +7,9 @@ export function getUserData(userId) {
     return {
         userId: userId,
         userName: "UserName",
-        userDescription: "User Description: Lorem ipsum",
+        userDescription: "Lorem ipsum dolo set mi",
         isSeller: true,
-        userDetails: {a: 1, b:2, c:3}
+        userAddress: "Address 1",
       }
 }
 
@@ -18,7 +18,7 @@ export function formatUserDataToEdit(userData) {
         userId: userData.userId,
         userName: userData.userName,
         userDescription: userData.userDescription,
-        userDetails: userData.userDetails
+        userAddress: userData.userAddress
       }
 }
 

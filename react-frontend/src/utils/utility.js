@@ -12,6 +12,12 @@ export function calculateLendDuration(milliseconds) {
     return ("From " + (currDate).toDateString() + " To " + (lendExpiryDate).toDateString());
 }
 
+export function getLendRemainingDuration(orderDate, lendDuration) {
+    let remaining = orderDate + lendDuration - (new Date().getMilliseconds());
+    remaining = remaining > 0 ? remaining : 0
+    return new Date(remaining).toDateString()  
+}
+
 export function getDisplayName(name) {
     let dictionary = 
     {
@@ -23,7 +29,7 @@ export function getDisplayName(name) {
         userId: "User Unique Id",
         userName: "Name",
         userDescription: "About",
-        userDetails: "Additional Details",
+        userAddress: "Delivery Address",
         isSeller: "Does the user is a Seller ?",
         bookName: "Book name",
         imageSource: "Upload Book Cover / E-book Preview",

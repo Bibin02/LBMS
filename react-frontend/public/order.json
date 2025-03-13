@@ -2,6 +2,7 @@
     "fetchStatus": true,
     "reason": "Not found",
     "orderStatus": "Order Dispatched",
+    "orderStatusCode": 200,
     "items": [
         {"imgsrc": "/images/Book3.avif",
             "name": "Book1",

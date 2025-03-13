@@ -10,10 +10,10 @@ const CartItem = (props) => {
   return (
     <>
         <Link className='book-thumbnail container' to={`/books/${props.bookUid}`}>
-          <div className="book-thumbnail">
-              <span className="book-title">{props.bookName}</span>
+          <figure className="book-thumbnail">
               <div className="book-image"><img src={props.previewImage} alt="book.jpg" /></div>
-          </div>
+          </figure>
+          <div className="book-title">{props.bookName}</div>
         </Link>
         <div className="prize-tag">
           <em className="book-cost-currency">{props.currency}</em>
