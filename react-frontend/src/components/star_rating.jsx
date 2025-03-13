@@ -11,7 +11,7 @@ const StarRating = (props) => {
             {stars.map( (star, index)=>{
                 return(
                     <div className="star-box" key={index} style={{display: 'inline'}}>
-                        <img src={`/${starTagGetter(star)}`} alt="star" height={"20px"} width={"20px"}/> 
+                        <img src={`${starTagGetter(star)}`} alt="star" height={"20px"} width={"20px"}/> 
                     </div>
                 )
             })}

@@ -1,3 +1,7 @@
+import StarComplete from '../assets/images/star-complete.svg'
+import StarHalf from '../assets/images/star-half.svg'
+import StarHollow from '../assets/images/star-hollow.svg'
+
 export function getRatingStars(rating) {
 
     let isHalf = ((rating * 10) % 10) == 0 ? false : true;
@@ -22,11 +26,11 @@ export function getRatingStars(rating) {
 export function starTagGetter(star) {
     switch (star) {
         case "*":
-            return "star-complete.svg"
+            return StarComplete;
         case "/":
-            return "star-half.svg"
+            return StarHalf;
         default:
-            return "star-hollow.svg"
+            return StarHollow;
     }
 }
 
