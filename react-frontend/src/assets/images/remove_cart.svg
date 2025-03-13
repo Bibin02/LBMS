@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<!-- Remove from Cart Icon -->
+  <symbol id="remove-from-cart">
+    <use href="#cart"></use>
+    <line x1="12" y1="9" x2="18" y2="9"></line>
+  </symbol>
+</svg>

@@ -2,6 +2,9 @@ import React, { useContext } from 'react'
 import { Link, useLocation } from "react-router-dom";
 import { AppContext } from './app_context';
 
+import CartIcon from '../assets/images/cart.svg';
+import SearchIcon from '../assets/images/search.svg';
+
 import '../styles/nav_menu.css'
 
 const NavigationMenu = () => {
@@ -26,7 +29,7 @@ const NavigationMenu = () => {
                 <form action="/" method="get" className="search-bar-container">
                   <input type="text" name="search" id="searchContent"/>
                   <button className="search-icon-box" type='submit'>
-                    <img src="" alt="?" />
+                    <img src={SearchIcon} alt="?" />
                   </button>
                 </form>
               </div> : null }
@@ -56,7 +59,7 @@ const NavigationMenu = () => {
                 <Link to={"/cart"}>
                   <div className="cart-icon-container">
                     <div className="cart-icon">
-                      <img src="/images/cart.jpg" alt="|_|" />
+                      <img src={CartIcon} alt="|_|" />
                       <div className="cart-item-count">
                         {cartBookCount}
                       </div>

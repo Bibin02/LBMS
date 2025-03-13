@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Cart Icon -->
+  <symbol id="cart">
+    <circle cx="9" cy="21" r="1"></circle>
+    <circle cx="20" cy="21" r="1"></circle>
+    <path d="M1 1h4l2 13h13l2-8H5"></path>
+  </symbol>
+
+  <!-- Add to Cart Icon -->
+  <symbol id="add-to-cart">
+    <use href="#cart"></use>
+    <line x1="15" y1="6" x2="15" y2="12"></line>
+    <line x1="12" y1="9" x2="18" y2="9"></line>
+  </symbol>
+
+  <!-- Remove from Cart Icon -->
+  <symbol id="remove-from-cart">
+    <use href="#cart"></use>
+    <line x1="12" y1="9" x2="18" y2="9"></line>
+  </symbol>
+
+  <!-- Search Icon -->
+  <symbol id="search">
+    <circle cx="11" cy="11" r="8"></circle>
+    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </symbol>
+
+  <!-- Close Menu Icon -->
+  <symbol id="close-menu">
+    <line x1="18" y1="6" x2="6" y2="18"></line>
+    <line x1="6" y1="6" x2="18" y2="18"></line>
+  </symbol>
+</svg>
