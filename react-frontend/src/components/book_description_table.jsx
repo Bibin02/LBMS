@@ -1,3 +1,5 @@
+import '../styles/book_description.css';
+
 import React from 'react'
 import PropTypes from 'prop-types'
 import { changeDataKey, changeDataValue, useAddHandler, useDeleteHandler } from '../hooks/useChangeHandler'

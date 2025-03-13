@@ -1,3 +1,5 @@
+import '../styles/star_rating.css';
+
 import React from 'react'
 import { getRatingStars, starTagGetter } from '../utils/ratings';
 

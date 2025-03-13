@@ -1,5 +1,5 @@
-/* @import "./book.css";
-@import "./cart.css"; */
+@import "./book.css";
+/* @import "./cart.css"; */
 @import "./content_menu.css";
 /* @import "./footer.css"; */
 @import "./login.css";
@@ -26,9 +26,11 @@ button{
 
 button:hover{
     cursor: pointer;
-    transition-duration: 0.25s;
-    transition-property: background-color;
-    background-color: gray;
+    transition-duration: 0.3s;
+    color: #fff;
+    background-color: grey;
+    transition: 0.3s background-color;
+    transition-property: color;
 
 }
 

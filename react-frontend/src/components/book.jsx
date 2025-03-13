@@ -8,10 +8,14 @@ import Reviews from './reviews';
 import StarRating from './star_rating';
 import NavigationMenu from './navigation_menu';
 import BookThumbnailMini from './book_thumbnail_mini';
+import PrizeTag from './prize_tag';
 import { getLocalCurrency } from '../utils/paymentUtils';
-import { calculateDiscount, calculateLendDuration, convertCurrency } from '../utils/utility';
+import { calculateLendDuration } from '../utils/utility';
 import { AppContext } from './app_context';
 import { addToCart, placeSingleOrder } from '../services/cart';
+
+import addIcon from '../assets/images/add_icon.svg'; 
+import subIcon from '../assets/images/sub_icon.svg'; 
 
 const Book = () => {
     const { bookid } = useParams();
@@ -52,23 +56,29 @@ const Book = () => {
     <>
         <NavigationMenu/>
         <main className="outer-container container">
-          <h1 className="text-indigo-600 m-12">Book {bookJson.bookName}</h1>
-          <div className="inner-container container">
+          <h1 id='book-title' className="book-dispatch-title">{bookJson.bookName}</h1>
+          <div className="book-preview-container">
             <div className="left-panel container">
               <figure className="image-preview">
-              <img src={bookJson.imageSource ? bookJson.imageSource : "/images/Book.jpg" } alt="preview_Book.jpg" />
-              <figcaption>{bookJson.bookName}</figcaption>
-            </figure>
+                <img src={bookJson.imageSource ? bookJson.imageSource : "/images/Book.jpg" } alt="preview_Book.jpg" />
+                <figcaption>{bookJson.bookName}</figcaption>
+              </figure>
             </div>
 
             <aside className="context-preview right-panel">
-              <div className="book-name"><span className="book-name-span">{bookJson.bookName}</span></div>
-              <div className="author-name"><span className="author-name-span">{bookJson.authorName}</span></div>
+              <div className="book-name">
+                {bookJson.bookName}
+              </div>
+              <div className="author-name">
+                {bookJson.authorName}
+              </div>
               <div className="seller-container">
                 <Link to={`/users/${bookJson.sellerName}`}>
                   <div className="seller-name-span">{bookJson.sellerName}</div>
                 </Link>
-                <div className="publication-name-span">{bookJson.publicationName}</div>
+              </div>
+              <div className="publication-name-span">
+                {bookJson.publicationName}
               </div>
               <div className="key-words-container">
                 <ul className="key-words-list">
@@ -82,41 +92,18 @@ const Book = () => {
               {!bookJson.bookSellStatus ? 
                 <div className="lend-properties">
                   <div className="lend-properties-span">
-                    Lend Duration : <em>{calculateLendDuration(bookJson.bookLendDuration)}</em>
+                    Duration <em>{calculateLendDuration(bookJson.bookLendDuration)}</em>
                   </div>
                 </div>
                 : null
               }
               <div className="book-prize-container">
-                {bookJson.discount ? 
-                <div className="prize-discount-container">
-                  <div className="discount-prize">
-                    <span className="prize-symbol-icon">{currency}</span>
-                    <span className="book-prize-span">
-                      {convertCurrency(calculateDiscount(bookJson.cost, bookJson.discount), currencyVal)}
-                    </span>
-                  </div>
-                  <div className="discount-percent-box">
-                    <div className="discount-percent-symbol">
-                      <span>{bookJson.discount}%</span>
-                    </div>
-                  </div>
-                  <div className="og-prize-old">
-                    <del className='strike-through'>
-                      <span className="prize-symbol-icon">{currency}</span>
-                      <span className="book-prize-span">
-                        {convertCurrency(bookJson.cost, currencyVal)}
-                      </span>
-                    </del>
-                  </div>
-                </div> 
-                : 
-                // else part
-                <div className="og-prize">
-                  <span className="prize-symbol"><i className="prize-symbol-icon">{currency}</i></span>
-                  <span className="book-prize-span">{convertCurrency(bookJson.cost, currencyVal)}</span>
-                </div>
-                }
+                <PrizeTag
+                  discount={bookJson.discount}
+                  cost={bookJson.cost}
+                  currency={currency}
+                  currencyVal={currencyVal}
+                />
               </div>
               {bookJson.stock < 5 ? 
                 <div className="limited-stock">
@@ -127,33 +114,29 @@ const Book = () => {
                 : null
               }
               <div className="rating-panel">
-                <div className="rating">
-                  <div className="stars-icon">
-                    <StarRating rating={bookJson.rating}/>
-                  </div>
-                  <div className="rating-val">
-                    {bookJson.rating}
-                  </div>
+                <div className="stars-container">
+                  <StarRating rating={bookJson.rating}/>
                 </div>
               </div>
               <div className="cart-context-container">
                 <button className="buttons add-to-cart" onClick={()=>addToCart(setCartJson, bookJson, cartBasketCount)}>
-                  <div className="cart-icon"> <img src="" alt="|_|" /> <span>Add to Cart</span> </div>
+                  {/* <img src={CartIcon} alt="|_|" />  */}
+                  Add to Cart 
                 </button>
                 <div className="number-icons">
-                  <div className="buttons add-icon" onClick={addCartCount}>
-                    <img src="" alt="+" />
+                  <div className="buttons count-change-icon" onClick={addCartCount}>
+                    <img src={addIcon} alt="+" />
                   </div>
                   <div className="cart-count">
                     <span className="cart-count-span">{cartBasketCount}</span>
                   </div>
-                  <div className="buttons subtract-icon" onClick={subCartCount}>
-                    <img src="" alt="-" />
+                  <div className="buttons count-change-icon" onClick={subCartCount}>
+                    <img src={subIcon} alt="-" />
                   </div>
                 </div>
               </div>
-              <div className="link-buttons">
-                <Link to={"/cart"}><button className="buttons add-to-cart">View Cart</button></Link>
+              <div className="proceed-buttons">
+                <Link to={"/cart"}><button className="buttons">View Cart</button></Link>
                 <button className="buttons buy-direct" onClick={bookBuyHandler}>
                   { bookJson.bookSellStatus ? "Buy Now" : "Lend Now" }
                 </button>
@@ -167,18 +150,19 @@ const Book = () => {
             </section>
 
             <section className="reviews-container">
-              <ul className="reviews-list">
+              <h3 className="book-dispatch-title">Reviews</h3>
+              <div className="reviews-list">
                 {reviewsJson.data.map((review, index)=>(
                   <Reviews
                     key = {index}
                     review = {review}
                   />
                 ))}
-              </ul>
+              </div>
             </section>
 
             <section className="books-recommended container">
-              <h3 className="title">Recommended Books</h3>
+              <h3 className="book-dispatch-title">You may also like</h3>
                 <BookThumbnailMini
                   bookThumbnailJson={bookThumbnailJson}
                 />

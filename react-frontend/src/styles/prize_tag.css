@@ -5,6 +5,7 @@
     margin: 5px;
     text-align: center;
     font-weight: 500;
+    width: 100%;
 }
 
 .discount-prize{
@@ -19,8 +20,12 @@
 }
 
 .discount-percent-container{
-    width: 45px;
+    min-width: 15px;
     background-color: yellow;
     border: 2px dashed black;
     border-radius: 50%;
+
+    div{
+        padding: 5px;
+    }
 }

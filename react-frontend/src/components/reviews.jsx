@@ -1,3 +1,5 @@
+import '../styles/reviews.css';
+
 import React from 'react'
 import PropTypes from 'prop-types'
 import { getRatingLabel } from '../utils/ratings'
@@ -5,13 +7,20 @@ import { getRatingLabel } from '../utils/ratings'
 const Reviews = props => {
   return (
     <>
-        <li className="review-label">
-            <span className="review-label">{getRatingLabel(props.review.rating)}</span>
-            <span className="review-rating">{props.review.rating}</span>
+        <li className="review-list-item">
+
+            <div className="review-label">
+              # {getRatingLabel(props.review.rating)}
+            </div>
+            
             <details className="review-context">
               <summary className='review-summary'>Comments</summary>
               <p className='review-context-para'>{props.review.context}</p>
             </details>
+
+            <div className="review-rating">
+              {props.review.rating}
+            </div>
         </li>
     </>
   )
