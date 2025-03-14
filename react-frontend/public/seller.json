@@ -4,7 +4,19 @@
     "totalBooks": 125,
     "soldBooks": 30,
     "onDelivery": 5, 
-    "totalEarnings": 30
+    "totalEarnings": 30,
 
+    "salesData": [
+        { "day": "Mon", "sales": 15 },
+        { "day": "Tue", "sales": 30 },
+        { "day": "Wed", "sales": 20 },
+        { "day": "Thu", "sales": 40 },
+        { "day": "Fri", "sales": 35 }
+      ],
 
+    "stockData": [
+        { "name": "In Stock", "value": 120 },
+        { "name": "On Delivery", "value": 30 },
+        { "name": "Sold", "value": 50 }
+      ]
 }
