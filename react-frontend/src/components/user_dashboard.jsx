@@ -1,12 +1,14 @@
+import '../styles/user_dashboard.css'
+
 import React, { useContext, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
 import NavigationMenu from './navigation_menu';
+import FooterContent from './footer_content';
 import ComponentDispatcher from './component_dispatcher';
 import { getUserData } from '../services/userService';
 import { AppContext } from './app_context';
-
-import '../styles/user_dashboard.css'
 import { getDisplayName } from '../utils/utility';
+
 
 const UserDashboard = () => {
   
@@ -30,8 +32,8 @@ const UserDashboard = () => {
 
   return (
     <>
+      <NavigationMenu/>
       <main className="outer-container container">
-        <NavigationMenu/>
         <div className="outer-container container">
           <h1 className="text-indigo-600 m-12">User {userid}</h1>
           <div className="profile-container">
@@ -67,6 +69,7 @@ const UserDashboard = () => {
         </div>
       
       </main>
+      <FooterContent/>
     </>
   )
 }

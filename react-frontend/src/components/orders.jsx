@@ -22,8 +22,8 @@ const Orders = () => {
 
   return (
     <>
+      <NavigationMenu/>
       <main className="outer-container container">
-        <NavigationMenu/>
         <div className="inner-container container">
             {isUserLogin ? 
             <div className="order-list container">

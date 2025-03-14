@@ -27,9 +27,9 @@ const OrderDispatch = () => {
     
   return (
     <>
+        <NavigationMenu/>
         <main className="container outer-container">
-            <NavigationMenu/>
-            <h1>Order ID : {searchParams.get("oid")}</h1>
+          <h1>Order ID : {searchParams.get("oid")}</h1>
             {orderJson.fetchStatus ? (
               <div className="container inner-container">
                 <div className="container">

@@ -1,3 +1,5 @@
+import '../styles/cart_item.css';
+
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { AppContext } from './app_context';
@@ -11,16 +13,17 @@ const CartItem = (props) => {
     <>
         <Link className='book-thumbnail container' to={`/books/${props.bookUid}`}>
           <figure className="book-thumbnail">
-              <div className="book-image"><img src={props.previewImage} alt="book.jpg" /></div>
+              <img src={props.previewImage} alt="book.jpg" />
           </figure>
-          <div className="book-title">{props.bookName}</div>
         </Link>
+        <div className="book-title">{props.bookName}</div>
         <div className="prize-tag">
-          <em className="book-cost-currency">{props.currency}</em>
-          <em className="book-cost">{props.cost}</em>
+          <em className="prize">
+            <span className="currency">{props.currency}</span>{props.cost}
+          </em>
         </div>
         <div className="book-quantity">
-          Quantity: <span className="book-quantity">{props.quantity}</span>
+          <span className="book-quantity">Quantity {props.quantity}</span>
         </div>
         {props.isLend ? (<div className="lend-properties">
             <span className="lend-duration">{props.lendDuration}</span>
