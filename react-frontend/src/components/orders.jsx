@@ -26,7 +26,7 @@ const Orders = () => {
       <main className="outer-container container">
         <div className="inner-container container">
             {isUserLogin ? 
-            <div className="order-list container">
+            <div className="orders-list-container">
                 {ordersJson.data.map((order, id)=>(
                     <OrderItem
                         key = {id}

@@ -3,9 +3,12 @@
         {"orderId": "101",
         "orderStatus": "Payment Complete",
         "items": [
-            {"imgsrc": "/images/Book.jpg",
-             "name": "Book1",
-             "quantity": 2}
+            {
+                "imgsrc": "/images/Book.jpg",
+                "name": "Book1",
+                "quantity": 2,
+                "isLend": true
+            }
         ]
         },
 
@@ -14,7 +17,9 @@
         "items": [
             {"imgsrc": "/images/Book.jpg",
              "name": "Book1",
-             "quantity": 2},
+             "quantity": 2,
+             "isLend": true
+            },
 
             {"imgsrc": "/images/Book.jpg",
              "name": "Book2",
