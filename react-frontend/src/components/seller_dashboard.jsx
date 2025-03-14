@@ -10,17 +10,12 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, PieC
 const COLORS = ["#0088FE", "#FFBB28", "#00C49F"];
 
 const SellerDashboard = ({sellerId}) => {
-
-    // const [salesData, setSalesData] = useState([]);
-    // const [stockData, setStockData] = useState([]);
     
     const [sellerData, setSellerData] = useState({});
 
     useEffect(()=>{
         const getData = async ()=>{
             setSellerData(await fetchJSONQuery("/seller.json", {sellerId: sellerId}))
-            // setSalesData(sellerData.salesData);
-            // setStockData(sellerData.salesData);
         }
         getData();
     },[])
@@ -29,9 +24,9 @@ const SellerDashboard = ({sellerId}) => {
     <>
         <div className="seller-dashboard-container container">
             <div className="dashboard-container">
-                <h2>Seller Dashboard</h2>
+                <h2 className='charts-heading'>Seller Dashboard Analytics</h2>
                     {/* Bar Chart for Last 5 Days Sales */}
-                    <div className="chart-container">
+                    <div className="chart-container bar-chart">
                     <h3>Last 5 Days Sales</h3>
                     <ResponsiveContainer width="100%" height={300}>
                         <BarChart data={sellerData.salesData}>
@@ -45,7 +40,7 @@ const SellerDashboard = ({sellerId}) => {
                     </div>
 
                     {/* Pie Chart for Stock Distribution */}
-                    <div className="chart-container">
+                    <div className="chart-container pie-chart">
                     <h3>Stock Status</h3>
                     <ResponsiveContainer width="100%" height={300}>
                         {sellerData.stockData != null && <PieChart>
@@ -58,11 +53,6 @@ const SellerDashboard = ({sellerId}) => {
                     </ResponsiveContainer>
                     </div>
             </div>
-            <table className='seller-details-table'>
-                <tbody>
-                    {renderTableRows(sellerData)}
-                </tbody>
-            </table>
         </div>
     </>
   )

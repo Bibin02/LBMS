@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import renderTableRows from '../services/renderTableRows'
 import SellerDashboard from './seller_dashboard'
 import LendBooksDisplay from './lend_books_display'
+import { AppContext } from './app_context'
 
 const UserHome = ({propsObject}) => {
+
+  const { loginUserId } = useContext(AppContext);
   
   return (
     <>
@@ -11,20 +14,22 @@ const UserHome = ({propsObject}) => {
           <div className='table-container container'>
             {propsObject.userData.userId ? 
               (<>
+                {loginUserId != null &&
+                  <>{propsObject.userData.isSeller ? 
+                      <SellerDashboard 
+                        sellerId={propsObject.userData.userId}
+                      />
+                      :
+                      <LendBooksDisplay
+                        userId={propsObject.userData.userId}
+                      />}
+                  </>
+                }
                 <table className="user-description table">
                     <tbody className="table-body">
                         {renderTableRows(propsObject.userData)}
                     </tbody>
                 </table>
-                {propsObject.userData.isSeller ? 
-                  <SellerDashboard 
-                    sellerId={propsObject.userData.userId}
-                  />
-                  :
-                  <LendBooksDisplay
-                    userId={propsObject.userData.userId}
-                  />
-                }
               </>)
               : 
               (<div className="error-message">

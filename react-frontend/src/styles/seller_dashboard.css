@@ -1,16 +1,34 @@
 .dashboard-container {
-    width: 80%;
+    width: 100%;
     margin: auto;
     text-align: center;
     font-family: Arial, sans-serif;
+    
+    display: grid;
+    grid-template-areas: 
+    "h h h h"
+    "bc bc pc pc"
+    ;
   }
 
 .chart-container {
     background: #fff;
-    padding: 20px;
-    margin: 20px 0;
+    padding: 1em;
+    margin: 1em;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .chart-container .bar-chart{
+    grid-area: bc;
+  }
+
+  .chart-container .pie-chart{
+    grid-area: pc;
+  }
+
+  .charts-heading{
+    grid-area: h;
   }
   
   h3 {
