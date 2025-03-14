@@ -1,9 +1,9 @@
 export function convertCurrency(cost, localCurrency) {
-    return (cost * localCurrency).toFixed(2);
+    return Number((cost * localCurrency).toFixed(2));
 }
 
 export function calculateDiscount(originalCost, discountPercentage) {
-    return (originalCost - (originalCost * discountPercentage / 100)).toFixed(2);
+    return Number((originalCost - (originalCost * discountPercentage / 100)).toFixed(2));
 }
 
 export function calculateLendDuration(milliseconds) {
