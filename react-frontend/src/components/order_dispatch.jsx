@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { fetchJSONQuery } from '../services/dataFetcher';
 import { getExtraCharges, getLocalCurrency } from '../utils/paymentUtils';
-import { convertCurrency } from '../utils/utility';
+import { calculateLendDuration, convertCurrency } from '../utils/utility';
 
 import NavigationMenu from './navigation_menu';
 import OrderProgress from './order_progress';
@@ -31,50 +31,74 @@ const OrderDispatch = () => {
           <h1>Order ID : {searchParams.get("oid")}</h1>
             {orderJson.fetchStatus ? (
               <div className="order-dispatch-container">
-                <div className="container">
-                  {orderJson.items.map((item, index)=>(
+                <div className="order-book-container">
+                  {orderJson.items.map((book, index)=>(
                       <div className="order-book" key={index}>
                           <figure className="order-book-thumbnail">
-                            <img src={item.imgsrc ? item.imgsrc : "/images/Book.jpg" } alt="src.jpg" />
+                            <img src={book.imgsrc ? book.imgsrc : "/images/Book.jpg" } alt="src.jpg" />
                           </figure>
-                          <aside className="details-container">
-                            <div className="order-book-name">{item.name}</div>
-                            <div className="order-book-quantity">{item.quantity}</div>
-                          </aside>
+                          <table className="order-book-details">
+                            <tbody>
+                              <tr className="order-book-name">
+                                <td>Book Title</td>
+                                <td className='r-align'>{book.name}</td>
+                              </tr>
+                              <tr className="order-book-quantity">
+                                <td> Quantity </td>
+                                <td className='r-align'>{book.quantity}</td>
+                              </tr>
+                              {book.isLend && 
+                                <>
+                                  <tr className="order-book-lend">
+                                    <td> Duration </td>
+                                    <td className='r-align' >{calculateLendDuration(book.lendDuration)}</td>
+                                  </tr>
+                                  <tr className="order-book-lend">
+                                    <td colSpan={2} className='r-align'>Took Lease</td>
+                                  </tr>
+                                </>
+                              }
+                            </tbody>
+                          </table>
+                          
                       </div>
                   ))}
                 </div>
-                <aside className="summary-panel container">
-                    {!orderJson.isPaid ? 
-                      <div className="payment">
-                        <strong className="cost-name">Total Cost</strong>
-                        <div className="prize-tag">
-                          <span className="currency">{currency}</span>
-                          <span className="total-cost">{convertCurrency(orderJson.totalCost, currencyVal)}</span>
-                        </div>
-                        {charges.map( (charge, index)=>{
-                          totalCharges += charge.value;
-                          return(<div key={index} className="prize-tags container">
-                            <em className="cost-name">{charge.chargeName}</em>
-                            <div className="prize-tag">
-                              <span className="currency">{currency}</span>
-                              <span className="charges-cost">{convertCurrency(charge.value, currencyVal)}</span>
-                            </div>
-                          </div>)
-                        })}
-                        <strong className="cost-name">Final Cost</strong>
-                        <div className="prize-tag">
-                          <span className="currency">{currency}</span>
-                          <span className="final-cost">{convertCurrency(orderJson.totalCost + totalCharges, currencyVal)}</span>
-                        </div>
-                        <div className="payment-button">
-                          <Link to={'/'}> 
-                            <button className="buttons">
-                              Complete Payment
-                            </button>
-                          </Link>
-                        </div>
-                      </div> : null
+                <aside className="order-summary-panel container">
+                    {!orderJson.isPaid && 
+                      <table className="payment-table">
+                        <tbody>
+                          <tr className="payment-row">
+                            <td><strong className="cost-name">Total Cost</strong></td>
+                            <td className="currency c-align">{currency} {convertCurrency(orderJson.totalCost, currencyVal)}</td>
+                          </tr>
+                          
+                          {charges.map( (charge, index)=>{
+                            totalCharges += charge.value;
+                            return(
+                            <tr key={index} className="payment-row">
+                              <td><em className="cost-name">{charge.chargeName}</em></td>
+                              <td className="currency c-align"> <em>{currency} {convertCurrency(charge.value, currencyVal)}</em></td>
+                            </tr>)
+                          })}
+
+                          <tr className="payment-row">
+                            <td><strong className="cost-name">Final Cost</strong></td>
+                            <td className="currency c-align"> 
+                              <mark><strong>{currency} {convertCurrency(orderJson.totalCost + totalCharges, currencyVal)}</strong></mark>
+                            </td>
+                          </tr>
+                          <tr className="payment-row">
+                            <td colSpan={2}>
+                              <Link to={'/'} className='pay-button-link'> 
+                                <button className="pay-button buttons">
+                                  Complete Payment
+                                </button>
+                              </Link>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
                     }
                     <OrderProgress
                       orderStatusCode={orderJson.orderStatusCode}
@@ -83,7 +107,7 @@ const OrderDispatch = () => {
                 </aside>
               </div>
             ) : (
-              <div className="inner-container">
+              <div className="order-dispatch-container">
                 <p className="fetch-fail-reason">
                   {orderJson.reason}
                 </p>

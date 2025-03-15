@@ -4,13 +4,20 @@
     "orderStatus": "Order Dispatched",
     "orderStatusCode": 200,
     "items": [
-        {"imgsrc": "/images/Book3.avif",
+        {
+            "imgsrc": "/images/Book3.avif",
             "name": "Book1",
-            "quantity": 2},
+            "quantity": 2,
+            "isLend": false
+        },
 
-        {"imgsrc": "/images/Book3.avif",
+        {
+            "imgsrc": "/images/Book3.avif",
             "name": "Book2",
-            "quantity": 5}
+            "quantity": 5,
+            "isLend": true,
+            "lendDuration": 394875398
+        }
     ],
     "totalCost": 500,
     "isPaid": false

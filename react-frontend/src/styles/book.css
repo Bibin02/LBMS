@@ -56,14 +56,16 @@ figcaption{
     min-width: 100px;
     min-height: fit-content;
     color: #fff;
-    a{
-        color: inherit;
-    }
     background-color: darkslategray;
     border: 2px solid transparent;
     border-radius: 10px;
     text-align: center;
 }
+
+.seller-container a:visited{
+    color: inherit;
+}
+
 .seller-container:hover{
     background-color: darkgoldenrod;
     transition-property:  "background-color";
