@@ -9,6 +9,7 @@ import StarRating from './star_rating';
 import NavigationMenu from './navigation_menu';
 import BookThumbnailMini from './book_thumbnail_mini';
 import PrizeTag from './prize_tag';
+import GetBookReview from './get_book_review';
 import { getLocalCurrency } from '../utils/paymentUtils';
 import { calculateLendDuration } from '../utils/utility';
 import { AppContext } from './app_context';
@@ -56,7 +57,7 @@ const Book = () => {
     <>
         <NavigationMenu/>
         <main className="outer-container container">
-          <h1 id='book-title' className="book-dispatch-title">{bookJson.bookName}</h1>
+          {/* <h1 id='book-title' className="book-dispatch-title">{bookJson.bookName}</h1> */}
           <div className="book-preview-container">
             <div className="left-panel container">
               <figure className="image-preview">
@@ -146,6 +147,12 @@ const Book = () => {
             <section className="book-description-container">
               <BookDescriptionTable
                 tableData={bookJson.bookDescription ? bookJson.bookDescription : {}}
+              />
+            </section>
+
+            <section className="get-review-container">
+              <GetBookReview
+                bookUid={bookJson.bookUid}
               />
             </section>
 

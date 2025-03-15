@@ -14,7 +14,7 @@ const UserHome = ({propsObject}) => {
           <div className='table-container container'>
             {propsObject.userData.userId ? 
               (<>
-                {loginUserId != null &&
+                {loginUserId == propsObject.userData.userId &&
                   <>{propsObject.userData.isSeller ? 
                       <SellerDashboard 
                         sellerId={propsObject.userData.userId}

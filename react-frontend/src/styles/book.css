@@ -14,17 +14,19 @@ figcaption{
     display: grid;
     grid-template-areas: 
     "lp rp rp"
-    "bd rp rp"
+    "lp rp rp"
+    "bd gr gr"
     "cmd cmd cmd"
     "rcmd rcmd rcmd"
     ;
+    padding: 1em;
 }
 .left-panel{
     grid-area: lp;
-    padding-left: 15px;
+    padding: 2em;
     figure {
-        width: 90%;
-        height: 90%;
+        width: inherit;
+        height: inherit;
     }
 }
 
@@ -53,19 +55,25 @@ figcaption{
     padding: 0.1em;
     min-width: 100px;
     min-height: fit-content;
-    background-color: beige;
-    border: 2px solid transparent;
-    border-radius: 5px;
-    text-align: center;
-}
-.seller-container:hover{
-    background-color: darkgoldenrod;
     color: #fff;
     a{
         color: inherit;
     }
-    transition-property:  "background-color", "color";
+    background-color: darkslategray;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    text-align: center;
+}
+.seller-container:hover{
+    background-color: darkgoldenrod;
+    transition-property:  "background-color";
     transition-duration: 0.3s;
+}
+
+.publication-name-span{
+    color: darkgreen;
+    font-size: larger;
+    font-weight: bold;
 }
 
 .key-words-list{
@@ -129,8 +137,9 @@ figcaption{
 }
 
 .count-change-icon{
-    padding-left: 10px;
-    padding-right: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 5px;
     width: 25px;
     height: 25px;
 
@@ -141,6 +150,7 @@ figcaption{
 }
 .count-change-icon:hover{
     cursor: pointer;
+    background-color: lightcoral;
 }
 
 .proceed-buttons{
@@ -161,10 +171,36 @@ figcaption{
 
 
 /* Reviews and comments */
+.get-review-container{
+    grid-area: gr;
+    justify-self: center;
+}
+
 .reviews-container{
     grid-area: cmd;
     
 }
+
+.dynamic-stars-container{
+    width: 300px;
+    height: 100px;
+}
+
+.comments-textarea {
+    width: 100%;        /* Ensure it takes full width */
+    min-height: 40px;   /* Set a reasonable minimum height */
+    height: fit-content;       /* Allow it to expand */
+    overflow: hidden;   /* Hide scrollbar */
+    resize: none;       /* Disable manual resizing */
+    padding: 8px;       /* Add some padding */
+    border: 1px solid #ccc; /* Optional: for styling */
+    border-radius: 5px;
+    font-size: 16px;    /* Ensure readability */
+    text-align: justify;
+    font: inherit;
+    line-height: 1.4;   /* Improve text spacing */
+}
+  
 
 /* Recommended Books container */
 .books-recommended{
