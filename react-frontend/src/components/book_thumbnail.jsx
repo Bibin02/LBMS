@@ -16,6 +16,7 @@ const BookThumbnail = (props) => {
                   <img src={props.imageSource ? props.imageSource : "/images/Book.jpg" } alt="Book.jpg" />
               </figure>
               <div className='book-title'>{props.bkdata.bookname}</div>
+              <div className="bookthumbnail-author">By, {props.bkdata.author}</div>
             </Link>
             {
               <BookThumbnailDetails

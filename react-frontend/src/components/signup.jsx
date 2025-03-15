@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { loadMeta } from '../config/pageMetaLoader'
-
-import '../styles/signup.css'
 import useChangeHandler from '../hooks/useChangeHandler'
 
 const Signup = () => {

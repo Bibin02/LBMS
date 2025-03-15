@@ -1,5 +1,3 @@
-import '../styles/user_dashboard.css'
-
 import React, { useContext, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
 import NavigationMenu from './navigation_menu';

@@ -37,6 +37,13 @@
     padding: 0.5em;
 }
 
+.bookthumbnail-author{
+    text-align: center;
+    padding: 0.5em;
+    font-size: large;
+    font-style: oblique;
+}
+
 .buttons-container{
     width: 100%;
     display: flex;

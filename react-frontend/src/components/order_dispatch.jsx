@@ -4,7 +4,6 @@ import { fetchJSONQuery } from '../services/dataFetcher';
 import { getExtraCharges, getLocalCurrency } from '../utils/paymentUtils';
 import { convertCurrency } from '../utils/utility';
 
-import '../styles/order_dispatch.css'
 import NavigationMenu from './navigation_menu';
 import OrderProgress from './order_progress';
 
@@ -31,7 +30,7 @@ const OrderDispatch = () => {
         <main className="container outer-container">
           <h1>Order ID : {searchParams.get("oid")}</h1>
             {orderJson.fetchStatus ? (
-              <div className="container inner-container">
+              <div className="order-dispatch-container">
                 <div className="container">
                   {orderJson.items.map((item, index)=>(
                       <div className="order-book" key={index}>

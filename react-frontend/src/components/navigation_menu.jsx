@@ -5,8 +5,6 @@ import { AppContext } from './app_context';
 import CartIcon from '../assets/images/cart.svg';
 import SearchIcon from '../assets/images/search.svg';
 
-import '../styles/nav_menu.css'
-
 const NavigationMenu = () => {
 
   const { isUserLogin, loginUserId, cartBookCount } = useContext(AppContext);

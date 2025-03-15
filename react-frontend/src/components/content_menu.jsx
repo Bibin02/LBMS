@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
+import { useSearchParams } from 'react-router-dom';
+
 import BookThumbnail from './book_thumbnail'
 import { fetchJSONQuery } from '../services/dataFetcher';
 import { debounce } from '../utils/opitmizer';
 import useHandleScroll from '../hooks/useHandleScroll';
-
-import '../styles/content_menu.css'
-import { useSearchParams } from 'react-router-dom';
 
 const ContentMenu = () => {
     const [feed, setFeed] = useState([]);

@@ -1,4 +1,3 @@
-import "../styles/login.css"
 import NavigationMenu from "./navigation_menu";
 import FooterContent from "./footer_content";
 import { useContext, useState } from "react";

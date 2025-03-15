@@ -1,18 +1,18 @@
 .orders-list-container{
     margin: 2em;
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
     flex-wrap: wrap;
 }
 
 .order-item{
     display: flex;
-    flex-direction: column;
     align-items: center;
     margin: 2em;
     padding: 2em;
     border: 3px solid transparent;
+    width: fit-content;
     border-radius: 20px;
     box-shadow: 5px 10px 20px grey;
     background-color: lightgreen;
@@ -53,4 +53,16 @@
 
 .view-order-button button{
     font-size: large;
+}
+
+@media screen and (max-width: 600){
+    .order-item{
+        flex-direction: column;
+    }
+
+    .order-item-books{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 }

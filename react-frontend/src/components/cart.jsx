@@ -1,5 +1,3 @@
-import '../styles/cart.css'
-
 import React, { useContext } from 'react'
 import { getLocalCurrency } from '../utils/paymentUtils';
 import { convertCurrency, calculateLendDuration } from '../utils/utility';

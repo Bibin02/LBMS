@@ -1,5 +1,3 @@
-import '../styles/orders.css'
-
 import React, { useContext, useEffect, useState } from 'react'
 import fetchJSON from '../services/dataFetcher';
 import OrderItem from './order_item';

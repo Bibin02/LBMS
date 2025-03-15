@@ -6,16 +6,18 @@ import useExpandTextArea from '../hooks/useExpandTextArea';
 
 const GetBookReview = ({bookUid}) => {
 
-  const [comment, setComment] = useState("");
   const [stars, setStars] = useState(getRatingStars(Number(0)));
   const [openComments, setOpenComments] = useState(false);
 
   const referenceObject = useRef();
 
   function submitRating() {
+
+    const comments = referenceObject.current.value;
+    
     if(true){
-      setComment("");
       alert("Feedback submited");
+      setOpenComments(false);
     }
   }
   return (
@@ -47,7 +49,6 @@ const GetBookReview = ({bookUid}) => {
           ref={referenceObject} 
           placeholder='comments' 
           className='comments-textarea'
-          onInput={(e)=>setComment(e.target.value)}
           onKeyDown={(e)=>useExpandTextArea(referenceObject, e)}>
 
         </textarea>
@@ -58,7 +59,6 @@ const GetBookReview = ({bookUid}) => {
             onClick={
               ()=>{
                 setOpenComments(false);
-                setComment("");
                 setStars(getRatingStars(0));
               }
             }>
