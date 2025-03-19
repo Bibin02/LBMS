@@ -65,27 +65,29 @@ const Signup = () => {
   return (
     <>
         <main className="container outer-box">
-            <form id='input-tag-root' className="input-container"> {/* method='put' action='/api/v1/users/create' */}
-                <label htmlFor="email">
-                    Email ID
-                    <input className='input-field' type="text" id="email" 
-                        required onChange={(e)=>useChangeHandler(user, e, setUser)}/>
-                </label>
-                <label htmlFor="password">
-                    Password
-                    <input className='input-field' type="password" id="password" 
-                        required onChange={(e)=>useChangeHandler(user, e, setUser)}/>
-                </label>
-                <label htmlFor="confirmPassword">
-                    Confirm your Password
-                    <input className='input-field' type="text" id="confirmPassword"
-                        required onChange={(e)=>useChangeHandler(user, e, setUser)}/>
-                </label>
-                <div className="buttons container">
-                    <button id='lgn-btn' className='buttons login-button' type="reset" onClick={clearAction}>Clear</button>
-                    <div id='sgnup-btn' className='buttons login-button' onClick={createAccount}>Create Account</div>
-                </div>
-            </form>
+            <div className="signup-form-container">
+                <form id='input-tag-root' className="signup-form"> {/* method='put' action='/api/v1/users/create' */}
+                    <label htmlFor="email">
+                        Email ID
+                        <input className='input-field' type="text" id="email" 
+                            required onChange={(e)=>useChangeHandler(user, e, setUser)}/>
+                    </label>
+                    <label htmlFor="password">
+                        Password
+                        <input className='input-field' type="password" id="password" 
+                            required onChange={(e)=>useChangeHandler(user, e, setUser)}/>
+                    </label>
+                    <label htmlFor="confirmPassword">
+                        Confirm your Password
+                        <input className='input-field' type="text" id="confirmPassword"
+                            required onChange={(e)=>useChangeHandler(user, e, setUser)}/>
+                    </label>
+                    <div className="buttons container">
+                        <button id='lgn-btn' className='buttons login-button' type="reset" onClick={clearAction}>Clear</button>
+                        <div id='sgnup-btn' className='buttons login-button' onClick={createAccount}>Create Account</div>
+                    </div>
+                </form>
+            </div>
         </main>
     </>
   )

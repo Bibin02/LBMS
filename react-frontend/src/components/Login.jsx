@@ -4,7 +4,7 @@ import { useContext, useState } from "react";
 import { AppContext } from "./app_context";
 import { validateUserLogin } from "../services/userService";
 import useChangeHandler from "../hooks/useChangeHandler";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export function Login() {
 
@@ -18,31 +18,39 @@ export function Login() {
             setIsUserLogin(true);
         }
     }
+
+    const navigate = useNavigate();
+    function signupLink() {
+        navigate("/signup");
+    }
     
     return (
         <>
-            <main className="outer-container container">
-                <NavigationMenu/>
+            <NavigationMenu/>
 
-                <div className="inner-container container">
+            <main className="login-outer-container">
+                <div className="login-container">
                     <div className="input-container">
-                        <label htmlFor="username">
-                            User name <input className='input-field-login' type="text" id="username" onChange={(e) => useChangeHandler(user, e, setUser)}/>
+                        <label className="login-label" htmlFor="username">
+                            Username
                         </label>
-                        <label htmlFor="password">
-                            Password <input className='input-field-login' type="password" id="password" onChange={(e) => useChangeHandler(user, e, setUser)}/>
+                        <input className='input-field-login' type="text" id="username" onChange={(e) => useChangeHandler(user, e, setUser)}/>
+                        <label className="login-label" htmlFor="password">
+                            Password 
                         </label>
+                        <input className='input-field-login' type="password" id="password" onChange={(e) => useChangeHandler(user, e, setUser)}/>
                     </div>
 
-                    <button id='lgn-btn' className='login-button' type="button" onClick={loginAction}>Login</button>
+                    <button id='lgn-btn' className='buttons login-button' type="button" onClick={loginAction}>Login</button>
 
                     <div className="signup-query">Create an account ?</div>
+                    
+                    <button className="buttons login-button" type="button" onClick={signupLink}>Register</button>
 
-                    <Link to={'/signup'}><button id='sgnup-btn' className='login-button' type="button">Register</button></Link>
                 </div>
-
-                <FooterContent/>
             </main>
+            
+            <FooterContent/>
         </>
     )
 }
