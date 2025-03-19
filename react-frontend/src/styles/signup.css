@@ -1,12 +1,56 @@
 .signup-form-container{
     position: relative;
-    top: 10em;
+    margin-top: 2.5em;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .signup-form{
-    width: 40%;
+    width: 30%;
     height: fit-content;
+    padding: 40px;
+    background: #f9dcdc;
+    border: 1px solid #dbdbdb;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.signup-label{
+    padding: 0.5em;
+    font-size: large;
+    width: 100%;
+}
+
+.input-field-signup {
+    display: block;
+    padding: 1em;
+    width: 90%;
+    border: 2px solid #dbdbdb;
+    border-radius: 4px;
+    font-size: 14px;
+    background: #fafafa;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.input-field-signup:focus {
+    border-color: #595959;
+}
+
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    width: 60%;
+    margin: 1em;
+    padding: 0.5em;
+    background-color: #00ff62;
+    border-radius: 10px;
+    font-size: larger;
+    font-weight: bold;
+    cursor: pointer;
 }

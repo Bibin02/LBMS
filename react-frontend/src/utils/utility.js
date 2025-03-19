@@ -12,6 +12,10 @@ export function calculateLendDuration(milliseconds) {
     return ("From " + (currDate).toDateString() + " To " + (lendExpiryDate).toDateString());
 }
 
+export function convertMilliSecToDateTime(milliseconds) {
+    return new Date(milliseconds).toString();
+}
+
 export function getLendRemainingDuration(orderDate, lendDuration) {
     let remaining = orderDate + lendDuration - (new Date().getMilliseconds());
     remaining = remaining > 0 ? remaining : 0

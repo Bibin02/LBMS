@@ -29,8 +29,11 @@ const Orders = () => {
                     <OrderItem
                         key = {id}
                         orderId = {order.orderId}
+                        price = {order.price}
                         orderStatus = {order.orderStatus}
-                        items = {order.items}
+                        totalBooks = {order.totalBooks}
+                        lendBooksCount = {order.lendBooksCount}
+                        datetime = {order.datetime}
                     />
                 ))}
             </div>

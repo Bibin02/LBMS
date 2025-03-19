@@ -8,7 +8,7 @@ export default function useChangeHandler(Object, eventObject, setter) {
     else{
         setter({...Object, [eventObject.target.name]: eventObject.target.value});
     }
-    console.log(Object);
+    // console.log(Object);
     
 }
 

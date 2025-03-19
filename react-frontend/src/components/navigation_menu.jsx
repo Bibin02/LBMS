@@ -50,7 +50,10 @@ const NavigationMenu = () => {
                 <div className='nav-bar-item'>
                   <Link to={"/orders"}>Orders</Link>
                 </div> 
-                : null 
+                : 
+                <div className="nav-bar-item">
+                  <Link to={"/signup"}>Register</Link>
+                </div>
               }
               
               <div className='nav-cart-container nav-bar-item'>

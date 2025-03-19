@@ -1,26 +1,40 @@
 import React, { useEffect, useState } from 'react'
-import { loadMeta } from '../config/pageMetaLoader'
-import useChangeHandler from '../hooks/useChangeHandler'
+import { getPageMeta, loadMeta } from '../config/pageMetaLoader'
+import BookBuyerSignup from './book_buyer_signup'
+import BookSellerSignup from './book_seller_signup'
+import { useNavigate } from 'react-router-dom'
 
 const Signup = () => {
 
     const [user, setUser] = useState({})
-
-    const meta = {
-        title: 'E - Library Signup',
-        description: 'Signup to Enjoy your Book Store',
-        canonical: 'http://example.com/path/to/page',
-        meta: {
-            charset: 'utf-8',
-            name: {
-                keywords: 'react,meta,document,html,tags,blablabla'
-            }
-        }
-    }
+    const [signupHeading, setSignupHeading] = useState("Book Buyer");
 
     useEffect( ()=>{
-        loadMeta(meta);
+        loadMeta(getPageMeta("/signup"));
     }, [])
+
+    function changeSignupHandler(event) {
+
+        // Apply initial translation
+        event.target.style.transition = "transform 0.2s ease";
+        event.target.style.transform = "translateY(-20px)";
+
+        // Return to original position after a short delay
+        setTimeout(() => {
+            event.target.style.transform = "translateY(0)";
+        }, 200); // 300ms should match the transition duration
+
+        clearAction() // Fro fresh form fill and user set null.
+
+        if (signupHeading === "Book Buyer") {
+            setSignupHeading("Book Seller");
+            event.target.style["background-color"] = "lightyellow";
+        }
+        else{
+            setSignupHeading("Book Buyer");
+            event.target.style["background-color"] = "lightblue";
+        }
+    }
 
     function clearAction() {
         setUser({});
@@ -52,7 +66,8 @@ const Signup = () => {
         return true;
     }
 
-    function createAccount() {
+    function createAccount(event) {
+        event.preventDefault();
         if (!validateContentEntry()) {
             return;
         }
@@ -60,32 +75,42 @@ const Signup = () => {
         if (validatePassword()){
             alert("Account Created Successfully")
         }
-        
     }
+
+    const navigate = useNavigate();
+    function loginLink() {
+        navigate("/login");
+    }
+
+
   return (
     <>
         <main className="container outer-box">
             <div className="signup-form-container">
                 <form id='input-tag-root' className="signup-form"> {/* method='put' action='/api/v1/users/create' */}
-                    <label htmlFor="email">
-                        Email ID
-                        <input className='input-field' type="text" id="email" 
-                            required onChange={(e)=>useChangeHandler(user, e, setUser)}/>
-                    </label>
-                    <label htmlFor="password">
-                        Password
-                        <input className='input-field' type="password" id="password" 
-                            required onChange={(e)=>useChangeHandler(user, e, setUser)}/>
-                    </label>
-                    <label htmlFor="confirmPassword">
-                        Confirm your Password
-                        <input className='input-field' type="text" id="confirmPassword"
-                            required onChange={(e)=>useChangeHandler(user, e, setUser)}/>
-                    </label>
-                    <div className="buttons container">
-                        <button id='lgn-btn' className='buttons login-button' type="reset" onClick={clearAction}>Clear</button>
-                        <div id='sgnup-btn' className='buttons login-button' onClick={createAccount}>Create Account</div>
+                    
+                    {/* Rectangular switch */}
+                    <div className="switch" onClick={changeSignupHandler}>
+                        {signupHeading}
                     </div>
+
+                    {signupHeading === 'Book Buyer' ?
+                        <BookBuyerSignup
+                            user={user}
+                            setUser={setUser}
+                        />
+                        :
+                        <BookSellerSignup
+                            user={user}
+                            setUser={setUser}
+                        />
+                    }
+
+                    <button className='buttons login-button' type="reset" onClick={clearAction}>Clear</button>
+                    <button className='buttons login-button' onClick={createAccount}>Create Account</button>
+                    <div className="signup-query">Created account already ?</div>
+                    
+                    <button className="buttons login-button" type="button" onClick={loginLink}>Login</button>
                 </form>
             </div>
         </main>

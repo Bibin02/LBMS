@@ -1,5 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { convertCurrency, convertMilliSecToDateTime } from '../utils/utility';
+import { getLocalCurrency } from '../utils/paymentUtils';
+
+const {currency, currencyVal} = getLocalCurrency();
 
 const OrderItem = (props) => {
   return (
@@ -10,20 +14,24 @@ const OrderItem = (props) => {
           <div className="order-status"><strong>{props.orderStatus}</strong></div>
         </section>
         
-        <div className="order-item-books">
-          {props.items.map((book, index)=>(
-            <div className="order-book" key={index}>
-                <figure className="order-book-thumbnail">
-                  <img src={book.imgsrc ? book.imgsrc : "/images/Book.jpg" } alt="src.jpg" />
-                </figure>
-                <aside className="order-desc container">
-                  <div className="order-book-name">Book name {book.name}</div>
-                  <div className="order-book-quantity">Quantity <mark>{book.quantity}</mark></div>
-                  {book.isLend && <div className="order-book-lend" style={{color: 'orangered'}}> Took lease </div>}
-                </aside>
-            </div>
-            ))
-          }
+        <div className="order-details">
+            <div className="order-details-title">Total Cost </div>
+            <div className="order-details-value">{currency}{convertCurrency(props.price, currencyVal)}</div>
+        </div>
+
+        <div className="order-details">
+            <div className="order-details-title">Total Books </div>
+            <div className="order-details-value">{props.totalBooks}</div>
+        </div>
+
+        <div className="order-details">
+          <div className="order-details-title">Lend Books </div>
+          <div className="order-details-value">{props.lendBooksCount}</div>
+        </div>
+
+        <div className="order-details">
+          <div className="order-details-title">Order Time </div>
+          <div className="order-details-value">{convertMilliSecToDateTime(props.datetime)}</div>
         </div>
 
         <Link to={`/order?oid=${props.orderId}`} className='view-order-button'>
