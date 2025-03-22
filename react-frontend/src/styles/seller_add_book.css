@@ -1,7 +1,7 @@
 
 .seller-add-book-container{
     display: grid;
-    grid-template-rows: 1fr 100fr;
+    grid-template-rows: 0.1fr 1fr;
 }
 
 .forms-container{

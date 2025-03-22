@@ -17,13 +17,14 @@ const SellerEditBook = props => {
   return (
     <>
         <div className="inner-container container">
-          <div className="back-button"
+          <div className="back-button-container">
+            <button className="back-button buttons" 
               onClick={()=>{
                 props.setEditBookId(null);
                 props.setDoEditBook(false)
-              }}
-            >
-            <div className="back-icon">{"<-"}</div>
+              }}>
+                Back
+            </button>
           </div>
           <h1>bookUid: {props.bookUid}</h1>
           <FormEdit 
