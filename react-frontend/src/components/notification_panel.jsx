@@ -1,3 +1,5 @@
+import '../styles/notification_panel.css';
+
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -5,13 +7,15 @@ const NotificationPanel = ({ previewMessage, setPreviewMessage }) => {
   return (
     <>
         {previewMessage != null  && 
-            <div className="status-panel container">
+            <div className="notification-panel-container">
                 <div className="preview-message"
                 style={{backgroundColor: previewMessage[0] === "!" ? "red" : "green"}}>
-                    {previewMessage}
-                </div>
-                <div className="close-message" onClick={()=>setPreviewMessage(null)}>
-                    <div className="close-icon button">X</div>
+                    <div className="notification-message">
+                        {previewMessage}
+                    </div>
+                    <div className="close-notification" onClick={()=>setPreviewMessage(null)}>
+                        X
+                    </div>
                 </div>
             </div>
         }

@@ -1,0 +1,32 @@
+.notification-panel-container{
+    min-width: 40%;
+    max-width: 80%;
+    margin: 0.5em;
+    padding: 1em;
+    border-radius: 10px;
+}
+
+.preview-message{
+    display: flex;
+    justify-content: space-between;
+    padding: 1em;
+    border-radius: 15px;
+    color: #fff;
+    font-size: large;
+
+    div{
+        text-align: center;
+        padding: 0.3em;
+    }
+}
+
+.close-notification{
+    border-radius: 20%;
+    width: 1.2em;
+    height: 1.5em;
+    color: #fff;
+}
+.close-notification:hover{
+    cursor: pointer;
+
+}

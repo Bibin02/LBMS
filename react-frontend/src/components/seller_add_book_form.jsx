@@ -1,3 +1,5 @@
+import '../styles/seller_add_book.css';
+
 import React, { useState } from 'react'
 import useChangeHandler from '../hooks/useChangeHandler';
 import { defaultSubmitHandler } from '../utils/submitHandlers';
@@ -18,63 +20,67 @@ const SellerAddBookForm = () => {
         
         <form onSubmit={(e)=>defaultSubmitHandler(bookJson, "props.formAction", e, setPreviewMessage)} 
           className='add-book-form form-container container'>
-            <div className="labels-container container">
-              <label htmlFor="bookname">
-              Book name
-              <input type="text" id='bookname' onChange={(e)=>useChangeHandler(bookJson, e, setBookJson)}/>
-              </label>
+            <table>
+              <tbody className="add-book-form-tbody container">
+                <tr htmlFor="bookname">
+                  <td>Book name </td>
+                  <td><input type="text" id='bookname' onChange={(e)=>useChangeHandler(bookJson, e, setBookJson)}/> </td>
+                </tr>
 
-              <label htmlFor="authors">
-              Authors
-              <input type="text" id='authors' onChange={(e)=>useChangeHandler(bookJson, e, setBookJson)}/>
-              </label>
+                <tr htmlFor="authors">
+                  <td>Authors </td>
+                  <td><input type="text" id='authors' onChange={(e)=>useChangeHandler(bookJson, e, setBookJson)}/> </td>
+                </tr>
 
-              <label htmlFor="publication">
-              Publication
-              <input type="text" id='publication' onChange={(e)=>useChangeHandler(bookJson, e, setBookJson)}/>
-              </label>
+                <tr htmlFor="publication">
+                  <td>Publication </td>
+                  <td><input type="text" id='publication' onChange={(e)=>useChangeHandler(bookJson, e, setBookJson)}/> </td>
+                </tr>
 
-              <label htmlFor="prize">
-              Prize
-              <input type="number" id='prize' onChange={(e)=>useChangeHandler(bookJson, e, setBookJson)}/>
-              </label>
+                <tr htmlFor="prize">
+                  <td>Prize </td>
+                  <td><input type="number" id='prize' onChange={(e)=>useChangeHandler(bookJson, e, setBookJson)}/> </td>
+                </tr>
 
-              <label htmlFor="discount">
-              Discount Percentage
-              <input type="number" id='discount' onChange={(e)=>useChangeHandler(bookJson, e, setBookJson)}/>
-              </label>
+                <tr htmlFor="discount">
+                  <td>Discount Percentage </td>
+                  <td><input type="number" id='discount' onChange={(e)=>useChangeHandler(bookJson, e, setBookJson)}/> </td>
+                </tr>
 
-              <label htmlFor="stock">
-              Available Stock
-              <input type="number" id='stock' onChange={(e)=>useChangeHandler(bookJson, e, setBookJson)}/>
-              </label>
+                <tr htmlFor="stock">
+                  <td>Available Stock </td>
+                  <td><input type="number" id='stock' onChange={(e)=>useChangeHandler(bookJson, e, setBookJson)}/> </td>
+                </tr>
 
-              <label htmlFor="description">
-              Description
-              <input type="text" id='description' onChange={(e)=>useChangeHandler(bookJson, e, setBookJson)}/>
-              </label>
+                <tr htmlFor="description">
+                  <td>Description </td>
+                  <td><input type="text" id='description' onChange={(e)=>useChangeHandler(bookJson, e, setBookJson)}/></td>
+                </tr>
 
-              <label htmlFor="keywords">
-              Related Keywords / Captions (Use comma seperated values)
-              <input type="text" id='keywords' onChange={(e)=>useChangeHandler(bookJson, e, setBookJson)}/>
-              </label>
+                <tr htmlFor="keywords">
+                  <td>Related Keywords / Captions (Use comma seperated values) </td>
+                  <td><input type="text" id='keywords' onChange={(e)=>useChangeHandler(bookJson, e, setBookJson)}/> </td>
+                </tr>
 
-              <div className='book-desc-label'>
-                Additional Details
-                <BookDescriptionTable 
-                  tableData={bookJson}
-                  doEdit={true}
-                  setTableData={setBookJson}
-                />
-              </div>
-              
-            </div>
+                <tr className='book-desc-label'>
+                  <td colSpan={2}>
+                    <BookDescriptionTable 
+                      tableData={bookJson}
+                      doEdit={true}
+                      setTableData={setBookJson}
+                    />
+                  </td> 
+                </tr>
 
-            <div className="submit-button">
-              <button type="submit" className="buttons form-submit">
-                Submit
-              </button>
-            </div>
+                <tr className="submit-button">
+                  <td colSpan={2}>
+                    <button type="submit" className="add-book-form-submit-button buttons">
+                      Submit
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
 
         </form>
     </>

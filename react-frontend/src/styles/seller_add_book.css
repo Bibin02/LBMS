@@ -1,0 +1,28 @@
+
+.seller-add-book-container{
+    display: grid;
+    grid-template-rows: 1fr 100fr;
+}
+
+.forms-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.input-choice-buttons{
+    display: flex;
+    justify-content: space-around;
+    
+    padding: 1em;
+}
+
+
+.add-book-form-tbody tr{
+    text-align: center;
+}
+
+.add-book-form-submit-button{
+    width: 10em;
+    font-size: large;
+}

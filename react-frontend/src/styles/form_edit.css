@@ -1,0 +1,22 @@
+.change-details-form-table{
+    width: 100%;
+}
+
+.change-details-form-table input{
+    width: 60%;
+}
+
+.change-details-form-inner-table{
+    width: 100%;
+}
+
+.radio-fields{
+    display: flex;
+    text-align: center;
+    justify-content: space-evenly;
+
+    input[type='radio']{
+        width: 20px;
+        height: 20px;
+    }
+}

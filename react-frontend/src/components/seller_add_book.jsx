@@ -9,8 +9,8 @@ const SellerAddBook = props => {
   const navigate = useNavigate();
   return (
     <>
-        <div className="inner-container container">
-          <div className="container input-choice-buttons">
+        <div className="seller-add-book-container">
+          <div className="input-choice-buttons">
             <button className='buttons input-choice' type="button" onClick={()=>setIsUseForm(true)}>Add via form</button>
             <button className='buttons input-choice' type="button" 
               onClick={
@@ -19,7 +19,11 @@ const SellerAddBook = props => {
                 }>
                 Add via Excel file</button>
           </div>
+
+          <div className='forms-container'>
             {isUseForm ? <SellerAddBookForm/> : <SellerAddBookFile/>}
+          </div>
+
         </div>
     </>
   )
