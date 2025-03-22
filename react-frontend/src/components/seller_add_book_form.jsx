@@ -52,10 +52,15 @@ const SellerAddBookForm = () => {
                   <td><input type="number" id='stock' onChange={(e)=>useChangeHandler(bookJson, e, setBookJson)}/> </td>
                 </tr>
 
-                <tr htmlFor="description">
-                  <td>Description </td>
-                  <td><input type="text" id='description' onChange={(e)=>useChangeHandler(bookJson, e, setBookJson)}/></td>
+                <tr htmlFor="isLend">
+                  <td>Lend Book ?</td>
+                  <td><input type="checkbox" value={"true"} id='isLend' onChange={(e)=>useChangeHandler(bookJson, e, setBookJson)}/> </td>
                 </tr>
+
+                {bookJson.isLend && <tr htmlFor="lendDuration">
+                  <td>Lend End Date</td>
+                  <td><input type='date' id='lendDuration' onChange={(e)=>useChangeHandler(bookJson, e, setBookJson)}/> </td>
+                </tr>}
 
                 <tr htmlFor="keywords">
                   <td>Related Keywords / Captions (Use comma seperated values) </td>

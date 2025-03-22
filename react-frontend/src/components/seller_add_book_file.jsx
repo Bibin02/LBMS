@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { defaultSubmitHandler } from '../utils/submitHandlers';
 import NotificationPanel from './notification_panel';
+import { uploadSellerBooks } from '../services/seller';
 
 const SellerAddBookFile = () => {
     const [previewMessage, setPreviewMessage] = useState(null);
@@ -12,12 +13,17 @@ const SellerAddBookFile = () => {
         />
         <form onSubmit={(e)=>defaultSubmitHandler("bookJson", "props.formAction", e, setPreviewMessage)} 
           className='file-upload-form'>
+
             <label htmlFor="xl-file">
-                Upload the Excel file
-                <input id='xl-file' type="file" />
+                <a href="/sample_file_upload.csv" download="sample.csv"><button type="button" className='buttons'>Download Sample CSV File</button></a>
+            </label>
+
+            <label htmlFor="xl-file">
+                Upload the CSV file
+                <input type="file" onChange={uploadSellerBooks} accept='.csv'/>
             </label> 
 
-            <button type="submit" className='buttons form-submit'>
+            <button type="submit" className='buttons form-submit' onChange={uploadSellerBooks}>
                 Parse Data
             </button>
         </form>

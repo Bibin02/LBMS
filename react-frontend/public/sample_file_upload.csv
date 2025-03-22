@@ -1,0 +1,6 @@
+bookName,authors,publication,prize,discount,stock,about,keywords,isLend,lendDuration
+The Great Gatsby,F. Scott Fitzgerald,Scribner,10.99,15,50,A classic novel set in the Jazz Age,"Classic, Fiction, 1920s",TRUE,1211233
+Atomic Habits,James Clear,Penguin,18.5,10,120,A guide to building good habits,"Self-help, Productivity, Psychology",FALSE,
+To Kill a Mockingbird,Harper Lee,J.B. Lippincott & Co.,12.99,20,75,A novel about racial injustice,"Classic, Novel, Racism",FALSE,
+1984,George Orwell,Secker & Warburg,14.5,25,60,A dystopian novel,"Dystopian, Totalitarianism, Classic",FALSE,
+Rich Dad Poor Dad,Robert Kiyosaki,Warner Books,9.99,30,200,A book about financial education,"Finance, Money, Business",TRUE,12312312

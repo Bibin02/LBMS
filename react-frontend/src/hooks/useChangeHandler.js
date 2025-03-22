@@ -1,6 +1,6 @@
 export default function useChangeHandler(Object, eventObject, setter) {
-    if ('checked' === eventObject.target) {
-        setter({...Object, [eventObject.target.name]: eventObject.target.checked}); 
+    if ('checkbox' === eventObject.target.type) {
+        setter({...Object, [eventObject.target.id]: eventObject.target.checked}); 
     }
     else if (eventObject.target.id) {
         setter({...Object, [eventObject.target.id]: eventObject.target.value});
@@ -8,7 +8,7 @@ export default function useChangeHandler(Object, eventObject, setter) {
     else{
         setter({...Object, [eventObject.target.name]: eventObject.target.value});
     }
-    // console.log(Object);
+    console.log(Object);
     
 }
 
