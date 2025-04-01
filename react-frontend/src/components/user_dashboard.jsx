@@ -68,7 +68,7 @@ const UserDashboard = () => {
               }
             </div>
           </div>
-          <div className="content-container container">
+          <div className="user-content-container container">
               <ComponentDispatcher
                 targetComponentName = {currMenu}
                 targetComponentProps = {{userData: userData}}

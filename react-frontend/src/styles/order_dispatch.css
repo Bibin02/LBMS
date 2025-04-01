@@ -4,7 +4,7 @@
 
 /* left-panel */
 .order-book-container{
-    width: 50%;
+    width: 40%;
     overflow-y: scroll;
     scrollbar-width: none; /* Hides scrollbar in Firefox */
     -ms-overflow-style: none; /* Hides scrollbar in IE/Edge */
@@ -39,7 +39,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 50%;
+    width: 60%;
     margin: 1em;
 }
 
@@ -68,6 +68,21 @@
     font-size: medium;
 }
 
+.order-progress-container{
+    width: 100%;
+    padding: 1em;
+    text-align: center;
+}
+
+.order-progress-heading{
+    margin: 1em;
+}
+
+.track-order-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
 @media only screen and (max-width: 600){
 
