@@ -20,12 +20,12 @@ const SellerAddBookFile = () => {
 
             <label htmlFor="xl-file">
                 Upload the CSV file
-                <input type="file" onChange={uploadSellerBooks} accept='.csv'/>
+                <input type="file" onChange={(e)=>uploadSellerBooks(e, setPreviewMessage)} accept='.csv'/>
             </label> 
 
-            <button type="submit" className='buttons form-submit' onChange={uploadSellerBooks}>
+            {/* <button type="submit" className='buttons form-submit' onChange={(e)=>uploadSellerBooks(e, setPreviewMessage)}>
                 Parse Data
-            </button>
+            </button> */}
         </form>
     </>
   )

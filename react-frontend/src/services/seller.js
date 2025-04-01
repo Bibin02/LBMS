@@ -5,7 +5,7 @@ export function removeSellerBook(bookUid) {
     
 }
 
-export function uploadSellerBooks(event) {
+export function uploadSellerBooks(event, setMessage) {
     const file = event.target.files[0];
 
     if (!file) return;
@@ -23,9 +23,20 @@ export function uploadSellerBooks(event) {
                     }
                 })
                 book.bookDescription = bd;
-                
             })
-            console.log(result.data); // JSON output
+
+            // console.log(result.data);
+            let uploadStatus = true;
+            let errorMsg = "Failed";
+            if (uploadStatus) {
+                setMessage("Uploaded Books into Database Successfully"); // JSON output
+            }
+            else{
+                setMessage("! "+errorMsg)
+            }
         },
+        error: (errorMsg) =>{
+            setMessage("! "+errorMsg);
+        } 
     });
 }
