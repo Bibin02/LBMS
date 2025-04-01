@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { fetchJSONQuery } from '../services/dataFetcher';
 import { getExtraCharges, getLocalCurrency } from '../utils/paymentUtils';
 import { calculateLendDuration, convertCurrency } from '../utils/utility';
+import { payOrder } from '../services/order';
 
 import NavigationMenu from './navigation_menu';
 import OrderProgress from './order_progress';
@@ -10,6 +11,7 @@ import OrderProgress from './order_progress';
 const OrderDispatch = () => {
 
     const [searchParams] = useSearchParams();
+    const navigator = useNavigate();
     const [orderJson, setOrderJson] = useState({});
 
     const { currency, currencyVal } = getLocalCurrency();
@@ -90,11 +92,18 @@ const OrderDispatch = () => {
                           </tr>
                           <tr className="payment-row">
                             <td colSpan={2}>
-                              <Link to={'/'} className='pay-button-link'> 
-                                <button className="pay-button buttons">
+                              <div className='pay-button-link'>
+                                <button className="pay-button buttons" 
+                                  onClick={ ()=>
+                                    payOrder(
+                                      orderJson.orderId, 
+                                      convertCurrency(orderJson.totalCost + totalCharges, currencyVal),
+                                      navigator
+                                    )
+                                  }>
                                   Complete Payment
                                 </button>
-                              </Link>
+                              </div>
                             </td>
                           </tr>
                         </tbody>

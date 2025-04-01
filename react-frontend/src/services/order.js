@@ -1,3 +1,8 @@
+export function payOrder(orderId, orderAmount, navigator) {
+    
+    navigator(`/order?oid=${orderId}`)
+}
+
 export function getOrderStatusImageSource(orderStatusCode) {
     const path = "/images/"
     switch (orderStatusCode) {
