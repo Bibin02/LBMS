@@ -35,7 +35,7 @@ export function getDisplayName(name) {
         userDescription: "About",
         userAddress: "Delivery Address",
         isSeller: "Does the user is a Seller ?",
-        bookName: "Book name",
+        bookName: "Book Name",
         imageSource: "Upload Book Cover / E-book Preview",
         authorName: "Author Name",
         bookSellStatus: "Book is under Sale or Lend ?",
@@ -45,6 +45,9 @@ export function getDisplayName(name) {
         cost: "Book Cost",
         discount: "Discount Percentage",
         stock: "Book in Stock",
+        author: "Author",
+        rating: "Rating",
+        genre: "Genre",
     };
 
     return dictionary[name] ? dictionary[name] : name;

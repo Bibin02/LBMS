@@ -1,7 +1,6 @@
 import '../styles/seller_view_edit_book.css'
 
 import React, { useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
 import SellerEditBook from './seller_edit_book';
 import NotificationPanel from './notification_panel';
 import { fetchJSONQuery } from '../services/dataFetcher';
@@ -9,11 +8,13 @@ import { getLocalCurrency } from '../utils/paymentUtils';
 import { convertCurrency } from '../utils/utility';
 import { useRef } from 'react';
 import { removeSellerBook } from '../services/seller';
+import BookFilter from './book_filter';
 
-const SellerViewBook = props => {
+const SellerViewBook = () => {
   const [sellerBooksJson, setSellerBooksJson] = useState({ data: []});
+  const [bookFilter, setBookFilter] = useState({filterBy: "Book Name"});
   const [pageNo, setPageNo] = useState(1);
-  const [searchBook, setSearchBook] = useState("");
+  // const [searchBook, setSearchBook] = useState("");
   const [doEditBook, setDoEditBook] = useState(false);
   const [editBookId, setEditBookId] = useState(null);
   const [previewMessage, setPreviewMessage] = useState(null);
@@ -26,14 +27,15 @@ const SellerViewBook = props => {
       setSellerBooksJson(
         await fetchJSONQuery("/sellerbooks.json", 
           {
-            searchBook: searchBook, 
+            filterBy: bookFilter.filterBy,
+            search: bookFilter.search, 
             pageNo: pageNo
           }
         )
       );
     }
     getData();
-  }, [pageNo, searchBook]);
+  }, [pageNo, bookFilter]);
 
   if (doEditBook) {
     return (
@@ -49,18 +51,12 @@ const SellerViewBook = props => {
       <>
           <div className="inner-container container">
             <div className="filter-books-container">
-              <div className="search-seller-book">
-                <input type="text" ref={ref}/> 
-                <button className='buttons' 
-                  onClick={()=>{
-                    if(pageNo !== 1) {
-                      setPageNo(1)
-                     } 
-                     setSearchBook(ref.current.value)
-                    }}>
-                    Find Book
-                </button>
-              </div>
+              <BookFilter
+                bookFilter={bookFilter}
+                setBookFilter={setBookFilter} 
+                preventFormAction = {true}
+                formAction = {()=>{}}
+              />
             </div>
             <NotificationPanel
               previewMessage={previewMessage}
@@ -79,7 +75,7 @@ const SellerViewBook = props => {
               <tbody>
                 {sellerBooksJson?.data.map( (book, index)=>(
                   <tr className="seller-book" key={index}>
-                    <td className="seller-book-sno">{index+1}</td>
+                    <td className="seller-book-sno">{(pageNo-1) * sellerBooksJson.booksPerPage + index+1}</td>
                     <td className="seller-book-name">{book.bookName}</td>
                     <td className="seller-book-stock">{book.stock}</td>
                     <td className="seller-book-prize"><em>{currency}{convertCurrency(book.prize, currencyVal)}</em></td>

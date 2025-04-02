@@ -1,12 +1,13 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link, useLocation } from "react-router-dom";
 import { AppContext } from './app_context';
 
 import CartIcon from '../assets/images/cart.svg';
-import SearchIcon from '../assets/images/search.svg';
+import BookFilter from './book_filter';
 
 const NavigationMenu = () => {
 
+  const [bookFilter, setBookFilter] = useState({filterBy: "Book Name"});
   const { isUserLogin, loginUserId, cartBookCount } = useContext(AppContext);
   const isHomelocation = useLocation().pathname === '/';
 
@@ -22,15 +23,15 @@ const NavigationMenu = () => {
                 </div>
               </div>
 
-              {isHomelocation ? 
+              {isHomelocation && 
               <div className="search-bar nav-bar-item">
-                <form action="/" method="get" className="search-bar-container">
-                  <input type="text" name="search" id="searchContent"/>
-                  <button className="search-icon-box" type='submit'>
-                    <img src={SearchIcon} alt="?" />
-                  </button>
-                </form>
-              </div> : null }
+                <BookFilter
+                    bookFilter = {bookFilter}
+                    setBookFilter = {setBookFilter}
+                    preventFormAction={false}
+                />
+              </div>
+              }
 
               {isUserLogin ? 
                 <div className='profile-container nav-bar-item'>

@@ -8,5 +8,6 @@
         {"bookUid": 106, "bookName": "Book 6", "stock": 4, "prize": 15}
     ],
     "page": 1,
+    "booksPerPage": 6,
     "totalPages": 10
 }
