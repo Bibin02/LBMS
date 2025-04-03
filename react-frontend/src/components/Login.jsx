@@ -9,17 +9,21 @@ import { useNavigate } from "react-router-dom";
 export function Login() {
 
     const [user, setUser] = useState({});
-
+    const navigate = useNavigate();
     const { setIsUserLogin, setLoginUserId } = useContext(AppContext);
-
+    
     function loginAction(){
-        if (validateUserLogin(user)) {
+        const {status, message} = validateUserLogin(user);
+        if (status) {
             setLoginUserId(user.username)
             setIsUserLogin(true);
+            navigate("/");
+        }
+        else{
+            alert(message);
         }
     }
 
-    const navigate = useNavigate();
     function signupLink() {
         navigate("/signup");
     }

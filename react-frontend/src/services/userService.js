@@ -1,3 +1,4 @@
+import { use } from "react";
 
 export function getUserId() {
     return "User101";
@@ -23,9 +24,28 @@ export function formatUserDataToEdit(userData) {
 }
 
 export function validateUserLogin(userObject) {
-    // API call
+
+    let message = "Success", status = false;
+
+    if (userObject.username && userObject.password) {
+        // API call
+        if (true) { // Authorized Successfully
+            status = true
+        }
+    }
+    else{
+        if (userObject.username == null) {
+            message = "Kindly Enter your User Name";
+        }
+        else if (userObject.password == null) {
+            message = "Kindly Enter your Password";
+        }
+        else{
+            message = "Kindly Enter your User Name and Password";
+        }
+    }
     
-    return true;
+    return {status: status, message: message};
 }
 
 export function getIsUserLogin() {

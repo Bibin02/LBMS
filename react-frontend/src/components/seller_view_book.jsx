@@ -12,7 +12,7 @@ import BookFilter from './book_filter';
 
 const SellerViewBook = () => {
   const [sellerBooksJson, setSellerBooksJson] = useState({ data: []});
-  const [bookFilter, setBookFilter] = useState({filterBy: "Book Name"});
+  const [bookFilter, setBookFilter] = useState({filterBy: "bookName"});
   const [pageNo, setPageNo] = useState(1);
   // const [searchBook, setSearchBook] = useState("");
   const [doEditBook, setDoEditBook] = useState(false);
