@@ -26,9 +26,13 @@
     justify-content: space-between;
 }
 
-/* .book-image-container{
-    position: relative;
-} */
+.thumbnail-container:hover{
+    cursor: pointer;
+    box-shadow: 10px 10px 10px grey;
+    background-color: lightcyan;
+    transition: 0.3s background-color;
+    transition: 0.3s box-shadow;
+}
 
 .book-title{
     text-align: center;
