@@ -71,14 +71,7 @@ const Book = () => {
               <div className="author-name">
                 {bookJson.authorName}
               </div>
-              <div className="seller-container">
-                <Link to={`/users/${bookJson.sellerName}`}>
-                  <div className="seller-name-span">{bookJson.sellerName}</div>
-                </Link>
-              </div>
-              <div className="publication-name-span">
-                {bookJson.publicationName}
-              </div>
+              
               <div className="key-words-container">
                 <ul className="key-words-list">
                   {bookJson.keywords?.map((keyword, index)=>(
@@ -88,14 +81,7 @@ const Book = () => {
                   ))}
                 </ul>
               </div>
-              {!bookJson.bookSellStatus ? 
-                <div className="lend-properties">
-                  <div className="lend-properties-span">
-                    Duration <em>{calculateLendDuration(bookJson.bookLendDuration)}</em>
-                  </div>
-                </div>
-                : null
-              }
+              
               <div className="book-prize-container">
                 <PrizeTag
                   discount={bookJson.discount}
@@ -117,6 +103,17 @@ const Book = () => {
                   <StarRating rating={bookJson.rating}/>
                 </div>
               </div>
+
+              <div className="publication-name-span">
+                Publication: {bookJson.publicationName}
+              </div>
+
+              <div className="seller-container">
+                <Link to={`/users/${bookJson.sellerName}`}>
+                  <div className="seller-name-span">Seller: {bookJson.sellerName}</div>
+                </Link>
+              </div>
+              
               <div className="cart-context-container">
                 <button className="buttons add-to-cart" onClick={()=>addToCart(setCartJson, bookJson, cartBasketCount)}>
                   {/* <img src={CartIcon} alt="|_|" />  */}
@@ -140,6 +137,15 @@ const Book = () => {
                   { bookJson.bookSellStatus ? "Buy Now" : "Lend Now" }
                 </button>
               </div>
+
+              {!bookJson.bookSellStatus ? 
+                <div className="lend-properties">
+                  <div className="lend-properties-span">
+                    Duration <em>{calculateLendDuration(bookJson.bookLendDuration)}</em>
+                  </div>
+                </div>
+                : null
+              }
             </aside>
 
             <section className="book-description-container">

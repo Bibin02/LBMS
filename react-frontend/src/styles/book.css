@@ -14,10 +14,10 @@ figcaption{
     display: grid;
     grid-template-areas: 
     "lp rp rp"
-    "lp rp rp"
-    "bd gr gr"
-    "cmd cmd cmd"
-    "rcmd rcmd rcmd"
+    "bd bd bd"
+    "gr gr gr"
+    "cmd rcmd rcmd"
+    "cmd rcmd rcmd"
     ;
     padding: 1em;
 }
@@ -46,8 +46,8 @@ figcaption{
 }
 
 .author-name{
-    font-size: large;
-    align-self: flex-end;
+    /* font-size: large; */
+    font-style: italic;
 }
 
 .seller-container{
