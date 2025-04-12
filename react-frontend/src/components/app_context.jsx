@@ -7,8 +7,8 @@ export const AppContext = createContext();
 
 export const AppContextProvider = ({ children }) => {
     
-  const [ loginUserId, setLoginUserId ] = useState(getUserId());
-  const [ isUserLogin, setIsUserLogin ] = useState(getIsUserLogin());
+  const [ loginUserId, setLoginUserId ] = useState("");
+  const [ isUserLogin, setIsUserLogin ] = useState(false);
   const [ cartJson, setCartJson ] = useState({data: []})
   const [ cartBookCount, setCartBookCount ] = useState(isUserLogin ? 2 : 0);
   const [ totalCartCost, setTotalCartCost ] = useState(0);
@@ -18,6 +18,8 @@ export const AppContextProvider = ({ children }) => {
       setCartJson(await fetchJSON("/cart.json"));
     }
     getData();
+    setLoginUserId(getUserId());
+    setIsUserLogin(getIsUserLogin());
   }, [])
 
   useEffect(() => {

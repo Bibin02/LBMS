@@ -1,11 +1,11 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
 import NavigationMenu from './navigation_menu';
 import FooterContent from './footer_content';
 import ComponentDispatcher from './component_dispatcher';
-import { getUserData } from '../services/userService';
 import { AppContext } from './app_context';
 import { getDisplayName } from '../utils/utility';
+import { fetchJSONQuery } from '../services/dataFetcher';
 
 import AddIcon from '../assets/images/add_icon.svg';
 
@@ -16,11 +16,21 @@ const UserDashboard = () => {
     const { userid } = useParams();
     const isLoginUser = (userid === loginUserId && isUserLogin);
     let menus = (isLoginUser) ? ["UserHome", "ChangeUserPassword", "ChangeUserDetails", "Logout"] : ["UserHome"];
-    const [userData] = useState(getUserData(userid));
+    const [userData, setUserData] = useState({});
     (isLoginUser && userData.isSeller) ? menus = [...menus, "SellerAddBook","SellerViewBook"] : null;
     const [currMenu, setCurrMenu] = useState(menus[0]);
     const [highlightMenu, setHighlightMenu] = useState(0);
     
+    useEffect(() => {
+      const getData = async () => {
+        setUserData(await fetchJSONQuery("/user.json",
+          {
+            userId: userid
+          }
+         ))
+      }
+      getData();
+    }, [])
 
     function selectMenu(event) {
       setCurrMenu(menus[event.target.dataset.key]);
