@@ -3,7 +3,7 @@
         {
         "bookUid": "book001",
         "bookName": "Book 1",
-         "previewImage": "src.jpg",
+         "previewImage": "/images/Book.jpg",
          "quantity": 3,
          "cost": 250,
         "isLend": true,
@@ -12,7 +12,7 @@
         {
         "bookUid": "book002",
         "bookName": "Book 1",
-         "previewImage": "src.jpg",
+         "previewImage": "/images/Book.jpg",
          "quantity": 3,
          "cost": 250,
         "isLend": true,
@@ -21,7 +21,7 @@
         {
         "bookUid": "book003",
         "bookName": "Book 1",
-         "previewImage": "src.jpg",
+         "previewImage": "/images/Book.jpg",
          "quantity": 3,
          "cost": 250,
         "isLend": false,
@@ -30,7 +30,7 @@
         {
         "bookUid": "book004",
         "bookName": "Book 1",
-         "previewImage": "src.jpg",
+         "previewImage": "/images/Book.jpg",
          "quantity": 3,
          "cost": 250,
         "isLend": true,

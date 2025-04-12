@@ -1,0 +1,13 @@
+{
+    "data": [
+        {"bookUid": 101, "bookName": "Book 1", "stock": 15, "prize": 15},
+        {"bookUid": 102, "bookName": "Book 2", "stock": 3, "prize": 15},
+        {"bookUid": 103, "bookName": "Book 3", "stock": 5, "prize": 15},
+        {"bookUid": 104, "bookName": "Book 4", "stock": 7, "prize": 15},
+        {"bookUid": 105, "bookName": "Book 5", "stock": 1, "prize": 15},
+        {"bookUid": 106, "bookName": "Book 6", "stock": 4, "prize": 15}
+    ],
+    "page": 1,
+    "booksPerPage": 6,
+    "totalPages": 10
+}

@@ -1,22 +1,44 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { convertCurrency, convertMilliSecToDateTime } from '../utils/utility';
+import { getLocalCurrency } from '../utils/paymentUtils';
+
+const {currency, currencyVal} = getLocalCurrency();
 
 const OrderItem = (props) => {
   return (
     <>
-        <Link to={`/order?oid=${props.orderId}`}>
-          <div className="order-label-container">
-            <span className="order-id">{props.orderId}</span>
-            <span className="order-status">{props.orderStatus}</span>
-          </div>
+      <div className="order-item">
+        <section className="order-label container">
+          <div className="order-id">Order Id <strong>{props.orderId}</strong></div>
+          <div className="order-status"><strong>{props.orderStatus}</strong></div>
+        </section>
+        
+        <div className="order-details">
+            <div className="order-details-title">Total Cost </div>
+            <div className="order-details-value">{currency}{convertCurrency(props.price, currencyVal)}</div>
+        </div>
+
+        <div className="order-details">
+            <div className="order-details-title">Total Books </div>
+            <div className="order-details-value">{props.totalBooks}</div>
+        </div>
+
+        <div className="order-details">
+          <div className="order-details-title">Lend Books </div>
+          <div className="order-details-value">{props.lendBooksCount}</div>
+        </div>
+
+        <div className="order-details">
+          <div className="order-details-title">Order Time </div>
+          <div className="order-details-value">{convertMilliSecToDateTime(props.datetime)}</div>
+        </div>
+
+        <Link to={`/order?oid=${props.orderId}`} className='view-order-button'>
+          <button type="button" className='buttons'>View Order</button>
         </Link>
-        {props.items.map((item, index)=>(
-            <div className="order-book" key={index}>
-                <span className="order-book-thumbnail"><img src={item.imgsrc} alt="src.jpg" /></span>
-                <span className="order-book-name">{item.name}</span>
-                <span className="order-book-quantity">{item.quantity}</span>
-            </div>
-        ))}
+
+      </div>
     </>
   )
 }

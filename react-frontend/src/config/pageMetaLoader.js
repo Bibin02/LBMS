@@ -41,3 +41,24 @@ export function loadMeta(metaData) {
     //     }
     // });
 }
+
+
+export function getPageMeta(RealtiveURL) {
+    switch (RealtiveURL) {
+        case '/signup':
+            return {
+                    title: 'E - Library Signup',
+                    description: 'Signup to Enjoy your Book Store',
+                    canonical: 'http://example.com/path/to/page',
+                    meta: {
+                        charset: 'utf-8',
+                        name: {
+                            keywords: 'react,meta,document,html,tags,blablabla'
+                        }
+                    }
+                }
+    
+        default:
+            return {};
+    }
+}

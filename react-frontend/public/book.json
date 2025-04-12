@@ -1,14 +1,21 @@
 {
     "bookUid": "book001",
     "bookName": "Book1",
-    "imageSource": "src.jpg",
+    "imageSource": "/images/Book2.jpg",
     "authorName": "auth1, auth 2",
     "bookSellStatus": false,
+    "bookLendDuration": 29839849,
     "sellerName": "seller1",
     "publicationName": "publication1",
-    "cost": "10",
+    "keywords": ["K1", "K2", "K3"],
+    "cost": 10,
     "discount": 5,
     "rating": "5.0",
     "stock": 25,
-    "bookDescription": "Description : Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium quae temporibus distinctio officia unde similique commodi. Deleniti excepturi fuga sunt quidem dolorem laboriosam. Officiis illo optio id voluptate repellat quae."
+    "bookDescription": {
+        "aaa": "AAA", 
+        "bbb": "BBB",
+        "ccc": "CCC",
+        "ddd": "DDD"
+    }
 }

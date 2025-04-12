@@ -1,8 +1,16 @@
+/* .login-outer-container */
+.login-outer-container{
+    display: flex;
+    height: 80%;
+    justify-content: center;
+    align-items: center;
+}
+
 /* Centering the login container */
 .login-container {
     width: 350px;
     padding: 40px;
-    background: #fff;
+    background: #f9dcdc;
     border: 1px solid #dbdbdb;
     border-radius: 8px;
     display: flex;
@@ -20,10 +28,13 @@
     gap: 10px;
 }
 
+.login-label{
+    display: block;
+}
+
 .input-field-login {
-    width: 100%;
     padding: 12px;
-    border: 1px solid #dbdbdb;
+    border: 2px solid #dbdbdb;
     border-radius: 4px;
     font-size: 14px;
     background: #fafafa;
@@ -32,14 +43,14 @@
 }
 
 .input-field-login:focus {
-    border-color: #a8a8a8;
+    border-color: #595959;
 }
 
 /* Styling buttons */
 .login-button {
     width: 100%;
     padding: 10px;
-    background: #0095f6;
+    background: #fc4545;
     color: white;
     border: none;
     border-radius: 4px;
@@ -51,7 +62,7 @@
 }
 
 .login-button:hover {
-    background: #0077cc;
+    background: #af4949;
 }
 
 /* Sign-up query */

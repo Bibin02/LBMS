@@ -1,0 +1,65 @@
+@import "./prize_tag.css";
+
+.outer-container{
+    padding: 2px;
+}
+
+
+.feeds-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.single-feed-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.thumbnail-container{
+    display: flex;
+    flex-direction: column;
+    max-width: 200px;
+    min-height: 250px;
+    padding: 2em;
+    justify-content: space-between;
+}
+
+.thumbnail-container:hover{
+    cursor: pointer;
+    box-shadow: 10px 10px 10px grey;
+    background-color: lightcyan;
+    transition: 0.3s background-color;
+    transition: 0.3s box-shadow;
+}
+
+.book-title{
+    text-align: center;
+    font-weight: bold;
+    font-size: large;
+    padding: 0.5em;
+}
+
+.bookthumbnail-author{
+    text-align: center;
+    padding: 0.5em;
+    font-size: large;
+    font-style: oblique;
+}
+
+.buttons-container{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+.buttons-container button{
+    font-size: medium;
+}
+
+.thumbnail-details-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}

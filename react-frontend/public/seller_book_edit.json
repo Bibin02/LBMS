@@ -1,0 +1,18 @@
+{
+    "bookName": "Book1",
+    "imageSource": "src.jpg",
+    "authorName": "auth1, auth 2",
+    "bookSellStatus": false,
+    "bookLendDuration": 29839849,
+    "publicationName": "publication1",
+    "keywords": ["K1", "K2", "K3"],
+    "cost": "10",
+    "discount": 5,
+    "stock": 25,
+    "bookDescription": {
+        "aaa": "AAA", 
+        "bbb": "BBB",
+        "ccc": "CCC",
+        "ddd": "DDD"
+    }
+}

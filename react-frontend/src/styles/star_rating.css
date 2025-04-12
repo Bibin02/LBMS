@@ -1,0 +1,14 @@
+.stars-outer-box{
+    width: 100%;
+    display: flex;
+}
+
+.star-box{
+    width: 100%;
+    height: 100%;
+    flex-wrap: nowrap;
+}
+.star-box img{
+    width: inherit;
+    height: inherit;
+}

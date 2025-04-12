@@ -1,0 +1,27 @@
+.filter-books-container{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.seller-books-container{
+    width: 100%;
+}
+
+.seller-books-container thead tr th{
+    background-color: beige;
+}
+
+.seller-books-container tbody tr td{
+    text-align: center;
+    font-size: large;
+}
+
+.seller-book div{
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+
+.back-button{
+    font-size: large;
+    width: 5em;
+}

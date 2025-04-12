@@ -1,34 +1,27 @@
 {
     "data":[
         {"orderId": "101",
+        "price": 50,
         "orderStatus": "Payment Complete",
-        "items": [
-            {"imgsrc": "book.jpg",
-             "name": "book1",
-             "quantity": 2}
-        ]
+        "totalBooks": 5,
+        "lendBooksCount": 2,
+        "datetime": 29384724
         },
 
         {"orderId": "102",
+        "price": 50,
         "orderStatus": "Order Dispatched",
-        "items": [
-            {"imgsrc": "book.jpg",
-             "name": "book1",
-             "quantity": 2},
-
-            {"imgsrc": "book.jpg",
-             "name": "book2",
-             "quantity": 5}
-        ]
+        "totalBooks": 5,
+        "lendBooksCount": 2,
+        "datetime": 29385729
         },
 
         {"orderId": "103",
+        "price": 50,
         "orderStatus": "Payment Incomplete",
-        "items": [
-            {"imgsrc": "book.jpg",
-             "name": "book1",
-             "quantity": 1}
-        ]
+        "totalBooks": 5,
+        "lendBooksCount": 2,
+        "datetime": 38592895
         }
     ]
 }

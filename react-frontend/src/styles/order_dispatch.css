@@ -1,0 +1,92 @@
+.order-dispatch-container{
+    display: flex;
+}
+
+/* left-panel */
+.order-book-container{
+    width: 40%;
+    overflow-y: scroll;
+    scrollbar-width: none; /* Hides scrollbar in Firefox */
+    -ms-overflow-style: none; /* Hides scrollbar in IE/Edge */
+}
+
+.order-book{
+    display: flex;
+    margin: 1em;
+}
+
+.order-book figure{
+    width: 20%;
+    height: inherit;
+    margin: 0.2em;
+}
+
+.order-book-details{
+    width: 80%;
+}
+
+.order-book-details td{
+    font-size: larger;
+    text-align: center;
+}
+
+.r-align{
+    font-weight: bold;
+}
+
+/* right-panel */
+.order-summary-panel{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60%;
+    margin: 1em;
+}
+
+/* payment */
+.payment-table{
+    width: 80%;
+    height: fit-content;
+}
+
+.payment-table tr{
+    background-color: lightsalmon;
+}
+
+.c-align{
+    padding: 1em;
+    text-align: center;
+    font-size: large;
+}
+
+.pay-button-link{
+    display: flex;
+    justify-content: center;
+}
+
+.pay-button{
+    font-size: medium;
+}
+
+.order-progress-container{
+    width: 100%;
+    padding: 1em;
+    text-align: center;
+}
+
+.order-progress-heading{
+    margin: 1em;
+}
+
+.track-order-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@media only screen and (max-width: 600){
+
+    .order-dispatch-container{
+        flex-direction: column;
+    }
+}

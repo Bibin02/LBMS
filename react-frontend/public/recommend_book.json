@@ -1,0 +1,10 @@
+{
+    "data": [
+        {"bookUid": "Book101", "imgSrc": "/images/Book.jpg", "bookName": "Book 1", "rating": 5, "cost": 10, "discount": 20},
+        {"bookUid": "Book102", "imgSrc": "/images/Book.jpg", "bookName": "Book 2", "rating": 4.5, "cost": 50, "discount": 20},
+        {"bookUid": "Book201", "imgSrc": "/images/Book.jpg", "bookName": "Book 3", "rating": 3.5, "cost": 10, "discount": 200},
+        {"bookUid": "Book801", "imgSrc": "/images/Book.jpg", "bookName": "Book 4", "rating": 2.5, "cost": 40},
+        {"bookUid": "Book301", "imgSrc": "/images/Book.jpg", "bookName": "Book 5", "rating": 4, "cost": 30, "discount": 20},
+        {"bookUid": "Book401", "imgSrc": "/images/Book.jpg", "bookName": "Book 6", "rating": 1, "cost": 20}
+    ]
+}

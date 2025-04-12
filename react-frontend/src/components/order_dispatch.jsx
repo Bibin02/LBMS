@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useSearchParams } from 'react-router-dom'
-import fetchJSON from '../services/dataFetcher';
-import { convertTo, getExtraCharges, getLocalCurrency } from '../utils/converters';
+import { useNavigate, useSearchParams } from 'react-router-dom'
+import { fetchJSONQuery } from '../services/dataFetcher';
+import { getExtraCharges, getLocalCurrency } from '../utils/paymentUtils';
+import { calculateLendDuration, convertCurrency } from '../utils/utility';
+import { payOrder } from '../services/order';
+
+import NavigationMenu from './navigation_menu';
+import OrderProgress from './order_progress';
 
 const OrderDispatch = () => {
 
     const [searchParams] = useSearchParams();
+    const navigator = useNavigate();
     const [orderJson, setOrderJson] = useState({});
 
     const { currency, currencyVal } = getLocalCurrency();
@@ -13,76 +19,110 @@ const OrderDispatch = () => {
     const { charges } = getExtraCharges();
     let totalCharges = 0;
 
-    async function getData() {
-      setOrderJson(await fetchJSON("/order.json"))
-    }
-
     useEffect( ()=>{
+      const getData = async () => {
+        setOrderJson(await fetchJSONQuery("/order.json", {orderId: searchParams.get("oid")}))
+      }
       getData();
     }, [])
     
   return (
     <>
-        <div className="container outer-container">
-            <h1>Order ID : {searchParams.get("oid")}</h1>
+        <NavigationMenu/>
+        <main className="container outer-container">
+          <h1>Order ID : {searchParams.get("oid")}</h1>
             {orderJson.fetchStatus ? (
-              <div className="container inner-container">
-                <div className="container">
-                  {orderJson.items.map((item, index)=>(
+              <div className="order-dispatch-container">
+                <div className="order-book-container">
+                  {orderJson.items.map((book, index)=>(
                       <div className="order-book" key={index}>
-                          <span className="order-book-thumbnail"><img src={item.imgsrc} alt="src.jpg" /></span>
-                          <span className="order-book-name">{item.name}</span>
-                          <span className="order-book-quantity">{item.quantity}</span>
+                          <figure className="order-book-thumbnail">
+                            <img src={book.imgsrc ? book.imgsrc : "/images/Book.jpg" } alt="src.jpg" />
+                          </figure>
+                          <table className="order-book-details">
+                            <tbody>
+                              <tr className="order-book-name">
+                                <td>Book Title</td>
+                                <td className='r-align'>{book.name}</td>
+                              </tr>
+                              <tr className="order-book-quantity">
+                                <td> Quantity </td>
+                                <td className='r-align'>{book.quantity}</td>
+                              </tr>
+                              {book.isLend && 
+                                <>
+                                  <tr className="order-book-lend">
+                                    <td> Duration </td>
+                                    <td className='r-align' >{calculateLendDuration(book.lendDuration)}</td>
+                                  </tr>
+                                  <tr className="order-book-lend">
+                                    <td colSpan={2} className='r-align'>Took Lease</td>
+                                  </tr>
+                                </>
+                              }
+                            </tbody>
+                          </table>
+                          
                       </div>
                   ))}
                 </div>
-                <div className="summary-panel">
-                  <div className="order-details">
+                <aside className="order-summary-panel container">
+                    {!orderJson.isPaid && 
+                      <table className="payment-table">
+                        <tbody>
+                          <tr className="payment-row">
+                            <td><strong className="cost-name">Total Cost</strong></td>
+                            <td className="currency c-align">{currency} {convertCurrency(orderJson.totalCost, currencyVal)}</td>
+                          </tr>
+                          
+                          {charges.map( (charge, index)=>{
+                            totalCharges += charge.value;
+                            return(
+                            <tr key={index} className="payment-row">
+                              <td><em className="cost-name">{charge.chargeName}</em></td>
+                              <td className="currency c-align"> <em>{currency} {convertCurrency(charge.value, currencyVal)}</em></td>
+                            </tr>)
+                          })}
 
-                    {!orderJson.isPaid ? 
-                      <div className="payment">
-                        <div className="prize-tag">
-                          <span className="cost-name">Total Cost</span>
-                          <span className="currency">{currency}</span>
-                          <span className="total-cost">{convertTo(orderJson.totalCost, currencyVal)}</span>
-                        </div>
-                        {charges.map( (charge, index)=>{
-                          totalCharges += charge.value;
-                          return(<div key={index} className="prize-tag">
-                            <span className="cost-name">{charge.chargeName}</span>
-                            <span className="currency">{currency}</span>
-                            <span className="charges-cost">{convertTo(charge.value, currencyVal)}</span>
-                          </div>)
-                        })}
-                        <div className="prize-tag">
-                          <span className="currency">{currency}</span>
-                          <span className="final-cost">{convertTo(orderJson.totalCost + totalCharges, currencyVal)}</span>
-                        </div>
-                        <div className="payment-button">
-                          <Link to={'/'}> 
-                            <button className="buttons">
-                              Complete Payment
-                            </button>
-                          </Link>
-                        </div>
-                      </div> : null
+                          <tr className="payment-row">
+                            <td><strong className="cost-name">Final Cost</strong></td>
+                            <td className="currency c-align"> 
+                              <mark><strong>{currency} {convertCurrency(orderJson.totalCost + totalCharges, currencyVal)}</strong></mark>
+                            </td>
+                          </tr>
+                          <tr className="payment-row">
+                            <td colSpan={2}>
+                              <div className='pay-button-link'>
+                                <button className="pay-button buttons" 
+                                  onClick={ ()=>
+                                    payOrder(
+                                      orderJson.orderId, 
+                                      convertCurrency(orderJson.totalCost + totalCharges, currencyVal),
+                                      navigator
+                                    )
+                                  }>
+                                  Complete Payment
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
                     }
-                    
-                    <div className="order-progress">
-                      {orderJson.orderStatus}
-                    </div>
-
-                  </div>
-                </div>
+                    <OrderProgress
+                      orderStatusCode={orderJson.orderStatusCode}
+                      orderStatus={orderJson.orderStatus}
+                    />
+                </aside>
               </div>
             ) : (
-              <div className="inner-container">
+              <div className="order-dispatch-container">
                 <p className="fetch-fail-reason">
                   {orderJson.reason}
                 </p>
               </div>
             )}
-        </div>
+        </main>
         
     </>
   )

@@ -1,0 +1,21 @@
+/* Search Bar */
+.search-bar-container{
+    display: flex;
+    height: 40px;
+    padding: 0.2em;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.filter-select{
+    border-radius: 5px;
+    text-align: center;
+    height: 2.5em;
+    margin-right: 1em;
+    background-color: azure;
+}
+
+.search-icon-box{
+    height: 2.5em;
+    margin-left: 1em;
+}

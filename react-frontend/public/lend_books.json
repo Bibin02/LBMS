@@ -1,0 +1,30 @@
+{
+    "data":[
+        {
+            "bookUid": 101, 
+            "bookName": "Book 1", 
+            "imageSource": "/images/Book.jpg", 
+            "lendDuration": 93030, 
+            "orderId": 101,
+            "orderDate": 394857498
+        },
+
+        {
+            "bookUid": 102, 
+            "bookName": "Book 2", 
+            "imageSource": "/images/Book2.jpg", 
+            "lendDuration": 93030, 
+            "orderId": 101,
+            "orderDate": 394857498
+        },
+
+        {
+            "bookUid": 103, 
+            "bookName": "Book 3", 
+            "imageSource": "/images/Book3.avif", 
+            "lendDuration": 93030, 
+            "orderId": 101,
+            "orderDate": 394857498
+        }
+    ]
+}
