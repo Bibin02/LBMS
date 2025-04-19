@@ -1,5 +1,0 @@
-CREATE TABLE IF NOT EXISTS users (
-    uid VARCHAR(200) PRIMARY KEY,
-    uname VARCHAR(100),
-    pass VARCHAR(100)
-);
