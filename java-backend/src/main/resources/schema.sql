@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS users (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(100),
-    email VARCHAR(100) UNIQUE NOT NULL
+    uid VARCHAR(200) PRIMARY KEY,
+    uname VARCHAR(100),
+    pass VARCHAR(100)
 );

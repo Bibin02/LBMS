@@ -13,6 +13,6 @@ public class SampleRepo {
     ProjectDataManager pdm;
 
     public Users getUsers(){
-        return pdm.getProjectEntityManager().find(Users.class,101);
+        return pdm.getProjectEntityManager().find(Users.class,"john@example.com");
     }
 }

@@ -8,11 +8,18 @@ import jakarta.persistence.Table;
 @Table(name = "users")
 public class Users {
     @Id
-    private int uid;
+    private String uid;
     private String uname;
+    private String pass;
+    public String getUid() {
+        return uid;
+    }
     @Override
     public String toString() {
         return "Users [uid=" + uid + ", uname=" + uname + ", pass=" + pass + "]";
+    }
+    public void setUid(String uid) {
+        this.uid = uid;
     }
     public String getUname() {
         return uname;
@@ -26,6 +33,5 @@ public class Users {
     public void setPass(String pass) {
         this.pass = pass;
     }
-    private String pass;
     
 }
