@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.lbms.model.Users;
-import com.project.lbms.repository.UsersRepository;
+import com.project.lbms.service.UserService;
 
 @RestController
 @RequestMapping
@@ -21,7 +21,7 @@ import com.project.lbms.repository.UsersRepository;
 public class UserController {
 
     @Autowired
-    UsersRepository urepo;
+    UserService userService;
 
     @RequestMapping(
         method = RequestMethod.GET, 
@@ -29,7 +29,7 @@ public class UserController {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Object getUser(@PathVariable String id){
-        return urepo.findById(id);
+        return userService.findUserById(id);
     }
 
     @RequestMapping(
@@ -39,6 +39,6 @@ public class UserController {
 
     @ResponseBody()
     public List<Users> getUsers(){
-        return urepo.findAll();
+        return userService.findAllUsers();
     }
 }
