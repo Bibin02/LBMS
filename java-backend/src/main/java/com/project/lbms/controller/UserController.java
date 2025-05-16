@@ -4,15 +4,17 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.lbms.model.Users;
 import com.project.lbms.service.UserService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @RestController
 @RequestMapping
 (
@@ -21,24 +23,23 @@ import com.project.lbms.service.UserService;
 public class UserController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
-    @RequestMapping(
-        method = RequestMethod.GET, 
+    private final String USER_CONTROLLER_STR = "UserController ";
+
+    @GetMapping(
         path = "/user/{id}",
         produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
     public Object getUser(@PathVariable String id){
+        log.info(USER_CONTROLLER_STR + "getUser " + id);
         return userService.findUserById(id);
     }
 
-    @RequestMapping(
-        method = RequestMethod.GET, 
+    @GetMapping(
         path = "/users", 
         produces = MediaType.APPLICATION_JSON_VALUE)
-
-    @ResponseBody()
     public List<Users> getUsers(){
+        log.info(USER_CONTROLLER_STR + "getUsers ");
         return userService.findAllUsers();
     }
 }
