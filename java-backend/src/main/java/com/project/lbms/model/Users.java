@@ -1,10 +1,17 @@
 package com.project.lbms.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
 @Entity
 @Table(name = "users")
 public class Users {
@@ -15,6 +22,7 @@ public class Users {
     @Column(name = "uname")
     private String userName;
 
+    @JsonProperty(access = Access.WRITE_ONLY)
     private String pass;
 
     @Column(name = "is_seller")
@@ -25,59 +33,4 @@ public class Users {
 
     @Column(name = "description")
     private String userDescription;
-
-    @Override
-    public String toString() {
-        return "Users [userId=" + userId + ", userName=" + userName + ", pass=" + pass + ", isSeller=" + isSeller
-                + ", userAddress=" + userAddress + ", userDescription=" + userDescription + "]";
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPass() {
-        return pass;
-    }
-
-    public void setPass(String pass) {
-        this.pass = pass;
-    }
-
-    public Boolean getIsSeller() {
-        return isSeller;
-    }
-
-    public void setIsSeller(Boolean isSeller) {
-        this.isSeller = isSeller;
-    }
-
-    public String getUserAddress() {
-        return userAddress;
-    }
-
-    public void setUserAddress(String userAddress) {
-        this.userAddress = userAddress;
-    }
-
-    public String getUserDescription() {
-        return userDescription;
-    }
-
-    public void setUserDescription(String userDescription) {
-        this.userDescription = userDescription;
-    }
-    
 }
