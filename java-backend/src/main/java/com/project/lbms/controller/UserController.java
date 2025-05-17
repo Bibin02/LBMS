@@ -25,13 +25,13 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    private final String USER_CONTROLLER_STR = "UserController ";
+    private static final String USER_CONTROLLER_STR = "UserController";
 
     @GetMapping(
         path = "/user/{id}",
         produces = MediaType.APPLICATION_JSON_VALUE)
     public Object getUser(@PathVariable String id){
-        log.info(USER_CONTROLLER_STR + "getUser " + id);
+        log.info( "{} getUser {}",USER_CONTROLLER_STR, id);
         return userService.findUserById(id);
     }
 
@@ -39,7 +39,7 @@ public class UserController {
         path = "/users", 
         produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Users> getUsers(){
-        log.info(USER_CONTROLLER_STR + "getUsers ");
+        log.info( "{} getUsers",USER_CONTROLLER_STR);
         return userService.findAllUsers();
     }
 }

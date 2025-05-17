@@ -17,6 +17,7 @@ spring:
     password: pass
 
   jpa:
+    defer-datasource-initialization: true
     hibernate:
       ddl-auto: update
     show-sql: true
@@ -24,15 +25,12 @@ spring:
   sql:
     init:
       mode: always
-      schema-locations: classpath:schema.sql
       data-locations: classpath:data.sql
 
 server:
   port: 8300
   error:
     path: /error
-    # whitelabel:
-    #   enabled: false
 
 logging:
   level:

@@ -17,16 +17,16 @@ public class UserService {
     @Autowired
     private UsersRepository usersRepository;
 
-    private final String USER_SERVICE_STR = "UserService ";
+    private static final String USER_SERVICE_STR = "UserService";
 
     public Object findUserById(String id){
-        log.info(USER_SERVICE_STR + "findUserById " + id);
+        log.info("{} findUserById {}", USER_SERVICE_STR, id);
         return usersRepository.findById(id);
 
     }
 
     public List<Users> findAllUsers() {
-        log.info(USER_SERVICE_STR + "findAllUsers ");
+        log.info("{} findAllUsers ", USER_SERVICE_STR);
         return usersRepository.findAll();
     }
 }

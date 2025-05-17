@@ -16,10 +16,10 @@ import lombok.NoArgsConstructor;
 @Table(name = "users")
 public class Users {
     @Id
-    @Column(name = "uid")
+    @Column(name = "user_uid")
     private String userId;
 
-    @Column(name = "uname")
+    @Column(name = "user_name")
     private String userName;
 
     @JsonProperty(access = Access.WRITE_ONLY)
@@ -28,9 +28,9 @@ public class Users {
     @Column(name = "is_seller")
     private Boolean isSeller;
 
-    @Column(name = "address")
+    @Column(name = "user_address")
     private String userAddress;
 
-    @Column(name = "description")
+    @Column(name = "user_description")
     private String userDescription;
 }
