@@ -1,6 +1,7 @@
 package com.project.lbms.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ public class UserService {
 
     private static final String USER_SERVICE_STR = "UserService";
 
-    public Object findUserById(String id){
+    public Optional<Users> findUserById(String id){
         log.info("{} findUserById {}", USER_SERVICE_STR, id);
         return usersRepository.findById(id);
 

@@ -1,6 +1,7 @@
 package com.project.lbms.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,13 +20,13 @@ public class BookService {
 
     private static final String BOOK_SERVICE_STR = "BookService";
 
-    public Object findBookById(String id) {
+    public Optional<Book> findBookById(String id) {
         log.info("{} findBookById {}",BOOK_SERVICE_STR, id);
         return bookRepository.findById(id);
     }
 
     public List<Book> findAllBooks() {
-        log.info("{} findAllBooks {}",BOOK_SERVICE_STR);
+        log.info("{} findAllBooks",BOOK_SERVICE_STR);
         return bookRepository.findAll();
     }
 

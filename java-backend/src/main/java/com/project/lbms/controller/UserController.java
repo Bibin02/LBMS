@@ -1,6 +1,7 @@
 package com.project.lbms.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.lbms.beans.ProjectErrorResponse;
 import com.project.lbms.model.Users;
 import com.project.lbms.service.UserService;
 
@@ -24,6 +26,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private ProjectErrorResponse projectErrorResponse;
 
     private static final String USER_CONTROLLER_STR = "UserController";
 
@@ -32,7 +36,15 @@ public class UserController {
         produces = MediaType.APPLICATION_JSON_VALUE)
     public Object getUser(@PathVariable String id){
         log.info( "{} getUser {}",USER_CONTROLLER_STR, id);
-        return userService.findUserById(id);
+        Optional<Users> user = userService.findUserById(id);
+        if(user.isPresent()) {
+            return user;
+        }
+        else{ 
+            projectErrorResponse.setErrorCode(404);
+            projectErrorResponse.setMessage("User not found");
+            return projectErrorResponse;
+        }
     }
 
     @GetMapping(
