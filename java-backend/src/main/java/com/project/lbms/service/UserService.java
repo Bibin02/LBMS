@@ -1,11 +1,11 @@
 package com.project.lbms.service;
 
 import java.util.List;
-import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import com.project.lbms.exception.LbmsException;
 import com.project.lbms.model.Users;
 import com.project.lbms.repository.UsersRepository;
 
@@ -15,15 +15,20 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class UserService {
     
-    @Autowired
     private UsersRepository usersRepository;
-
     private static final String USER_SERVICE_STR = "UserService";
 
-    public Optional<Users> findUserById(String id){
-        log.info("{} findUserById {}", USER_SERVICE_STR, id);
-        return usersRepository.findById(id);
+    public UserService(UsersRepository usersRepository){
+        this.usersRepository = usersRepository;
+    }
 
+    public Users findUserById(String id) throws LbmsException{
+        log.info("{} findUserById {}", USER_SERVICE_STR, id);
+        Users user;
+        if((user = usersRepository.findById(id).orElse(null)) == null){
+            throw new LbmsException(HttpStatus.NOT_FOUND, "User Not Found for the given id " + id);
+        }
+        return user;
     }
 
     public List<Users> findAllUsers() {

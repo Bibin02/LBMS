@@ -1,55 +1,44 @@
 package com.project.lbms.controller;
 
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.project.lbms.beans.ProjectErrorResponse;
-import com.project.lbms.model.Book;
+import com.project.lbms.exception.LbmsException;
 import com.project.lbms.service.BookService;
+import com.project.lbms.util.LbmsResponseEntityBuilder;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
 @RequestMapping(value = "/api/v1")
-public class BookController {
+public class BookController extends LbmsResponseEntityBuilder{
 
-    @Autowired
     private BookService bookService;
-    @Autowired
-    private ProjectErrorResponse projectErrorResponse;
-
     private static final String BOOK_CONTROLLER_STR = "BookController";
 
-    
+    public BookController(BookService bookService){
+        this.bookService = bookService;
+    }
+
     @GetMapping(
         path = "/book/{id}",
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public Object getBook(@PathVariable String id){
+    public ResponseEntity<Object> getBook(@PathVariable String id) throws LbmsException{
         log.info( "{} getBook {}",BOOK_CONTROLLER_STR, id);
-        Optional<Book> book = bookService.findBookById(id);
-        if(book.isPresent()) {
-            return book;
-        }
-        else{ 
-            projectErrorResponse.setErrorCode(404);
-            projectErrorResponse.setMessage("Book not found");
-            return projectErrorResponse;
-        }
+        return getResponseEntityOk(bookService.findBookById(id));
     }
     
     @GetMapping(
         path = "/books",
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public Object getBooks(){
+    public ResponseEntity<Object> getBooks() throws LbmsException{
         log.info( "{} getBooks",BOOK_CONTROLLER_STR);
-        return bookService.findAllBooks();
+        return getResponseEntityOk(bookService.findAllBooks());
     }
         
 }
