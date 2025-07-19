@@ -38,7 +38,13 @@ public class Seller {
     @Column(name = "seller_description")
     private String sellerDescription;
 
-    @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL)
-    private Set<SellerBooks> bookSellers;
+    @Column(name = "books_sold_count", columnDefinition = "INTEGER DEFAULT 0")
+    private int bookSoldCount = 0;
+    
+    @Column(columnDefinition = "DOUBLE DEFAULT 0.0")
+    private double earnings = 0.0;
+
+    @OneToMany(mappedBy = "bookSeller", cascade = CascadeType.ALL)
+    private Set<Book> saleBooks;
 
 }

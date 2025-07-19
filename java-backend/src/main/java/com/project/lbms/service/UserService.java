@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import com.project.lbms.dto.UsersVO;
 import com.project.lbms.exception.LbmsException;
 import com.project.lbms.model.Users;
 import com.project.lbms.repository.UsersRepository;
@@ -22,8 +23,8 @@ public class UserService {
         this.usersRepository = usersRepository;
     }
 
-    public Users findUserById(String id) throws LbmsException{
-        log.info("{} findUserById {}", USER_SERVICE_STR, id);
+    public Users findMasterUserById(String id) throws LbmsException{
+        log.info("{} findMasterUserById {}", USER_SERVICE_STR, id);
         Users user;
         if((user = usersRepository.findById(id).orElse(null)) == null){
             throw new LbmsException(HttpStatus.NOT_FOUND, "User Not Found for the given id " + id);
@@ -34,5 +35,14 @@ public class UserService {
     public List<Users> findAllUsers() {
         log.info("{} findAllUsers ", USER_SERVICE_STR);
         return usersRepository.findAll();
+    }
+
+    public UsersVO findUserById(String id) throws LbmsException{
+        log.info("{} findUserById {}", USER_SERVICE_STR, id);
+        UsersVO user;
+        if((user = usersRepository.findUserById(id).orElse(null)) == null){
+            throw new LbmsException(HttpStatus.NOT_FOUND, "User Not Found for the given id " + id);
+        }
+        return user;
     }
 }

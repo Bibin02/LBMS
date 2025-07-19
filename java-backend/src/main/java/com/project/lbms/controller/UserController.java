@@ -28,17 +28,25 @@ public class UserController extends LbmsResponseEntityBuilder{
         this.userService = userService;
     }
 
-    @GetMapping(
-        path = "/user/{id}",
-        produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/masterUser/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> getMasterUser(@PathVariable String id) throws LbmsException{
+        log.info( "{} getMasterUser {}",USER_CONTROLLER_STR, id);
+        return getResponseEntityOk(userService.findMasterUserById(id));
+    }
+
+    @GetMapping(path = "/masterUsers", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> getMasterUsers(){
+        log.info( "{} getMasterUsers",USER_CONTROLLER_STR);
+        return getResponseEntityOk(userService.findAllUsers());
+    }
+
+    @GetMapping(path = "/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> getUser(@PathVariable String id) throws LbmsException{
         log.info( "{} getUser {}",USER_CONTROLLER_STR, id);
         return getResponseEntityOk(userService.findUserById(id));
     }
 
-    @GetMapping(
-        path = "/users", 
-        produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> getUsers(){
         log.info( "{} getUsers",USER_CONTROLLER_STR);
         return getResponseEntityOk(userService.findAllUsers());

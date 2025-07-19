@@ -25,17 +25,25 @@ public class BookController extends LbmsResponseEntityBuilder{
         this.bookService = bookService;
     }
 
-    @GetMapping(
-        path = "/book/{id}",
-        produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/masterBook/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> getMasterBook(@PathVariable String id) throws LbmsException{
+        log.info( "{} getMasterBook {}",BOOK_CONTROLLER_STR, id);
+        return getResponseEntityOk(bookService.findMasterBookById(id));
+    }
+    
+    @GetMapping(path = "/masterBooks", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> getMasterBooks() throws LbmsException{
+        log.info( "{} getMasterBooks",BOOK_CONTROLLER_STR);
+        return getResponseEntityOk(bookService.findAllMasterBooks());
+    }
+
+    @GetMapping(path = "/book/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> getBook(@PathVariable String id) throws LbmsException{
         log.info( "{} getBook {}",BOOK_CONTROLLER_STR, id);
         return getResponseEntityOk(bookService.findBookById(id));
     }
     
-    @GetMapping(
-        path = "/books",
-        produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/books", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> getBooks() throws LbmsException{
         log.info( "{} getBooks",BOOK_CONTROLLER_STR);
         return getResponseEntityOk(bookService.findAllBooks());
