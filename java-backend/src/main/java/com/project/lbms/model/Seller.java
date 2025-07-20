@@ -5,9 +5,9 @@ import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -44,7 +44,7 @@ public class Seller {
     @Column(columnDefinition = "DOUBLE PRECISION DEFAULT 0.0")
     private double earnings = 0.0;
 
-    @OneToMany(mappedBy = "bookSeller", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "bookSeller", fetch = FetchType.LAZY)
     private Set<Book> saleBooks;
 
 }

@@ -32,11 +32,9 @@ public class BookService {
 
     public Book findMasterBookById(String id) throws LbmsException{
         log.info("{} findMasterBookById {}",BOOK_SERVICE_STR, id);
-        Book book;
-        if((book = bookRepository.findById(id).orElse(null)) == null){
-            throw new LbmsException(HttpStatus.NOT_FOUND, "Book Not Found for the given id " + id);
-        }
-        return book;
+        return bookRepository.findById(id).orElseThrow(
+                ()-> new LbmsException(HttpStatus.NOT_FOUND, LbmsConstants.BOOK_NOT_FOUND + id)
+            );
     }
 
     public List<Book> findAllMasterBooks(int pageNumber) {
@@ -46,12 +44,9 @@ public class BookService {
 
     public BookVO findBookById(String id) throws LbmsException{
         log.info("{} findBookById {}",BOOK_SERVICE_STR, id);
-        BookVO book;
-        if((book = BookVO.build(bookRepository.findById(id).orElse(null))) == null){
-            throw new LbmsException(HttpStatus.NOT_FOUND, "Book Not Found for the given id " + id);
-        }
-        book.setRating(reviwRepository.findBookRating(id).orElse(5.0));
-        return book;
+        return BookVO.build(bookRepository.findById(id).orElseThrow(
+                ()-> new LbmsException(HttpStatus.NOT_FOUND, LbmsConstants.BOOK_NOT_FOUND + id)
+            ));
     }
 
     public List<BookThumbnail> findAllBooks(int pageNumber) {
@@ -60,8 +55,7 @@ public class BookService {
         bookRepository.findAll(PageRequest.of(pageNumber, LbmsConstants.PAGE_SIZE))
             .stream().forEach(book->{
                 BookThumbnail bookThumbnail = BookThumbnail.build(book);
-                double rating = reviwRepository.findBookRating(book.getBookUid()).orElse(5.0);
-                bookThumbnail.setRating(rating);
+                bookThumbnail.setRating(reviwRepository.findBookRating(book.getBookUid()).orElse(5.0));
                 bookThumbnails.add(bookThumbnail);
             });
         return bookThumbnails;

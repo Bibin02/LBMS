@@ -45,7 +45,7 @@ public class BookVO {
     private Integer stock;
     private Map<String, Object> bookDescription;
 
-    private void setKeywords(String keywords){
+    public void setKeywords(String keywords){
         this.keywords = List.of(keywords.split(","));
     }
 
