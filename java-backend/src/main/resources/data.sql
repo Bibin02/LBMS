@@ -24,7 +24,7 @@ INSERT INTO book (book_uid, book_name, author_names, publication_name, keywords,
 ('BK005', 'Book EEE', 'Stephen King', 'Viking Press', 'horror,thriller,supernatural', 60, 20, 1.2, '{ "about": "A chilling story of horror and psychological tension."}', '2001');
 
 
-INSERT INTO review (review_id, rating, comments, book_uid, user_uid) VALUES
-(1001, 5.0, 'Comments', 'BK001', 'john@example.com'),
-(1002, 4.0, 'Comments', 'BK001', 'john@example.com'),
-(1003, 5.0, 'Comments', 'BK001', 'john@example.com')
+INSERT INTO review (rating, comments, book_uid, user_uid) VALUES
+(5.0, 'Comments By John for Book 1', 'BK001', 'john@example.com'),
+(4.0, 'Comments By John for Book 2', 'BK002', 'john@example.com'),
+(5.0, 'Comments By Raven for Book 1', 'BK001', 'raven@example.com')

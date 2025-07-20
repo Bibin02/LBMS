@@ -1,12 +1,11 @@
 package com.project.lbms.model;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,20 +13,22 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class Review {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "review_id")
-    private int reviewId;
+
+    @EmbeddedId
+    private ReviewId reviewId;
+
+    @Column(columnDefinition = "DOUBLE PRECISION CHECK (rating <= 5.0)")
     private double rating;
+    
     private String comments;
-
-
-
+    
     @ManyToOne
+    @MapsId("reviewBookUid")
     @JoinColumn(name = "book_uid")
     private Book reviewBook;
 
     @ManyToOne
+    @MapsId("reviewUserUid")
     @JoinColumn(name = "user_uid")
     private Users reviewUser;
 }

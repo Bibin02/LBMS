@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -40,15 +41,15 @@ public class Users {
     private String userDescription;
 
 
-    @OneToMany(mappedBy = "reviewUser")
+    @OneToMany(mappedBy = "reviewUser", fetch = FetchType.LAZY)
     private Set<Review> reviews;
 
-    @OneToMany(mappedBy = "lendedUserUid")
+    @OneToMany(mappedBy = "lendedUserUid", fetch = FetchType.LAZY)
     private Set<LendUserBook> lendedBooks;
 
-    @OneToMany(mappedBy = "cartUser")
+    @OneToMany(mappedBy = "cartUser", fetch = FetchType.LAZY)
     private Set<Cart> userCarts;
 
-    @OneToOne(mappedBy = "paymentUser")
+    @OneToOne(mappedBy = "paymentUser", fetch = FetchType.LAZY)
     private Payment payment;
 }

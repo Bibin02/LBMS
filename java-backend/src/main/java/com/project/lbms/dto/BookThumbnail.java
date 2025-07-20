@@ -1,7 +1,6 @@
 package com.project.lbms.dto;
 
 import com.project.lbms.model.Book;
-import com.project.lbms.model.Review;
 
 import lombok.Data;
 
@@ -14,11 +13,6 @@ public class BookThumbnail {
         this.author = book.getAuthors();
         this.cost = book.getCost();
         this.discount = book.getDiscount();
-        this.rating = book.getReviews()
-                        .stream()
-                        .mapToDouble(Review::getRating)
-                        .average()
-                        .orElse(0.0);
     }
     private String bookUid;
     private String bookName;

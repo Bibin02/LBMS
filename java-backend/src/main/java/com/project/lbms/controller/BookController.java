@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.lbms.exception.LbmsException;
@@ -32,9 +33,11 @@ public class BookController extends LbmsResponseEntityBuilder{
     }
     
     @GetMapping(path = "/masterBooks", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> getMasterBooks() throws LbmsException{
+    public ResponseEntity<Object> getMasterBooks(
+        @RequestParam(required = false, defaultValue = "0") int pageNumber) 
+        throws LbmsException{
         log.info( "{} getMasterBooks",BOOK_CONTROLLER_STR);
-        return getResponseEntityOk(bookService.findAllMasterBooks());
+        return getResponseEntityOk(bookService.findAllMasterBooks(pageNumber));
     }
 
     @GetMapping(path = "/book/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -44,9 +47,11 @@ public class BookController extends LbmsResponseEntityBuilder{
     }
     
     @GetMapping(path = "/books", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> getBooks() throws LbmsException{
+    public ResponseEntity<Object> getBooks(
+        @RequestParam(required = false, defaultValue = "0") int pageNumber) 
+        throws LbmsException{
         log.info( "{} getBooks",BOOK_CONTROLLER_STR);
-        return getResponseEntityOk(bookService.findAllBooks());
+        return getResponseEntityOk(bookService.findAllBooks(pageNumber));
     }
         
 }
