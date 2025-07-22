@@ -3,6 +3,7 @@ package com.project.lbms.controller;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,9 +25,9 @@ public class ReviewController extends LbmsResponseEntityBuilder{
         this.reviewSevice = reviewService;
     }
 
-    @GetMapping(path = "/reviews", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/review/{bookUid}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> getBookReviews(
-        @RequestParam String bookUid,
+        @PathVariable String bookUid,
         @RequestParam(required = false, defaultValue = "0") Integer pageNumber
         ){
         log.info("{} getBookReviews {}", REVIEW_CONTROLLER_STR, bookUid);
