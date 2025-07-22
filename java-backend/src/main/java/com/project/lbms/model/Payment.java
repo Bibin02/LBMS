@@ -4,6 +4,7 @@ import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
@@ -26,11 +27,11 @@ public class Payment {
     @Column(name = "payment_date")
     private Date paymentDate;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_uid")
     private Orders paymentOrder;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_uid")
     private Users paymentUser;
 

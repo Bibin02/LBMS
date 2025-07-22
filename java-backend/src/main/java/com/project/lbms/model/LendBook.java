@@ -4,6 +4,7 @@ import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
@@ -19,7 +20,7 @@ public class LendBook {
     @Id
     private String lendBookPrimaryKeyId;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "lend_book_uid")
     private Book lendableBook;
 
@@ -27,6 +28,6 @@ public class LendBook {
     private double lendCost;
     private long duration;
 
-    @OneToMany(mappedBy = "lendedBookUid")
+    @OneToMany(mappedBy = "lendedBookUid", fetch = FetchType.LAZY)
     private Set<LendUserBook> lendedBooks;
 }

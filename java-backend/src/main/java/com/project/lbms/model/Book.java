@@ -9,6 +9,7 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -60,17 +61,17 @@ public class Book {
     @Convert(converter = JsonConverter.class)
     private Map<String, Object> bookDescription;
 
-    @OneToOne(mappedBy = "lendableBook")
+    @OneToOne(mappedBy = "lendableBook", fetch = FetchType.LAZY)
     private LendBook lendableBook;
 
-    @OneToMany(mappedBy = "reviewBook")
+    @OneToMany(mappedBy = "reviewBook", fetch = FetchType.LAZY)
     private Set<Review> reviews;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "seller_uid", nullable = false)
     private Seller bookSeller;
 
-    @ManyToMany(mappedBy = "cartBooks")
+    @ManyToMany(mappedBy = "cartBooks", fetch = FetchType.LAZY)
     private Set<Cart> bookFoundInCarts;
 
 }

@@ -1,4 +1,7 @@
 -- Clear all data before adding
+delete from orders;
+delete from cart_books;
+delete from cart;
 delete from review;
 delete from book;
 delete from seller;
@@ -30,4 +33,22 @@ INSERT INTO book (book_uid, book_name, author_names, publication_name, keywords,
 INSERT INTO review (rating, comments, book_uid, user_uid) VALUES
 (5.0, 'Comments By John for Book 1', 'BK001', 'john@example.com'),
 (4.0, 'Comments By John for Book 2', 'BK002', 'john@example.com'),
-(5.0, 'Comments By Raven for Book 1', 'BK001', 'raven@example.com')
+(5.0, 'Comments By Raven for Book 1', 'BK001', 'raven@example.com');
+
+INSERT INTO cart (cart_uid, is_ordered, user_uid) VALUES
+('9001', true, 'john@example.com'),
+('9002', false, 'raven@example.com'),
+('9003', true, 'david@example.com'),
+('9004', false, 'george@example.com');
+
+INSERT INTO cart_books VALUES
+('9001', 'BK001'),
+('9001', 'BK002'),
+('9001', 'BK003'),
+('9001', 'BK004');
+
+INSERT INTO orders (order_uid, order_status_code, order_status_message, total_amount, is_paid, is_delivered, cart_uid) VALUES 
+('5001', 200, 'Delivered', 500, true, true, '9001'),
+('5002', 500, 'Not Paid', 100, false, false, '9002'),
+('5003', 300, 'Not Delivered', 300, true, false, '9003'),
+('5004', 900, 'Partial Delivered', 200, true, false, '9004');
