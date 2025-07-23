@@ -4,11 +4,13 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.project.lbms.constants.LbmsConstants;
 import com.project.lbms.dto.UserOrderSummary;
 import com.project.lbms.dto.UserOrder;
 import com.project.lbms.exception.LbmsException;
+import com.project.lbms.model.Orders;
 import com.project.lbms.repository.OrderRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -23,11 +25,12 @@ public class OrderService {
         this.orderRepository = orderRepository;
     }
 
+    @Transactional
     public UserOrderSummary getOrder(String orderId) throws LbmsException{
         log.info("{} getUserOrder {}", ORDER_SERVICE_STR, orderId);
-        return UserOrderSummary.build(orderRepository.findById(orderId).orElseThrow(
-                ()-> new LbmsException(HttpStatus.NOT_FOUND, LbmsConstants.ORDER_NOT_FOUND + orderId)
-            ));
+        Orders order = orderRepository.findById(orderId).orElseThrow(
+                ()-> new LbmsException(HttpStatus.NOT_FOUND, LbmsConstants.ORDER_NOT_FOUND + orderId));
+        return UserOrderSummary.build(order, order.getOrderCart().getCartBooks());
     }
 
     public List<UserOrder> getUserOrders(String userId) throws LbmsException{

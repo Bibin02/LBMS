@@ -3,18 +3,17 @@ package com.project.lbms.model;
 import java.util.Map;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.lbms.util.JsonConverter;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
@@ -61,17 +60,18 @@ public class Book {
     @Convert(converter = JsonConverter.class)
     private Map<String, Object> bookDescription;
 
-    @OneToOne(mappedBy = "lendableBook", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "lendableBook")
     private LendBook lendableBook;
 
-    @OneToMany(mappedBy = "reviewBook", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "reviewBook")
     private Set<Review> reviews;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "seller_uid", nullable = false)
     private Seller bookSeller;
 
-    @ManyToMany(mappedBy = "cartBooks", fetch = FetchType.LAZY)
-    private Set<Cart> bookFoundInCarts;
+    @OneToMany(mappedBy = "cartBookIdObject")
+    @JsonIgnore
+    private Set<CartBook> bookFoundInCarts;
 
 }

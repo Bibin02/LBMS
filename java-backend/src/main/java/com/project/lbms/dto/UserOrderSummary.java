@@ -1,7 +1,9 @@
 package com.project.lbms.dto;
 
 import java.util.List;
+import java.util.Set;
 
+import com.project.lbms.model.CartBook;
 import com.project.lbms.model.Orders;
 
 import lombok.AccessLevel;
@@ -20,12 +22,12 @@ public class UserOrderSummary {
 
     private List<OrderBook> items;
 
-    public static UserOrderSummary build(Orders order) {
+    public static UserOrderSummary build(Orders order, Set<CartBook> books) {
         return new UserOrderSummary(
             order.getOrderId(), order.getOrderStatusMessage(), order.getOrderStatusCode(), 
             order.getTotalAmount(), 
             order.isPaid(), 
-            OrderBook.build(order.getOrderCart())
+            OrderBook.build(books)
             );
     }
 

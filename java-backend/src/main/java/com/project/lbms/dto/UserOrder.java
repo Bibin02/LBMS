@@ -24,7 +24,7 @@ public class UserOrder {
             order.getOrderId(), 
             order.getOrderStatusMessage(), 
             order.getTotalAmount(), 
-            0, 
+            order.getOrderCart().getCartBooks().size(), 
             0, 
             order.getOrderTime().getTime()
             ));

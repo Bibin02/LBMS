@@ -2,9 +2,10 @@ package com.project.lbms.dto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import com.project.lbms.model.Book;
-import com.project.lbms.model.Cart;
+import com.project.lbms.model.CartBook;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -18,20 +19,17 @@ public class OrderBook {
     private int quantity;
     private boolean isLend;
 
-    public static List<OrderBook> build(Cart cart){
-        List<OrderBook> orderBooks = null;
-        if (cart != null) {
-            orderBooks = new ArrayList<>();
-            for (Book book : cart.getCartBooks()){
-                System.out.println("Entered\n\n\n\n\n\n");
-                orderBooks.add(new OrderBook(
-                    book.getImageSource(), 
-                    book.getBookName(), 
-                    0, 
-                    book.getLendableBook() != null)
-                    );
+    public static List<OrderBook> build(Set<CartBook> books){
+        List<OrderBook> orderBooks = new ArrayList<>();
+        for (CartBook cartbook : books){
+            Book book = cartbook.getCartBookIdObject();
+            orderBooks.add(new OrderBook(
+                book.getImageSource(), 
+                book.getBookName(), 
+                cartbook.getBookCount(), 
+                book.getLendableBook() != null)
+                );
             }
-        }
         return orderBooks;
     }
 }

@@ -1,6 +1,6 @@
 -- Clear all data before adding
 delete from orders;
-delete from cart_books;
+delete from cart_book;
 delete from cart;
 delete from review;
 delete from book;
@@ -41,11 +41,11 @@ INSERT INTO cart (cart_uid, is_ordered, user_uid) VALUES
 ('9003', true, 'david@example.com'),
 ('9004', false, 'george@example.com');
 
-INSERT INTO cart_books VALUES
-('9001', 'BK001'),
-('9001', 'BK002'),
-('9001', 'BK003'),
-('9001', 'BK004');
+INSERT INTO cart_book (cart_uid, book_uid, book_count) VALUES
+('9001', 'BK001', 1),
+('9001', 'BK002', 3),
+('9001', 'BK003', 5),
+('9001', 'BK004', 1);
 
 INSERT INTO orders (order_uid, order_status_code, order_status_message, total_amount, is_paid, is_delivered, cart_uid) VALUES 
 ('5001', 200, 'Delivered', 500, true, true, '9001'),

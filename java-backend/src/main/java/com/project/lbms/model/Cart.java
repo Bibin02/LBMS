@@ -7,9 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -27,7 +26,6 @@ public class Cart {
     @JoinColumn(name = "user_uid")
     private Users cartUser;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "cart_books")
-    private Set<Book> cartBooks;
+    @OneToMany(mappedBy = "bookCartIdObject")
+    private Set<CartBook> cartBooks;
 }
