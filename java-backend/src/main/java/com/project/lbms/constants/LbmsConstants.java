@@ -8,4 +8,5 @@ public class LbmsConstants {
     public static final String BOOK_NOT_FOUND = "Book" + NOT_FOUND;
     public static final String ORDER_NOT_FOUND = "Order" + NOT_FOUND;
     public static final String CART_NOT_FOUND = "Cart" + NOT_FOUND;
+    public static final String USER_NOT_FOUND = "User" + NOT_FOUND;
 }
