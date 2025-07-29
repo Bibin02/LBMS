@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.lbms.exception.LbmsException;
@@ -34,9 +35,10 @@ public class OrderController extends LbmsResponseEntityBuilder{
 
     @GetMapping(path = "/orders/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> getUserOrders(
-        @PathVariable String userId
+        @PathVariable String userId,
+        @RequestParam(required = false, defaultValue = "0") Integer pageNumber
     ) throws LbmsException{
-        log.info("{} getUserOrder {}", ORDER_CONTROLLER_STR, userId);
-        return getResponseEntityOk(orderService.getUserOrders(userId));
+        log.info("{} getUserOrder {} page number {}", ORDER_CONTROLLER_STR, userId, pageNumber);
+        return getResponseEntityOk(orderService.getUserOrders(userId, pageNumber));
     }
 }

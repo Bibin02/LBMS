@@ -48,7 +48,7 @@ INSERT INTO cart_book (cart_uid, book_uid, book_count) VALUES
 ('9001', 'BK004', 1);
 
 INSERT INTO orders (order_uid, order_status_code, order_status_message, total_amount, is_paid, is_delivered, cart_uid) VALUES 
-('5001', 200, 'Delivered', 500, true, true, '9001'),
-('5002', 500, 'Not Paid', 100, false, false, '9002'),
-('5003', 300, 'Not Delivered', 300, true, false, '9003'),
-('5004', 900, 'Partial Delivered', 200, true, false, '9004');
+('9001', 200, 'Delivered', 500, true, true, '9001'),
+('9002', 500, 'Not Paid', 100, false, false, '9002'),
+('9003', 300, 'Not Delivered', 300, true, false, '9003'),
+('9004', 900, 'Partial Delivered', 200, true, false, '9004');

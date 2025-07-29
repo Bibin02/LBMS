@@ -2,6 +2,8 @@ package com.project.lbms.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,5 +14,6 @@ import com.project.lbms.model.Users;
 public interface CartRepository extends JpaRepository<Cart,String>{
 
     List<Cart> findByCartUserAndIsOrderedFalse(Users user);
+    Page<Cart> findByCartUserAndIsOrderedTrue(Users user, Pageable pageable);
 
 }
