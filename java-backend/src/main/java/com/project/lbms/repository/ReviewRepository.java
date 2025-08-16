@@ -14,9 +14,14 @@ import com.project.lbms.model.Review;
 
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Review>{
-    @Query(value = "SELECT user_uid, comments, rating FROM review WHERE book_uid = :bookUid", nativeQuery = true)
-    Page<ReviewDto> findByReviewBookUid(@Param("bookUid") String bookUid, Pageable pageable);
 
-    @Query(value = "SELECT AVG(rating) as average_rating FROM review  WHERE book_uid = :bookUid", nativeQuery = true)
-    Optional<Double> findBookRating(@Param("bookUid") String bookUid);
+    String REVIEW_BOOK_QUERY = "SELECT user_uid, comments, rating FROM review WHERE book_uid = :bookUid";
+    String BOOK_RATING_QUERY = "SELECT AVG(rating) as average_rating FROM review  WHERE book_uid = :bookUid";
+    String BOOK_UID = "bookUid";
+
+    @Query(value = REVIEW_BOOK_QUERY, nativeQuery = true)
+    Page<ReviewDto> findByReviewBookUid(@Param(BOOK_UID) String bookUid, Pageable pageable);
+
+    @Query(value = BOOK_RATING_QUERY, nativeQuery = true)
+    Optional<Double> findBookRating(@Param(BOOK_UID) String bookUid);
 }

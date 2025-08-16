@@ -16,18 +16,13 @@ import com.project.lbms.model.Users;
 @Repository
 public interface UsersRepository extends JpaRepository <Users, String>{
 
-    @Query(
-        value = "SELECT " + 
+    String FIND_USER_QUERY = "SELECT " + 
         " u.user_uid as user_id, u.user_name as user_name, u.user_address as user_address, u.user_description as user_description, "+ 
         " CASE WHEN EXISTS(SELECT 1 from seller s where s.seller_uid = :id) THEN true "+
         " ELSE false END as is_seller "+
-        " from users u where u.user_uid = :id", 
-        nativeQuery = true)
-    Optional<UsersVO> findUserById(@Param("id") String id);
+        " from users u where u.user_uid = :id";
 
-
-    @Query(
-        value = "select " +
+    String USER_LEND_BOOK_QUERY = "select " +
                 "b.book_uid as bookUid, " +
                 "b.book_name as bookName, " +
                 "b.image_source as imageSource," +
@@ -39,9 +34,13 @@ public interface UsersRepository extends JpaRepository <Users, String>{
                 "orders o left join cart c on o.order_uid = c.cart_uid," +
                 "book b left join lend_user_book lu on b.book_uid = lu.lend_book_uid," +
                 "cart_book cb left join book bb on cb.book_uid = bb.book_uid" +
-                "where lu.lend_user_uid = :userId",
-        nativeQuery = true
-    )
+                "where lu.lend_user_uid = :userId";
+
+    @Query(value = FIND_USER_QUERY, nativeQuery = true)
+    Optional<UsersVO> findUserById(@Param("id") String id);
+
+
+    @Query(value = USER_LEND_BOOK_QUERY, nativeQuery = true)
     Page<UserLendBookDto> findUserLendBooks(@Param("userId") String userId, Pageable pageable);
     
 }

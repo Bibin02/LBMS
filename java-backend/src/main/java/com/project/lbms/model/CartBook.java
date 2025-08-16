@@ -20,6 +20,9 @@ public class CartBook {
     @Column(name = "book_count", columnDefinition = "INTEGER DEFAULT 1")
     private int bookCount;
 
+    @Column(name = "is_lended", columnDefinition = "BOOLEAN DEFAULT FALSE")
+    private boolean isLended;
+
     @ManyToOne
     @MapsId(value = "cartBookUid")
     @JoinColumn(name = "book_uid")

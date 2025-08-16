@@ -45,6 +45,9 @@ INSERT INTO cart_book (cart_uid, book_uid, book_count) VALUES
 ('9001', 'BK001', 1),
 ('9001', 'BK002', 3),
 ('9001', 'BK003', 5),
+('9004', 'BK001', 5),
+('9004', 'BK002', 2),
+('9004', 'BK005', 1),
 ('9001', 'BK004', 1);
 
 INSERT INTO orders (order_uid, order_status_code, order_status_message, total_amount, is_paid, is_delivered, cart_uid) VALUES 
