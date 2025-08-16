@@ -11,11 +11,9 @@ import com.project.lbms.constants.LbmsConstants;
 import com.project.lbms.dto.UserOrderSummary;
 import com.project.lbms.dto.UserOrder;
 import com.project.lbms.exception.LbmsException;
-import com.project.lbms.model.Cart;
 import com.project.lbms.model.Orders;
-import com.project.lbms.repository.CartRepository;
+import com.project.lbms.repository.CartBookRepository;
 import com.project.lbms.repository.OrderRepository;
-import com.project.lbms.repository.UsersRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,14 +21,12 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class OrderService {
     private OrderRepository orderRepository;
-    private UsersRepository usersRepository;
-    private CartRepository cartRepository;
+    private CartBookRepository cartBookRepository;
     private static final String ORDER_SERVICE_STR = "OrderService";
 
-    public OrderService(OrderRepository orderRepository, UsersRepository usersRepository, CartRepository cartRepository){
+    public OrderService(OrderRepository orderRepository, CartBookRepository cartBookRepository){
         this.orderRepository = orderRepository;
-        this.usersRepository = usersRepository;
-        this.cartRepository = cartRepository;
+        this.cartBookRepository = cartBookRepository;
     }
 
     @Transactional
@@ -38,23 +34,11 @@ public class OrderService {
         log.info("{} getUserOrder {}", ORDER_SERVICE_STR, orderId);
         Orders order = orderRepository.findById(orderId).orElseThrow(
                 ()-> new LbmsException(HttpStatus.NOT_FOUND, LbmsConstants.ORDER_NOT_FOUND + orderId));
-        return UserOrderSummary.build(order, order.getOrderCart().getCartBooks());
+        return UserOrderSummary.build(order, cartBookRepository.findByIdBookCartUid(order.getOrderCart().getCartId()));
     }
 
     public List<UserOrder> getUserOrders(String userId, int pageNumber) throws LbmsException{
         log.info("{} getUserOrder {}", ORDER_SERVICE_STR, userId);
-        return UserOrder.build(
-            orderRepository.findAllById(
-                cartRepository.findByCartUserAndIsOrderedTrue(
-                    usersRepository.findById(userId).orElseThrow(
-                        ()-> new LbmsException(HttpStatus.NOT_FOUND, LbmsConstants.USER_NOT_FOUND + userId)
-                    ), 
-                    PageRequest.of(pageNumber, LbmsConstants.PAGE_SIZE)
-                ).getContent()
-                .stream()
-                .map(Cart::getCartId)
-                .toList()
-            )
-        );
+        return orderRepository.findAllUserOrders(userId, PageRequest.of(pageNumber, LbmsConstants.PAGE_SIZE)).getContent();
     }
 }

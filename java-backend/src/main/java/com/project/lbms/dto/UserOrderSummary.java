@@ -1,7 +1,6 @@
 package com.project.lbms.dto;
 
 import java.util.List;
-import java.util.Set;
 
 import com.project.lbms.model.CartBook;
 import com.project.lbms.model.Orders;
@@ -22,7 +21,7 @@ public class UserOrderSummary {
 
     private List<OrderBook> items;
 
-    public static UserOrderSummary build(Orders order, Set<CartBook> books) {
+    public static UserOrderSummary build(Orders order, List<CartBook> books) {
         return new UserOrderSummary(
             order.getOrderId(), order.getOrderStatusMessage(), order.getOrderStatusCode(), 
             order.getTotalAmount(), 

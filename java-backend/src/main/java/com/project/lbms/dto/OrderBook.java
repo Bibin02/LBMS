@@ -2,7 +2,6 @@ package com.project.lbms.dto;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import com.project.lbms.model.Book;
 import com.project.lbms.model.CartBook;
@@ -19,7 +18,7 @@ public class OrderBook {
     private int quantity;
     private boolean isLend;
 
-    public static List<OrderBook> build(Set<CartBook> books){
+    public static List<OrderBook> build(List<CartBook> books){
         List<OrderBook> orderBooks = new ArrayList<>();
         for (CartBook cartbook : books){
             Book book = cartbook.getCartBookIdObject();
