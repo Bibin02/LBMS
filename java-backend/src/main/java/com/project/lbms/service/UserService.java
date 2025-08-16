@@ -2,9 +2,11 @@ package com.project.lbms.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import com.project.lbms.constants.LbmsConstants;
 import com.project.lbms.dto.UsersVO;
 import com.project.lbms.exception.LbmsException;
 import com.project.lbms.model.Users;
@@ -32,9 +34,9 @@ public class UserService {
         return user;
     }
 
-    public List<Users> findAllUsers() {
+    public List<UsersVO> findAllUsers(int pageNumber) {
         log.info("{} findAllUsers ", USER_SERVICE_STR);
-        return usersRepository.findAll();
+        return usersRepository.findUsers(PageRequest.of(pageNumber, LbmsConstants.PAGE_SIZE)).getContent();
     }
 
     public UsersVO findUserById(String id) throws LbmsException{

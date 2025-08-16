@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.lbms.exception.LbmsException;
@@ -34,12 +35,6 @@ public class UserController extends LbmsResponseEntityBuilder{
         return getResponseEntityOk(userService.findMasterUserById(id));
     }
 
-    @GetMapping(path = "/masterUsers", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> getMasterUsers(){
-        log.info( "{} getMasterUsers",USER_CONTROLLER_STR);
-        return getResponseEntityOk(userService.findAllUsers());
-    }
-
     @GetMapping(path = "/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> getUser(@PathVariable String id) throws LbmsException{
         log.info( "{} getUser {}",USER_CONTROLLER_STR, id);
@@ -47,8 +42,10 @@ public class UserController extends LbmsResponseEntityBuilder{
     }
 
     @GetMapping(path = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> getUsers(){
+    public ResponseEntity<Object> getUsers(
+        @RequestParam(required = false, defaultValue = "0") int pageNumber
+    ){
         log.info( "{} getUsers",USER_CONTROLLER_STR);
-        return getResponseEntityOk(userService.findAllUsers());
+        return getResponseEntityOk(userService.findAllUsers(pageNumber));
     }
 }
