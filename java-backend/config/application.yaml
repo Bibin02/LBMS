@@ -19,13 +19,17 @@ spring:
   jpa:
     defer-datasource-initialization: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     show-sql: true
 
   sql:
     init:
       mode: always
       data-locations: classpath:data.sql
+  
+  output:
+    ansi:
+      enabled: always
 
 server:
   port: 8300

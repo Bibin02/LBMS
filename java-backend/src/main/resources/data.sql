@@ -7,11 +7,11 @@ delete from book;
 delete from seller;
 delete from users;
 
-INSERT INTO users (user_uid, user_name, pass, user_address, user_description) VALUES 
-('john@example.com', 'John Doe', '123', 'address1', 'about1'),
-('raven@example.com', 'Raven Doe', '123', 'address2', 'about2'),
-('david@example.com', 'David Doe', '123', 'address3', 'about3'),
-('george@example.com', 'George Doe', '123', 'address4', 'about4');
+INSERT INTO users (user_uid, user_name, pass, user_address, user_description, user_role) VALUES 
+('john@example.com', 'John Doe', '123', 'address1', 'about1', 'ADMIN'),
+('raven@example.com', 'Raven Doe', '123', 'address2', 'about2', 'SELLER'),
+('david@example.com', 'David Doe', '123', 'address3', 'about3', 'BUYER'),
+('george@example.com', 'George Doe', '123', 'address4', 'about4', 'BUYER');
 
 
 INSERT INTO seller (seller_uid, seller_name, pass, seller_address, seller_description, books_sold_count, earnings) VALUES 
