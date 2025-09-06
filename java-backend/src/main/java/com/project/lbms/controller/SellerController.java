@@ -42,4 +42,12 @@ public class SellerController extends LbmsResponseEntityBuilder{
         log.info("{} getSellerBook {}", SELLER_CONTROLLER_STR, bookUid);
         return getResponseEntityOk(sellerService.getSellerBook(sellerUid, bookUid));
     }
+
+    @GetMapping(path = "/{sellerId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> sellerDashboard(
+        @PathVariable(name = "sellerId") String sellerUid
+    ) throws LbmsException{
+        log.info("{} sellerDashboard {}", SELLER_CONTROLLER_STR, sellerUid);
+        return getResponseEntityOk(sellerService.getSellerDashboard(sellerUid));
+    }
 }

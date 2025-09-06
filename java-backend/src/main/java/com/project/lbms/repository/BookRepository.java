@@ -15,6 +15,8 @@ public interface BookRepository extends JpaRepository<Book,String>{
 
     Page<Book> findByBookSellerSellerId(String sellerUid, PageRequest pageable);
 
-    Optional<SellerBookVO> findByBookSellerSellerIdAndBookUid(String sellerUid, String bookUid);
+    Optional<SellerBookVO> findByBookSellerSellerInfoUserIdAndBookUid(String sellerUid, String bookUid);
+
+    int countByBookSellerSellerInfoUserId(String sellerUid);
 
 }

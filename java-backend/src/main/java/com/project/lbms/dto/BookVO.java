@@ -16,7 +16,7 @@ public class BookVO {
         this.imageSource = book.getImageSource();
         this.authorName = book.getAuthors();
         this.publicationName = book.getPublication();
-        this.sellerName = book.getBookSeller().getSellerName();
+        this.sellerName = book.getBookSeller().getSellerInfo().getUserName();
         this.bookSellStatus = book.getLendableBook() != null;
         this.bookLendDuration = book.getLendableBook() != null ? book.getLendableBook().getDuration() : null;
         setKeywords(book.getKeywords()); 
