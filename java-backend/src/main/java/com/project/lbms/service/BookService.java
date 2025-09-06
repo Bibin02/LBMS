@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.project.lbms.constants.LbmsConstants;
 import com.project.lbms.dto.BookThumbnail;
 import com.project.lbms.dto.BookVO;
+import com.project.lbms.dto.PaginatedResponse;
 import com.project.lbms.exception.LbmsException;
 import com.project.lbms.model.Book;
 import com.project.lbms.repository.BookRepository;
@@ -37,9 +38,10 @@ public class BookService {
             );
     }
 
-    public List<Book> findAllMasterBooks(int pageNumber) {
+    public PaginatedResponse findAllMasterBooks(int pageNumber) {
         log.info("{} findAllMasterBooks",BOOK_SERVICE_STR);
-        return bookRepository.findAll(PageRequest.of(pageNumber, LbmsConstants.PAGE_SIZE)).getContent();
+        return PaginatedResponse.build(
+            bookRepository.findAll(PageRequest.of(pageNumber, LbmsConstants.PAGE_SIZE)));
     }
 
     public BookVO findBookById(String id) throws LbmsException{
@@ -49,6 +51,12 @@ public class BookService {
             ));
     }
 
+    /**
+     * Recommeded Books
+     * 
+     * @param pageNumber
+     * @return Recommended Books
+     */
     public List<BookThumbnail> findAllBooks(int pageNumber) {
         log.info("{} findAllBooks",BOOK_SERVICE_STR);
         List<BookThumbnail> bookThumbnails = new ArrayList<>();

@@ -1,7 +1,5 @@
 package com.project.lbms.service;
 
-import java.util.List;
-
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -9,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.project.lbms.constants.LbmsConstants;
 import com.project.lbms.dto.UserOrderSummary;
-import com.project.lbms.dto.UserOrder;
+import com.project.lbms.dto.PaginatedResponse;
 import com.project.lbms.exception.LbmsException;
 import com.project.lbms.model.Orders;
 import com.project.lbms.repository.CartBookRepository;
@@ -37,8 +35,9 @@ public class OrderService {
         return UserOrderSummary.build(order, cartBookRepository.findByIdBookCartUid(order.getOrderCart().getCartId()));
     }
 
-    public List<UserOrder> getUserOrders(String userId, int pageNumber) throws LbmsException{
+    public PaginatedResponse getUserOrders(String userId, int pageNumber) throws LbmsException{
         log.info("{} getUserOrder {}", ORDER_SERVICE_STR, userId);
-        return orderRepository.findAllUserOrders(userId, PageRequest.of(pageNumber, LbmsConstants.PAGE_SIZE)).getContent();
+        return PaginatedResponse.build(
+            orderRepository.findAllUserOrders(userId, PageRequest.of(pageNumber, LbmsConstants.PAGE_SIZE)));
     }
 }

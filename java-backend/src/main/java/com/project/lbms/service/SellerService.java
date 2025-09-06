@@ -5,7 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.project.lbms.constants.LbmsConstants;
-import com.project.lbms.dto.PagedSellerBookSummary;
+import com.project.lbms.dto.PaginatedResponse;
+import com.project.lbms.dto.SellerBookSummary;
 import com.project.lbms.dto.SellerBookVO;
 import com.project.lbms.exception.LbmsException;
 import com.project.lbms.repository.BookRepository;
@@ -29,8 +30,9 @@ public class SellerService {
             );
     }
 
-    public PagedSellerBookSummary getSellerBooks(String sellerUid, int pageNumber) throws LbmsException{
+    public PaginatedResponse getSellerBooks(String sellerUid, int pageNumber) throws LbmsException{
         log.info("{} getSellerBooks {}", SELLER_SERVICE_STR, sellerUid);
-        return PagedSellerBookSummary.build(bookRepository.findByBookSellerSellerId(sellerUid, PageRequest.of(pageNumber, LbmsConstants.PAGE_SIZE)));
+        var pagedBooks = bookRepository.findByBookSellerSellerId(sellerUid, PageRequest.of(pageNumber, LbmsConstants.PAGE_SIZE));
+        return PaginatedResponse.build(pagedBooks, rawData -> SellerBookSummary.build(pagedBooks.getContent()));
     }
 }
