@@ -38,11 +38,14 @@ INSERT INTO review (rating, comments, book_uid, user_uid) VALUES
 (4.0, 'Comments By John for Book 2', 'BK002', 'john@example.com'),
 (5.0, 'Comments By Raven for Book 1', 'BK001', 'raven@example.com');
 
-INSERT INTO cart (cart_uid, is_ordered, user_uid) VALUES
-('9001', true, 'john@example.com'),
-('9002', false, 'raven@example.com'),
-('9003', true, 'david@example.com'),
-('9004', false, 'george@example.com');
+INSERT INTO cart (cart_uid, cart_type, user_uid) VALUES
+('9001', 'ORDER_CART', 'john@example.com'),
+('9002', 'ORDER_CART', 'raven@example.com'),
+('9003', 'ORDER_CART', 'david@example.com'),
+('9004', 'ORDER_CART', 'george@example.com'),
+('9005', 'CART', 'raven@example.com'),
+('9006', 'CART', 'david@example.com'),
+('9007', 'CART', 'george@example.com');
 
 INSERT INTO cart_book (cart_uid, book_uid, book_count) VALUES
 ('9001', 'BK001', 1),
@@ -51,10 +54,16 @@ INSERT INTO cart_book (cart_uid, book_uid, book_count) VALUES
 ('9004', 'BK001', 5),
 ('9004', 'BK002', 2),
 ('9004', 'BK005', 1),
-('9001', 'BK004', 1);
+('9003', 'BK004', 1),
+('9002', 'BK002', 2),
+('9002', 'BK005', 1),
+('9005', 'BK004', 1),
+('9003', 'BK002', 2),
+('9005', 'BK005', 1),
+('9006', 'BK004', 1);
 
-INSERT INTO orders (order_uid, order_status_code, order_status_message, total_amount, is_paid, is_delivered, cart_uid) VALUES 
-('9001', 200, 'Delivered', 500, true, true, '9001'),
-('9002', 500, 'Not Paid', 100, false, false, '9002'),
-('9003', 300, 'Not Delivered', 300, true, false, '9003'),
-('9004', 900, 'Partial Delivered', 200, true, false, '9004');
+INSERT INTO orders (order_uid, order_status_code, order_status_message, total_amount, is_paid, is_delivered) VALUES 
+('9001', 200, 'Delivered', 500, true, true),
+('9002', 500, 'Not Paid', 100, false, false),
+('9003', 300, 'Not Delivered', 300, true, false),
+('9004', 900, 'Partial Delivered', 200, true, false);

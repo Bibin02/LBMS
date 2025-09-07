@@ -2,10 +2,13 @@ package com.project.lbms.service;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.project.lbms.constants.CartType;
 import com.project.lbms.constants.LbmsConstants;
 import com.project.lbms.dto.UserCartBook;
 import com.project.lbms.exception.LbmsException;
@@ -36,10 +39,12 @@ public class CartService {
     public List<UserCartBook> getUserCart(String userId) throws LbmsException{
         log.info("{} getUserCart {}",CART_SERVICE_STR, userId);
         List<UserCartBook> userCartBooks = new ArrayList<>();
-        List<Cart> carts = cartRepository.findByCartUserAndIsOrderedFalse(
+        List<Cart> carts = cartRepository.findByCartUserAndCartType(
             usersRepository.findById(userId).orElseThrow(
-                ()-> new LbmsException(HttpStatus.NOT_FOUND, LbmsConstants.USER_NOT_FOUND + userId)
-            ));
+                ()-> new LbmsException(HttpStatus.NOT_FOUND, LbmsConstants.USER_NOT_FOUND + userId)), 
+            CartType.CART, 
+            PageRequest.ofSize(1))
+            .getContent();
         if (carts.isEmpty()){throw new LbmsException(HttpStatus.NOT_FOUND, LbmsConstants.CART_NOT_FOUND);}
         for (CartBook cartBook : cartBookRepository.findByIdBookCartUid(carts.get(0).getCartId())){
             Book book = cartBook.getCartBookIdObject();

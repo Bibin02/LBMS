@@ -44,12 +44,15 @@ public class SellerService {
         var seller = sellerRepository.findById(sellerUid).orElseThrow(
             ()-> new LbmsException(HttpStatus.NOT_FOUND, LbmsConstants.SELLER_NOT_FOUND + sellerUid)
         );
+        int totalBooks = bookRepository.sellerTotalBooks(sellerUid);
+        int soldBooks = seller.getBookSoldCount();
+        int onDelivery = totalBooks - soldBooks;
         return new SellerSummary(
             sellerUid, 
             seller.getSellerInfo().getUserName(), 
-            bookRepository.countByBookSellerSellerInfoUserId(sellerUid), 
-            seller.getBookSoldCount(), 
-            0, 
+            totalBooks,
+            soldBooks,
+            onDelivery, 
             seller.getEarnings(), 
             null, 
             null);

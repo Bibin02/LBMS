@@ -32,7 +32,7 @@ public class OrderService {
         log.info("{} getUserOrder {}", ORDER_SERVICE_STR, orderId);
         Orders order = orderRepository.findById(orderId).orElseThrow(
                 ()-> new LbmsException(HttpStatus.NOT_FOUND, LbmsConstants.ORDER_NOT_FOUND + orderId));
-        return UserOrderSummary.build(order, cartBookRepository.findByIdBookCartUid(order.getOrderCart().getCartId()));
+        return UserOrderSummary.build(order, cartBookRepository.findByIdBookCartUid(order.getOrderId()));
     }
 
     public PaginatedResponse getUserOrders(String userId, int pageNumber) throws LbmsException{

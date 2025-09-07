@@ -7,7 +7,7 @@ import org.hibernate.dialect.PostgreSQLEnumJdbcType;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
-import com.project.lbms.config.ApplicationRole;
+import com.project.lbms.constants.ApplicationRole;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

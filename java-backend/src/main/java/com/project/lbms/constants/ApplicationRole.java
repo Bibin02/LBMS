@@ -1,4 +1,4 @@
-package com.project.lbms.config;
+package com.project.lbms.constants;
 
 public enum ApplicationRole {
     ADMIN, 
