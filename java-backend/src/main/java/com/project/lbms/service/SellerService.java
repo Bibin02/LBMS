@@ -1,14 +1,19 @@
 package com.project.lbms.service;
 
+import java.time.DayOfWeek;
+import java.util.List;
+
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.project.lbms.constants.LbmsConstants;
 import com.project.lbms.dto.PaginatedResponse;
+import com.project.lbms.dto.SalesData;
 import com.project.lbms.dto.SellerBookSummary;
 import com.project.lbms.dto.SellerBookVO;
 import com.project.lbms.dto.SellerSummary;
+import com.project.lbms.dto.StockData;
 import com.project.lbms.exception.LbmsException;
 import com.project.lbms.repository.BookRepository;
 import com.project.lbms.repository.SellerRepository;
@@ -21,6 +26,7 @@ public class SellerService {
     private BookRepository bookRepository;
     private SellerRepository sellerRepository;
     private static final String SELLER_SERVICE_STR = "SellerService";
+    private int dayIterator = 1;
 
     public SellerService(SellerRepository sellerRepository, BookRepository bookRepository){
         this.bookRepository = bookRepository;
@@ -47,6 +53,18 @@ public class SellerService {
         int totalBooks = bookRepository.sellerTotalBooks(sellerUid);
         int soldBooks = seller.getBookSoldCount();
         int onDelivery = totalBooks - soldBooks;
+        var salesDataList = sellerRepository.getWeeklySales(sellerUid)
+                    .stream()
+                    .map(sale -> new SalesData(
+                        DayOfWeek.of(dayIterator++)
+                        .toString()
+                        .substring(0, 3), 
+                        sale))
+                    .toList();
+        var stockDataList = List.of(
+            new StockData("totalBooks", totalBooks),
+            new StockData("soldBooks", soldBooks),
+            new StockData("onDelivery", onDelivery));
         return new SellerSummary(
             sellerUid, 
             seller.getSellerInfo().getUserName(), 
@@ -54,7 +72,7 @@ public class SellerService {
             soldBooks,
             onDelivery, 
             seller.getEarnings(), 
-            null, 
-            null);
+            salesDataList,
+            stockDataList);
     }
 }
