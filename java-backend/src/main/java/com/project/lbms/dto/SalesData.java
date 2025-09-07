@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class SalesData {
-    private String day;
-    private double sales;
+    private int booksSold;
+    private double perDayRevenue;
+    private String dayOfWeek;
 }

@@ -62,8 +62,9 @@ INSERT INTO cart_book (cart_uid, book_uid, book_count) VALUES
 ('9005', 'BK005', 1),
 ('9006', 'BK004', 1);
 
-INSERT INTO orders (order_uid, order_status_code, order_status_message, total_amount, is_paid, is_delivered) VALUES 
-('9001', 200, 'Delivered', 500, true, true),
-('9002', 500, 'Not Paid', 100, false, false),
-('9003', 300, 'Not Delivered', 300, true, false),
-('9004', 900, 'Partial Delivered', 200, true, false);
+INSERT INTO orders 
+(order_uid, order_status_code, order_status_message, total_amount, is_paid, is_delivered, order_time) VALUES 
+('9001', 200, 'Delivered', 500, true, true, CURRENT_TIMESTAMP - INTERVAL '10 days'),
+('9002', 500, 'Delivered', 100, true, true, CURRENT_TIMESTAMP - INTERVAL '8 days'),
+('9003', 300, 'Not Delivered', 300, true, false, CURRENT_TIMESTAMP),
+('9004', 900, 'Partial Delivered', 200, true, false, CURRENT_TIMESTAMP);
