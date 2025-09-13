@@ -39,6 +39,7 @@ public class SellerService {
         if (lendableBook != null) {
             sellerBookVO.setIsLended(true);
             sellerBookVO.setLendDuration(lendableBook.getDuration());
+            sellerBookVO.setLendCost(lendableBook.getLendCost());
         }
         return sellerBookVO;
     }

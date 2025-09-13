@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -67,6 +68,16 @@ public class BookController extends LbmsResponseEntityBuilder{
         return bookService.addBook(bookVO, 
         "john@example.com" // Hardcoded Admin user
         );
+    }
+
+    @PutMapping(path = "/book/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> updateBook(
+        @Valid @RequestBody BookDto bookDto,
+        @PathVariable String id
+        // Decrypted token will have userId and role filtered based on role via method level security
+    ) throws Exception{
+        log.info("{} updateBook {}", BOOK_CONTROLLER_STR, id);
+        return bookService.updateBook(bookDto, id);
     }
         
 }

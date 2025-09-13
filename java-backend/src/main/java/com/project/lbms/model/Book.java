@@ -57,7 +57,7 @@ public class Book {
     @Convert(converter = JsonConverter.class)
     private Map<String, Object> bookDescription;
 
-    @OneToOne(mappedBy = "lendableBook", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "lendableBook", cascade = CascadeType.ALL, orphanRemoval = true)
     private LendBook lendableBook;
 
     @OneToMany(mappedBy = "reviewBook")

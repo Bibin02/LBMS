@@ -24,6 +24,7 @@ public class SellerBookVO {
     private final LendBook lendableBook;
     private Boolean isLended;
     private Long lendDuration;
+    private Double lendCost;
     private final String publication;
     private final String keywords;
     private final Double cost;
