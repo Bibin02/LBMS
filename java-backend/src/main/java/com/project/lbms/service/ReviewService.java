@@ -24,6 +24,6 @@ public class ReviewService {
         log.info("{} getBookReviews {}", REVIEW_SERVICE_STR, bookUid);
         return PaginatedResponse.build(
             reviewRepository.findByReviewBookUid(bookUid, 
-            PageRequest.of(pageNumber, LbmsConstants.PAGE_SIZE)));
+            PageRequest.of(pageNumber, LbmsConstants.PAGE_SIZE)), pageNumber);
     }
 }

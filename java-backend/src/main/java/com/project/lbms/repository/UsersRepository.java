@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.project.lbms.constants.LbmsConstants;
 import com.project.lbms.dto.UserLendBookDto;
 import com.project.lbms.dto.UsersVO;
 import com.project.lbms.model.Users;
@@ -34,21 +35,21 @@ public interface UsersRepository extends JpaRepository <Users, String>{
                 "b.image_source as imageSource," +
                 "lb.duration as lendDuration," +
                 "o.order_uid as orderUid," +
-                "o.order_time as orderDate" +
+                "o.order_time as orderDate " +
                 "from " +
                 "lend_book lb," +
                 "orders o left join cart c on o.order_uid = c.cart_uid," +
                 "book b left join lend_user_book lu on b.book_uid = lu.lend_book_uid," +
-                "cart_book cb left join book bb on cb.book_uid = bb.book_uid" +
+                "cart_book cb left join book bb on cb.book_uid = bb.book_uid " +
                 "where lu.lend_user_uid = :userId";
 
-    @Query(value = FIND_USER_QUERY, nativeQuery = true)
+    @Query(value = FIND_USER_QUERY, countQuery = LbmsConstants.COUNT_QUERY + FIND_USER_QUERY + ")", nativeQuery = true)
     Page<UsersVO> findUsers(Pageable pageable);
     
     @Query(value = FIND_USER_BY_ID_QUERY, nativeQuery = true)
     Optional<UsersVO> findUserById(@Param("id") String id);
 
-    @Query(value = USER_LEND_BOOK_QUERY, nativeQuery = true)
+    @Query(value = USER_LEND_BOOK_QUERY, countQuery = LbmsConstants.COUNT_QUERY + USER_LEND_BOOK_QUERY + ")", nativeQuery = true)
     Page<UserLendBookDto> findUserLendBooks(@Param("userId") String userId, Pageable pageable);
     
 }

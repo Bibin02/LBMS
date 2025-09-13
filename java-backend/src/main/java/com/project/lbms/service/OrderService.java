@@ -38,6 +38,6 @@ public class OrderService {
     public PaginatedResponse getUserOrders(String userId, int pageNumber) throws LbmsException{
         log.info("{} getUserOrder {}", ORDER_SERVICE_STR, userId);
         return PaginatedResponse.build(
-            orderRepository.findAllUserOrders(userId, PageRequest.of(pageNumber, LbmsConstants.PAGE_SIZE)));
+            orderRepository.findAllUserOrders(userId, PageRequest.of(pageNumber, LbmsConstants.PAGE_SIZE)), pageNumber);
     }
 }

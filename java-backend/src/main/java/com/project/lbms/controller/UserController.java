@@ -1,17 +1,26 @@
 package com.project.lbms.controller;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.lbms.dto.ProjectResponseEntity;
+import com.project.lbms.dto.RegisterUser;
 import com.project.lbms.exception.LbmsException;
 import com.project.lbms.service.UserService;
 import com.project.lbms.util.LbmsResponseEntityBuilder;
 
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -41,11 +50,32 @@ public class UserController extends LbmsResponseEntityBuilder{
         return getResponseEntityOk(userService.findUserById(id));
     }
 
+    @GetMapping(path = "/user/{id}/lendbooks", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> getUserLendBooks(
+        @PathVariable String id,
+        @RequestParam(required = false, defaultValue = "0") int pageNumber
+    ){
+        log.info( "{} getUserLendBooks {}",USER_CONTROLLER_STR, id);
+        return getResponseEntityOk(userService.getUserLendBooks(pageNumber, id));
+    }
+
     @GetMapping(path = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> getUsers(
         @RequestParam(required = false, defaultValue = "0") int pageNumber
     ){
         log.info( "{} getUsers",USER_CONTROLLER_STR);
         return getResponseEntityOk(userService.findAllUsers(pageNumber));
+    }
+
+    @PostMapping(path = "/user", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> registerUser(
+        @Valid @RequestBody RegisterUser registerUser
+    ) throws LbmsException, URISyntaxException{
+        log.info("{} registerUser {}", USER_CONTROLLER_STR, registerUser.getUserId());
+        String[] response = userService.registerUser(registerUser).split(",");
+        return ResponseEntity
+                .created(new URI("/user/"+response[0]))
+                .body(ProjectResponseEntity
+                .getProjectResponseEntity(response[1], HttpStatus.CREATED.value()));
     }
 }

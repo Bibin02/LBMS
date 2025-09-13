@@ -41,7 +41,7 @@ public class BookService {
     public PaginatedResponse findAllMasterBooks(int pageNumber) {
         log.info("{} findAllMasterBooks",BOOK_SERVICE_STR);
         return PaginatedResponse.build(
-            bookRepository.findAll(PageRequest.of(pageNumber, LbmsConstants.PAGE_SIZE)));
+            bookRepository.findAll(PageRequest.of(pageNumber, LbmsConstants.PAGE_SIZE)), pageNumber);
     }
 
     public BookVO findBookById(String id) throws LbmsException{

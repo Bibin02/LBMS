@@ -17,18 +17,18 @@ public class PaginatedResponse {
     private List<? extends Object> data;
     private int pageNumber;
     private int totalPages;
-    public static PaginatedResponse build(Page<? extends Object> pageData){
+    public static PaginatedResponse build(Page<? extends Object> pageData, int pageNumber){
         return new PaginatedResponse(
             pageData.getContent(), 
-            pageData.getNumber(),
+            pageNumber,
             pageData.getTotalPages()
         );
     }
 
-    public static PaginatedResponse build(Page<? extends Object> pageData, ResponseBuilder rb) throws LbmsException{
+    public static PaginatedResponse build(Page<? extends Object> pageData, int pageNumber, ResponseBuilder rb) throws LbmsException{
         return new PaginatedResponse(
             rb.build(pageData.getContent()), 
-            pageData.getNumber(),
+            pageNumber,
             pageData.getTotalPages()
         );
     }

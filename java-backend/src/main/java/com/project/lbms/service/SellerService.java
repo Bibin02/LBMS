@@ -40,7 +40,7 @@ public class SellerService {
     public PaginatedResponse getSellerBooks(String sellerUid, int pageNumber) throws LbmsException{
         log.info("{} getSellerBooks {}", SELLER_SERVICE_STR, sellerUid);
         var pagedBooks = bookRepository.findByBookSellerSellerId(sellerUid, PageRequest.of(pageNumber, LbmsConstants.PAGE_SIZE));
-        return PaginatedResponse.build(pagedBooks, rawData -> SellerBookSummary.build(pagedBooks.getContent()));
+        return PaginatedResponse.build(pagedBooks, pageNumber, rawData -> SellerBookSummary.build(pagedBooks.getContent()));
     }
 
     public SellerSummary getSellerDashboard(String sellerUid) throws LbmsException{
