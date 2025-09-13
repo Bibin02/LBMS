@@ -32,9 +32,15 @@ public class SellerService {
 
     public SellerBookVO getSellerBook(String sellerUid, String bookUid) throws LbmsException{
         log.info("{} getSellerBook {}", SELLER_SERVICE_STR, sellerUid);
-        return bookRepository.findByBookSellerSellerInfoUserIdAndBookUid(sellerUid, bookUid).orElseThrow(
+        var sellerBookVO = bookRepository.findByBookSellerSellerInfoUserIdAndBookUid(sellerUid, bookUid).orElseThrow(
                 ()-> new LbmsException(HttpStatus.NOT_FOUND, LbmsConstants.BOOK_NOT_FOUND + bookUid)
             );
+        var lendableBook = sellerBookVO.getLendableBook();
+        if (lendableBook != null) {
+            sellerBookVO.setIsLended(true);
+            sellerBookVO.setLendDuration(lendableBook.getDuration());
+        }
+        return sellerBookVO;
     }
 
     public PaginatedResponse getSellerBooks(String sellerUid, int pageNumber) throws LbmsException{

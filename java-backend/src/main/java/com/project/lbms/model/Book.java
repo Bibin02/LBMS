@@ -10,8 +10,6 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -28,7 +26,6 @@ import lombok.NoArgsConstructor;
 public class Book {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "book_uid")
     private String bookUid;
 
@@ -56,11 +53,11 @@ public class Book {
     @Column(name = "discount")
     private int discount;
 
-    @Column(name = "book_description", columnDefinition = "jsonb")
+    @Column(name = "book_description")
     @Convert(converter = JsonConverter.class)
     private Map<String, Object> bookDescription;
 
-    @OneToOne(mappedBy = "lendableBook")
+    @OneToOne(mappedBy = "lendableBook", cascade = CascadeType.ALL)
     private LendBook lendableBook;
 
     @OneToMany(mappedBy = "reviewBook")
