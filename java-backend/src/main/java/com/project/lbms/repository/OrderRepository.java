@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.project.lbms.constants.LbmsConstants;
 import com.project.lbms.dto.UserOrder;
 import com.project.lbms.model.Orders;
 
@@ -27,7 +28,7 @@ public interface OrderRepository extends JpaRepository<Orders,String>{
                 " c1.user_uid = :userUid ";
     String USER_UID = "userUid";
 
-    @Query(value = USER_ORDERS_QUERY, nativeQuery = true)
+    @Query(value = USER_ORDERS_QUERY, countQuery = LbmsConstants.COUNT_QUERY + USER_ORDERS_QUERY + ")", nativeQuery = true)
     Page<UserOrder> findAllUserOrders(@Param(USER_UID) String userUid, Pageable pageable);
 
 }
