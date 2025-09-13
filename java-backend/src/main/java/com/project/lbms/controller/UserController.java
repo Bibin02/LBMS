@@ -9,18 +9,22 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.lbms.constants.LbmsConstants;
 import com.project.lbms.dto.ProjectResponseEntity;
 import com.project.lbms.dto.RegisterUser;
+import com.project.lbms.dto.UpdateUserDto;
 import com.project.lbms.exception.LbmsException;
 import com.project.lbms.service.UserService;
 import com.project.lbms.util.LbmsResponseEntityBuilder;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -77,5 +81,28 @@ public class UserController extends LbmsResponseEntityBuilder{
                 .created(new URI("/user/"+response[0]))
                 .body(ProjectResponseEntity
                 .getProjectResponseEntity(response[1], HttpStatus.CREATED.value()));
+    }
+
+    @PutMapping(path = "/user/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> updateUserDetails(
+        @Valid @RequestBody UpdateUserDto updatedUser,
+        @PathVariable String id
+        // Token Authorization needed for the updation
+    ) throws LbmsException{
+        log.info("{} updateUserDetails {}", USER_CONTROLLER_STR, id);
+        return userService.updateUserDetails(updatedUser, id);
+    }
+
+    @PutMapping(path = "/user/{id}/password", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public ResponseEntity<Object> updateUserPassword(
+        @Valid @NotNull(message = "oldPassword" + LbmsConstants.FIELD_IS_REQUIRED) 
+        @RequestParam String oldPassword,
+        @Valid @NotNull(message = "newPassword" + LbmsConstants.FIELD_IS_REQUIRED) 
+        @RequestParam String newPassword,
+        @PathVariable String id
+        // Token Authorization needed for the updation
+    ) throws LbmsException{
+        log.info("{} updateUserPassword {}", USER_CONTROLLER_STR, id);
+        return userService.updateUserPassword(oldPassword, newPassword, id);
     }
 }
