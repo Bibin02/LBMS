@@ -42,6 +42,12 @@
 			<artifactId>spring-boot-devtools</artifactId>
 		</dependency>
 
+		<!-- Spring-boot Actuator -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
 		<!-- Postgresql -->
 		<dependency>
 			<groupId>org.postgresql</groupId>

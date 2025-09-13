@@ -49,6 +49,8 @@ public interface UsersRepository extends JpaRepository <Users, String>{
     @Query(value = FIND_USER_BY_ID_QUERY, nativeQuery = true)
     Optional<UsersVO> findUserById(@Param("id") String id);
 
+    Optional<Users> findByUserIdAndPass(String userUid, String pass);
+
     @Query(value = USER_LEND_BOOK_QUERY, countQuery = LbmsConstants.COUNT_QUERY + USER_LEND_BOOK_QUERY + ")", nativeQuery = true)
     Page<UserLendBookDto> findUserLendBooks(@Param("userId") String userId, Pageable pageable);
     

@@ -42,7 +42,11 @@ logging:
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
 
-
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
 
 # # Profiles for spring boot backend application
 # spring.profiles.active=prod,dev,test
