@@ -10,7 +10,9 @@ import com.project.lbms.dto.PaginatedResponse;
 import com.project.lbms.dto.RegisterUser;
 import com.project.lbms.dto.UsersVO;
 import com.project.lbms.exception.LbmsException;
+import com.project.lbms.model.Seller;
 import com.project.lbms.model.Users;
+import com.project.lbms.repository.SellerRepository;
 import com.project.lbms.repository.UsersRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -20,10 +22,12 @@ import lombok.extern.slf4j.Slf4j;
 public class UserService {
     
     private UsersRepository usersRepository;
+    private SellerRepository sellerRepository;
     private static final String USER_SERVICE_STR = "UserService";
 
-    public UserService(UsersRepository usersRepository){
+    public UserService(UsersRepository usersRepository, SellerRepository sellerRepository){
         this.usersRepository = usersRepository;
+        this.sellerRepository = sellerRepository;
     }
 
     public Users findMasterUserById(String id) throws LbmsException{
@@ -65,13 +69,16 @@ public class UserService {
             "User already present for the given id " + registerUser.getUserId());
         }
         Users user = new Users();
-        user.setUserId(registerUser.getUserId());
-        user.setUserName(registerUser.getUserId());
-        user.setPass(registerUser.getPassword());
-        user.setUserAddress(registerUser.getAddress());
-        user.setUserDescription(registerUser.getAbout());
-        user.setRole(ApplicationRole.valueOf(registerUser.getRole()));
-        usersRepository.save(user);
-        return registerUser.getUserId() + "," + "User Registered Successfully";
+        String regUserRole = registerUser.getRole();
+        user.setUserId(registerUser.getUserId());user.setUserName(registerUser.getUserId());
+        user.setPass(registerUser.getPassword());user.setUserAddress(registerUser.getAddress());
+        user.setUserDescription(registerUser.getAbout());user.setRole(ApplicationRole.valueOf(regUserRole));
+        user = usersRepository.save(user);
+        if (regUserRole.equals(ApplicationRole.SELLER.toString()) || regUserRole.equals(ApplicationRole.ADMIN.toString())) {
+            Seller seller = new Seller();
+            seller.setSellerInfo(user);
+            sellerRepository.save(seller);
+        }
+        return registerUser.getUserId() + "," + "User " + registerUser.getRole() + " Registered Successfully";
     }
 }
