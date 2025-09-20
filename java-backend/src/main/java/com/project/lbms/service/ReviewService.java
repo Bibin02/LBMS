@@ -17,7 +17,9 @@ import com.project.lbms.dto.ReviewRequest;
 import com.project.lbms.exception.LbmsException;
 import com.project.lbms.model.Review;
 import com.project.lbms.model.ReviewId;
+import com.project.lbms.repository.BookRepository;
 import com.project.lbms.repository.ReviewRepository;
+import com.project.lbms.repository.UsersRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,10 +28,14 @@ import lombok.extern.slf4j.Slf4j;
 public class ReviewService {
     
     private ReviewRepository reviewRepository;
+    private BookRepository bookRepository;
+    private UsersRepository usersRepository;
     private static final String REVIEW_SERVICE_STR = "ReviewService";
 
-    public ReviewService(ReviewRepository reviewRepository){
+    public ReviewService(ReviewRepository reviewRepository, BookRepository bookRepository, UsersRepository usersRepository){
         this.reviewRepository = reviewRepository;
+        this.bookRepository = bookRepository;
+        this.usersRepository = usersRepository;
     }
 
     public PaginatedResponse getBookReviews(String bookUid, Integer pageNumber){
@@ -48,7 +54,9 @@ public class ReviewService {
     }
 
     @Transactional
-    public ResponseEntity<Object> addOrUpdateBookReview(String bookUid, String userUid, ReviewRequest reviewDto) throws URISyntaxException{
+    public ResponseEntity<Object> addOrUpdateBookReview(
+        String bookUid, String userUid, ReviewRequest reviewDto
+    ) throws URISyntaxException, LbmsException{
         log.info("{} addBookReview {}", userUid, bookUid);
         var reviewId = new ReviewId();
         reviewId.setReviewBookUid(bookUid); reviewId.setReviewUserUid(userUid);
@@ -56,12 +64,25 @@ public class ReviewService {
         if (userReview != null) {
             userReview.setComments(reviewDto.getComments());
             userReview.setRating(reviewDto.getRating().doubleValue());
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body("Review Updated Successfully");
+            return ResponseEntity.status(HttpStatus.ACCEPTED)
+            .body(ProjectResponseEntity
+            .getProjectResponseEntity(
+                "Review Updated Successfully", 
+                HttpStatus.ACCEPTED.value()));
         }
         var newReview = new Review();
         newReview.setComments(reviewDto.getComments());
         newReview.setRating(reviewDto.getRating().doubleValue());
         newReview.setReviewId(reviewId);
+        newReview.setReviewBook(
+            bookRepository.findById(bookUid).orElseThrow(()->
+                new LbmsException(HttpStatus.NOT_ACCEPTABLE, LbmsConstants.BOOK_NOT_FOUND)
+            ));
+        newReview.setReviewUser(
+            usersRepository.findById(userUid).orElseThrow(()->
+                new LbmsException(HttpStatus.NOT_ACCEPTABLE, LbmsConstants.USER_NOT_FOUND)
+            ));
+        reviewRepository.save(newReview);
         return ResponseEntity.created(
             new URI(String.format("/review/%s/user", bookUid)))
             .body(ProjectResponseEntity
