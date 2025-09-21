@@ -1,39 +1,44 @@
 package com.project.lbms.service;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.project.lbms.constants.CartType;
 import com.project.lbms.constants.LbmsConstants;
+import com.project.lbms.dto.CartUpdateRequest;
+import com.project.lbms.dto.ProjectResponseEntity;
 import com.project.lbms.dto.UserCartBook;
 import com.project.lbms.exception.LbmsException;
 import com.project.lbms.model.Book;
 import com.project.lbms.model.Cart;
 import com.project.lbms.model.CartBook;
+import com.project.lbms.model.CartBookId;
+import com.project.lbms.repository.BookRepository;
 import com.project.lbms.repository.CartBookRepository;
 import com.project.lbms.repository.CartRepository;
 import com.project.lbms.repository.UsersRepository;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@AllArgsConstructor
 @Service
 public class CartService {
     private CartRepository cartRepository;
-    private UsersRepository usersRepository;
     private CartBookRepository cartBookRepository;
+    private UsersRepository usersRepository;
+    private BookRepository bookRepository;
     private static final String CART_SERVICE_STR = "CartService";
-
-    public CartService(CartRepository cartRepository, UsersRepository usersRepository, CartBookRepository cartBookRepository){
-        this.cartRepository = cartRepository;
-        this.usersRepository = usersRepository;
-        this.cartBookRepository = cartBookRepository;
-    }
 
     @Transactional
     public List<UserCartBook> getUserCart(String userId) throws LbmsException{
@@ -51,5 +56,84 @@ public class CartService {
             userCartBooks.add(UserCartBook.build(book, cartBook));
         }
         return userCartBooks;
+    }
+
+    @Transactional
+    public ResponseEntity<Object> updateUserCart(String userId, CartUpdateRequest cartDto) 
+    throws LbmsException, URISyntaxException{
+        log.info("{} updateUserCart {}", CART_SERVICE_STR, userId);
+        var user = usersRepository.findById(userId).orElseThrow(
+                ()-> new LbmsException(HttpStatus.NOT_FOUND, LbmsConstants.USER_NOT_FOUND + userId));
+        var book = bookRepository.findById(cartDto.getBookUid()).orElseThrow(
+                ()-> new LbmsException(HttpStatus.NOT_FOUND, LbmsConstants.BOOK_NOT_FOUND + cartDto.getBookUid()));
+        var carts = cartRepository
+            .findByCartUserAndCartType(user, CartType.CART, PageRequest.ofSize(1))
+            .getContent();
+
+        if (carts.isEmpty()) {
+            log.info("{} Cart not found, creating new cart for {}", CART_SERVICE_STR, userId);
+            var cart = new Cart();
+            String cartId = UUID.randomUUID().toString();
+            cart.setCartId(cartId);
+            cart.setCartType(CartType.CART);
+            cart.setCartUser(user);
+            cartRepository.save(cart);
+            generateCartBook(book, cart, cartDto);
+            return ResponseEntity.created(new URI(String.format("/cart/%s", cartId)))
+            .body(ProjectResponseEntity.getProjectResponseEntity(
+            "Cart Created Successfully", HttpStatus.CREATED.value()));
+        }
+        var cart = carts.get(0);
+        log.info("{} Cart found for {} id : {}", CART_SERVICE_STR, userId, cart.getCartId());
+        updateCartBook(book, cart, cartDto);
+
+        return ResponseEntity.accepted()
+            .body(ProjectResponseEntity.getProjectResponseEntity(
+            "Cart Updated Successfully", HttpStatus.ACCEPTED.value()));
+    }
+
+    private void updateCartBook(Book book, Cart cart, CartUpdateRequest cartDto) throws LbmsException{
+        var cartBookId = new CartBookId();
+        cartBookId.setBookCartUid(cart.getCartId());
+        cartBookId.setCartBookUid(cartDto.getBookUid());
+        CartBook cartBook = null;
+        if ((cartBook = cartBookRepository.findById(cartBookId).orElse(null)) == null){
+            cartBook = new CartBook();
+            cartBook.setCartBookId(cartBookId);
+            cartBook.setBookCartIdObject(cart);
+            cartBook.setCartBookIdObject(book);
+            cartBook.setBookCount(validateStocks(cartDto.getQuantity(), book));
+            cartBook.setLended(validateLended(cartDto.isLend(), book));
+            cartBookRepository.save(cartBook);
+        }
+        cartBook.setBookCount(validateStocks(cartDto.getQuantity(), book));
+        cartBook.setLended(validateLended(cartDto.isLend(), book));
+    }
+
+    private void generateCartBook(Book book, Cart cart, CartUpdateRequest cartDto) throws LbmsException{
+        var cartBook = new CartBook();
+        var cartBookId = new CartBookId();
+        cartBookId.setBookCartUid(cart.getCartId());
+        cartBookId.setCartBookUid(cartDto.getBookUid());
+        cartBook.setCartBookId(cartBookId);
+        cartBook.setBookCount(validateStocks(cartDto.getQuantity(), book));
+        cartBook.setLended(validateLended(cartDto.isLend(), book));
+        cartBook.setBookCartIdObject(cart);
+        cartBook.setCartBookIdObject(book);
+        cartBookRepository.save(cartBook);
+    }
+
+    private int validateStocks(int requestStock, Book book) throws LbmsException {
+        if (book.getStock() < requestStock) {
+            throw new LbmsException(HttpStatus.BAD_REQUEST, "Requested Books are more than existing stocks");
+        }
+        return requestStock;
+    }
+
+    private boolean validateLended(boolean requestLend, Book book) throws LbmsException{
+        if (book.getLendableBook() == null && requestLend) {
+            throw new LbmsException(HttpStatus.BAD_REQUEST, "Requested Book not available for Lend");
+        }
+        return requestLend;
     }
 }

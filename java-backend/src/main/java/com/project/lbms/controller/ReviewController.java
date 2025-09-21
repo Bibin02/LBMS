@@ -45,6 +45,7 @@ public class ReviewController extends LbmsResponseEntityBuilder{
         // Decrypted token will have userId and role filtered based on role via method level security
     ) throws LbmsException{
         String userUid = "john@example.com"; // HardCoded user
+        log.info("{} getUserReview {} for Book Id {}", REVIEW_CONTROLLER_STR, userUid, bookUid);
         return ResponseEntity.ok().body(
             reviewSevice.getUserReview(bookUid, userUid));
     }
@@ -56,7 +57,7 @@ public class ReviewController extends LbmsResponseEntityBuilder{
         // Decrypted token will have userId and role filtered based on role via method level security
     ) throws Exception{
         String userUid = "john@example.com"; // HardCoded user
-        log.info("{} addBookReview for Book Id {}", userUid, bookUid);
+        log.info("{} addBookReview {} for Book Id {}", REVIEW_CONTROLLER_STR, userUid, bookUid);
         return reviewSevice.addOrUpdateBookReview(bookUid, userUid, reviewDto);
     }
 

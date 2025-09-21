@@ -46,6 +46,7 @@ public class ReviewService {
     }
 
     public ReviewDto getUserReview(String bookUid, String userUid) throws LbmsException{
+        log.info("{} getUserReview {} for Book {}", REVIEW_SERVICE_STR, userUid, bookUid);
         var reviewId = new ReviewId();
         reviewId.setReviewBookUid(bookUid); reviewId.setReviewUserUid(userUid);
         var review = reviewRepository.findById(reviewId)
