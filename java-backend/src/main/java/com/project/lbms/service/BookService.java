@@ -110,7 +110,7 @@ public class BookService {
         var lendBook = book.getLendableBook(); 
         if (bookDto.getIsLended() != null && bookDto.getIsLended() && lendBook == null) {
             lendBook = new LendBook();
-            lendBook.setLendBookPrimaryKeyId(bookUid); 
+            lendBook.setLendBookUid(bookUid); 
         }
         if (bookDto.getIsLended() != null && bookDto.getIsLended() && lendBook != null){
             lendBook.setLendableBook(book); lendBook.setDuration(bookDto.getLendDuration()); 

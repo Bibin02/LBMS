@@ -3,6 +3,7 @@ delete from orders;
 delete from cart_book;
 delete from cart;
 delete from review;
+delete from lend_book;
 delete from book;
 delete from seller;
 delete from users;
@@ -68,3 +69,9 @@ INSERT INTO orders
 ('9002', 500, 'Delivered', 100, true, true, CURRENT_TIMESTAMP - INTERVAL '8 days'),
 ('9003', 300, 'Not Delivered', 300, true, false, CURRENT_TIMESTAMP),
 ('9004', 900, 'Partial Delivered', 200, true, false, CURRENT_TIMESTAMP);
+
+
+INSERT INTO lend_book (book_uid, duration, lend_cost) VALUES
+('BK001', 34958349857, 1.1),
+('BK002', 34958349857, 2.7),
+('BK003', 34958349857, 5.1);
