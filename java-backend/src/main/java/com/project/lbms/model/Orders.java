@@ -1,10 +1,9 @@
 package com.project.lbms.model;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
@@ -31,14 +30,14 @@ public class Orders {
     private String orderStatusMessage;
     @Column(name = "total_amount")
     private double totalAmount;
-    @Column(name = "order_time", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private Timestamp orderTime;
+    @Column(name = "order_time", nullable = false)
+    private LocalDateTime orderTime;
     @Column(name = "is_paid")
     private boolean isPaid;
     @Column(name = "is_delivered")
     private boolean isDelivered;
 
-    @OneToOne(mappedBy = "paymentOrder", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "paymentOrder")
     private Payment payment;
 
 }

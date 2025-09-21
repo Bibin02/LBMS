@@ -19,6 +19,7 @@ public class LbmsConstants {
     public static final String FIELD_IS_REQUIRED = " field is required";
     public static final String ROLE_CONSTRAIN_REGEX = "(?:ADMIN|BUYER|SELLER)";
     public static final String COUNT_QUERY = "SELECT COUNT(*) from (";
+    public static final String UNAUTHORIZED_USER = "Unauthorized User";
 
     public static URI getCreatedUri(String id){
         try {

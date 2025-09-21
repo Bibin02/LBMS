@@ -32,4 +32,31 @@ public class CartBook {
     @MapsId(value = "bookCartUid")
     @JoinColumn(name = "cart_uid")
     private Cart bookCartIdObject;
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        CartBook other = (CartBook) obj;
+        if (cartBookId == null) {
+            if (other.cartBookId != null)
+                return false;
+        } else if (!cartBookId.equals(other.cartBookId))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((cartBookId == null) ? 0 : cartBookId.hashCode());
+        return result;
+    }
+
+    
 }

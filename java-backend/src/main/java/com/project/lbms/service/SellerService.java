@@ -1,11 +1,16 @@
 package com.project.lbms.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.project.lbms.constants.CartType;
 import com.project.lbms.constants.LbmsConstants;
 import com.project.lbms.dto.PaginatedResponse;
 import com.project.lbms.dto.SellerBookSummary;
@@ -13,22 +18,28 @@ import com.project.lbms.dto.SellerBookVO;
 import com.project.lbms.dto.SellerSummary;
 import com.project.lbms.dto.StockData;
 import com.project.lbms.exception.LbmsException;
+import com.project.lbms.model.Cart;
+import com.project.lbms.model.CartBook;
+import com.project.lbms.model.CartBookId;
+import com.project.lbms.model.Seller;
 import com.project.lbms.repository.BookRepository;
+import com.project.lbms.repository.CartBookRepository;
+import com.project.lbms.repository.CartRepository;
 import com.project.lbms.repository.SellerRepository;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@AllArgsConstructor
 @Service
 public class SellerService {
+
     private BookRepository bookRepository;
+    private CartRepository cartRepository;
+    private CartBookRepository cartBookRepository;
     private SellerRepository sellerRepository;
     private static final String SELLER_SERVICE_STR = "SellerService";
-
-    public SellerService(SellerRepository sellerRepository, BookRepository bookRepository){
-        this.bookRepository = bookRepository;
-        this.sellerRepository = sellerRepository;
-    }
 
     public SellerBookVO getSellerBook(String sellerUid, String bookUid) throws LbmsException{
         log.info("{} getSellerBook {}", SELLER_SERVICE_STR, sellerUid);
@@ -71,5 +82,47 @@ public class SellerService {
             seller.getEarnings(), 
             salesDataList,
             stockDataList);
+    }
+
+    @Transactional
+    public void placeSellerOrders(String cartId) {
+        Map<Seller, Cart> sellerMap = new HashMap<>();
+        for (var userCartbook : cartBookRepository.findByIdBookCartUid(cartId)) {
+            var book = userCartbook.getCartBookIdObject();
+            var bookSeller = book.getBookSeller();
+            if (sellerMap.containsKey(bookSeller)) {
+                var cart = sellerMap.get(bookSeller);
+                var sellerCartBook = new CartBook();
+                var sellerCartBookId = new CartBookId();
+                sellerCartBook.setBookCartIdObject(cart);
+                sellerCartBook.setBookCount(userCartbook.getBookCount());
+                sellerCartBook.setCartBookIdObject(book);
+                sellerCartBook.setLended(userCartbook.isLended());
+                sellerCartBookId.setBookCartUid(cart.getCartId());
+                sellerCartBookId.setCartBookUid(book.getBookUid());
+                sellerCartBook.setCartBookId(sellerCartBookId);
+                cartBookRepository.save(sellerCartBook);
+            }
+            else{
+                var cart = new Cart();
+                cart.setCartId(UUID.randomUUID().toString());
+                cart.setCartType(CartType.ORDER_CART);
+                cart.setCartUser(bookSeller.getSellerInfo());
+                cartRepository.save(cart);
+                
+                var sellerCartBook = new CartBook();
+                var sellerCartBookId = new CartBookId();
+                sellerCartBook.setBookCartIdObject(cart);
+                sellerCartBook.setBookCount(userCartbook.getBookCount());
+                sellerCartBook.setCartBookIdObject(book);
+                sellerCartBook.setLended(userCartbook.isLended());
+                sellerCartBookId.setBookCartUid(cart.getCartId());
+                sellerCartBookId.setCartBookUid(book.getBookUid());
+                sellerCartBook.setCartBookId(sellerCartBookId);
+                cartBookRepository.save(sellerCartBook);
+                
+                sellerMap.put(bookSeller, cart);
+            }
+        }
     }
 }
