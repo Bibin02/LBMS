@@ -1,7 +1,5 @@
 package com.project.lbms.service;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -57,12 +55,30 @@ public class CartService {
             Book book = cartBook.getCartBookIdObject();
             userCartBooks.add(UserCartBook.build(book, cartBook));
         }
-        return ResponseEntity.ok().body(userCartBooks);
+        return ResponseEntity.ok()
+        .location(LbmsConstants.getCreatedUri(carts.get(0).getCartId()))
+        .body(userCartBooks);
+    }
+
+    @Transactional
+    public ResponseEntity<Object> getCart(String cartId) throws LbmsException{
+        log.info("{} getUserCart {}",CART_SERVICE_STR, cartId);
+        List<UserCartBook> userCartBooks = new ArrayList<>();
+        var cart = cartRepository.findById(cartId).orElseThrow(()->
+            new LbmsException(HttpStatus.NOT_FOUND, LbmsConstants.CART_NOT_FOUND));
+
+        for (CartBook cartBook : cart.getCartBooks()){
+            Book book = cartBook.getCartBookIdObject();
+            userCartBooks.add(UserCartBook.build(book, cartBook));
+        }
+        return ResponseEntity.ok()
+        .location(LbmsConstants.getCreatedUri(cartId))
+        .body(userCartBooks);
     }
 
     @Transactional
     public ResponseEntity<Object> updateUserCart(String userId, CartUpdateRequest cartDto) 
-    throws LbmsException, URISyntaxException{
+    throws LbmsException{
         log.info("{} updateUserCart {}", CART_SERVICE_STR, userId);
         var user = usersRepository.findById(userId).orElseThrow(
                 ()-> new LbmsException(HttpStatus.NOT_FOUND, LbmsConstants.USER_NOT_FOUND + userId));
@@ -81,7 +97,7 @@ public class CartService {
             cart.setCartUser(user);
             cartRepository.save(cart);
             generateCartBook(book, cart, cartDto);
-            return ResponseEntity.created(new URI(String.format("/cart/%s", cartId)))
+            return ResponseEntity.created(LbmsConstants.getCreatedUri(cartId))
             .body(ProjectResponseEntity.getProjectResponseEntity(
             "Cart Created Successfully", HttpStatus.CREATED.value()));
         }
@@ -90,6 +106,7 @@ public class CartService {
         updateCartBook(book, cart, cartDto);
 
         return ResponseEntity.accepted()
+            .location(LbmsConstants.getCreatedUri(cart.getCartId()))
             .body(ProjectResponseEntity.getProjectResponseEntity(
             "Cart Updated Successfully", HttpStatus.ACCEPTED.value()));
     }

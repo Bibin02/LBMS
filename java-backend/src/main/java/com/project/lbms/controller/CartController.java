@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.lbms.dto.CartUpdateRequest;
-import com.project.lbms.exception.LbmsException;
 import com.project.lbms.service.CartService;
 
 import jakarta.validation.Valid;
@@ -17,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping(path = "/api/v1")
+@RequestMapping(path = "/api/v1/cart")
 public class CartController{
     private CartService cartService;
     private static final String CART_CONTROLLER_STR = "CartController";
@@ -26,15 +25,23 @@ public class CartController{
         this.cartService = cartService;
     }
 
-    @GetMapping(path = "/cart/{userId}")
+    @GetMapping(path = "/user/{userId}")
     public ResponseEntity<Object> getUserCart(
         @PathVariable String userId
-    ) throws LbmsException{
+    ) throws Exception{
         log.info("{} getUserCart {}", CART_CONTROLLER_STR, userId);
         return cartService.getUserCart(userId);
     }
 
-    @PutMapping(path = "/cart/{userId}")
+    @GetMapping(path = "/{cartId}")
+    public ResponseEntity<Object> getCart(
+        @PathVariable String cartId
+    ) throws Exception{
+        log.info("{} getCart {}", CART_CONTROLLER_STR, cartId);
+        return cartService.getUserCart(cartId);
+    }
+
+    @PutMapping(path = "/{userId}")
     public ResponseEntity<Object> updateUserCart(
         @PathVariable String userId,
         @Valid @RequestBody CartUpdateRequest cartDto
