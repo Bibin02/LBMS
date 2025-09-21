@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.lbms.dto.CartUpdateRequest;
 import com.project.lbms.exception.LbmsException;
 import com.project.lbms.service.CartService;
-import com.project.lbms.util.LbmsResponseEntityBuilder;
 
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
 @RequestMapping(path = "/api/v1")
-public class CartController extends LbmsResponseEntityBuilder{
+public class CartController{
     private CartService cartService;
     private static final String CART_CONTROLLER_STR = "CartController";
 
@@ -32,7 +31,7 @@ public class CartController extends LbmsResponseEntityBuilder{
         @PathVariable String userId
     ) throws LbmsException{
         log.info("{} getUserCart {}", CART_CONTROLLER_STR, userId);
-        return getResponseEntityOk(cartService.getUserCart(userId));
+        return cartService.getUserCart(userId);
     }
 
     @PutMapping(path = "/cart/{userId}")

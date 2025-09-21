@@ -41,7 +41,7 @@ public class CartService {
     private static final String CART_SERVICE_STR = "CartService";
 
     @Transactional
-    public List<UserCartBook> getUserCart(String userId) throws LbmsException{
+    public ResponseEntity<Object> getUserCart(String userId) throws LbmsException{
         log.info("{} getUserCart {}",CART_SERVICE_STR, userId);
         List<UserCartBook> userCartBooks = new ArrayList<>();
         List<Cart> carts = cartRepository.findByCartUserAndCartType(
@@ -50,12 +50,14 @@ public class CartService {
             CartType.CART, 
             PageRequest.ofSize(1))
             .getContent();
-        if (carts.isEmpty()){throw new LbmsException(HttpStatus.NOT_FOUND, LbmsConstants.CART_NOT_FOUND);}
+        if (carts.isEmpty()){
+            return ResponseEntity.ok().body(userCartBooks);
+        }
         for (CartBook cartBook : cartBookRepository.findByIdBookCartUid(carts.get(0).getCartId())){
             Book book = cartBook.getCartBookIdObject();
             userCartBooks.add(UserCartBook.build(book, cartBook));
         }
-        return userCartBooks;
+        return ResponseEntity.ok().body(userCartBooks);
     }
 
     @Transactional
