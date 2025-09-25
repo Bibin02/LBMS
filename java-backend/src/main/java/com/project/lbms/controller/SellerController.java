@@ -10,14 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.lbms.exception.LbmsException;
 import com.project.lbms.service.SellerService;
-import com.project.lbms.util.LbmsResponseEntityBuilder;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
 @RequestMapping(path = "/api/v1/seller")
-public class SellerController extends LbmsResponseEntityBuilder{
+public class SellerController{
     private SellerService sellerService;
     private static final String SELLER_CONTROLLER_STR = "SellerController";
 
@@ -31,7 +30,7 @@ public class SellerController extends LbmsResponseEntityBuilder{
         @RequestParam(defaultValue = "0") int pageNumber
     ) throws LbmsException{
         log.info("{} getSellerBooks ",SELLER_CONTROLLER_STR);
-        return getResponseEntityOk(sellerService.getSellerBooks(sellerUid, pageNumber));
+        return ResponseEntity.ok(sellerService.getSellerBooks(sellerUid, pageNumber));
     }
 
     @GetMapping(path = "/{sellerId}/book/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -40,7 +39,7 @@ public class SellerController extends LbmsResponseEntityBuilder{
         @PathVariable(name = "id") String bookUid
     ) throws LbmsException{
         log.info("{} getSellerBook {}", SELLER_CONTROLLER_STR, bookUid);
-        return getResponseEntityOk(sellerService.getSellerBook(sellerUid, bookUid));
+        return ResponseEntity.ok(sellerService.getSellerBook(sellerUid, bookUid));
     }
 
     @GetMapping(path = "/{sellerId}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -48,6 +47,6 @@ public class SellerController extends LbmsResponseEntityBuilder{
         @PathVariable(name = "sellerId") String sellerUid
     ) throws LbmsException{
         log.info("{} sellerDashboard {}", SELLER_CONTROLLER_STR, sellerUid);
-        return getResponseEntityOk(sellerService.getSellerDashboard(sellerUid));
+        return ResponseEntity.ok(sellerService.getSellerDashboard(sellerUid));
     }
 }

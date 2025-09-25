@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.lbms.dto.ReviewRequest;
 import com.project.lbms.exception.LbmsException;
 import com.project.lbms.service.ReviewService;
-import com.project.lbms.util.LbmsResponseEntityBuilder;
 
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
 @RequestMapping(path = "/api/v1/review")
-public class ReviewController extends LbmsResponseEntityBuilder{
+public class ReviewController{
 
     private ReviewService reviewSevice;
     private static final String REVIEW_CONTROLLER_STR = "ReviewController";
@@ -36,7 +35,7 @@ public class ReviewController extends LbmsResponseEntityBuilder{
         @RequestParam(required = false, defaultValue = "0") Integer pageNumber
         ){
         log.info("{} getBookReviews {}", REVIEW_CONTROLLER_STR, bookUid);
-        return getResponseEntityOk(reviewSevice.getBookReviews(bookUid, pageNumber));
+        return ResponseEntity.ok(reviewSevice.getBookReviews(bookUid, pageNumber));
     }
 
     @GetMapping(path = "/{bookUid}/user", produces = MediaType.APPLICATION_JSON_VALUE)

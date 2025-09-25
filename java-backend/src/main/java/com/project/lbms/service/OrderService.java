@@ -74,6 +74,10 @@ public class OrderService {
                 throw new LbmsException(HttpStatus.CONFLICT, 
                 "Not enough stocks for book "+ book.getBookName());
             }
+            if (cartbook.isLended() && book.getLendableBook() != null) {
+                throw new LbmsException(HttpStatus.CONFLICT, 
+                String.format("Book %s not available for lend ", book.getBookName()));
+            }
             totalAmount += book.getCost();
         }
 

@@ -21,7 +21,6 @@ import com.project.lbms.dto.RegisterUser;
 import com.project.lbms.dto.UpdateUserDto;
 import com.project.lbms.exception.LbmsException;
 import com.project.lbms.service.UserService;
-import com.project.lbms.util.LbmsResponseEntityBuilder;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -33,7 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 (
     path = "/api/v1"
 )
-public class UserController extends LbmsResponseEntityBuilder{
+public class UserController{
 
     private UserService userService;
     private static final String USER_CONTROLLER_STR = "UserController";
@@ -45,13 +44,13 @@ public class UserController extends LbmsResponseEntityBuilder{
     @GetMapping(path = "/masterUser/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> getMasterUser(@PathVariable String id) throws LbmsException{
         log.info( "{} getMasterUser {}",USER_CONTROLLER_STR, id);
-        return getResponseEntityOk(userService.findMasterUserById(id));
+        return ResponseEntity.ok(userService.findMasterUserById(id));
     }
 
     @GetMapping(path = "/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> getUser(@PathVariable String id) throws LbmsException{
         log.info( "{} getUser {}",USER_CONTROLLER_STR, id);
-        return getResponseEntityOk(userService.findUserById(id));
+        return ResponseEntity.ok(userService.findUserById(id));
     }
 
     @GetMapping(path = "/user/{id}/lendbooks", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -60,7 +59,7 @@ public class UserController extends LbmsResponseEntityBuilder{
         @RequestParam(required = false, defaultValue = "0") int pageNumber
     ){
         log.info( "{} getUserLendBooks {}",USER_CONTROLLER_STR, id);
-        return getResponseEntityOk(userService.getUserLendBooks(pageNumber, id));
+        return ResponseEntity.ok(userService.getUserLendBooks(pageNumber, id));
     }
 
     @GetMapping(path = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -68,7 +67,7 @@ public class UserController extends LbmsResponseEntityBuilder{
         @RequestParam(required = false, defaultValue = "0") int pageNumber
     ){
         log.info( "{} getUsers",USER_CONTROLLER_STR);
-        return getResponseEntityOk(userService.findAllUsers(pageNumber));
+        return ResponseEntity.ok(userService.findAllUsers(pageNumber));
     }
 
     @PostMapping(path = "/user", consumes = MediaType.APPLICATION_JSON_VALUE)

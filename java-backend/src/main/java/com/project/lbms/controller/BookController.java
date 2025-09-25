@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.lbms.dto.BookDto;
 import com.project.lbms.exception.LbmsException;
 import com.project.lbms.service.BookService;
-import com.project.lbms.util.LbmsResponseEntityBuilder;
 
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
 @RequestMapping(value = "/api/v1")
-public class BookController extends LbmsResponseEntityBuilder{
+public class BookController{
 
     private BookService bookService;
     private static final String BOOK_CONTROLLER_STR = "BookController";
@@ -34,7 +33,7 @@ public class BookController extends LbmsResponseEntityBuilder{
     @GetMapping(path = "/masterBook/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> getMasterBook(@PathVariable String id) throws LbmsException{
         log.info( "{} getMasterBook {}",BOOK_CONTROLLER_STR, id);
-        return getResponseEntityOk(bookService.findMasterBookById(id));
+        return ResponseEntity.ok(bookService.findMasterBookById(id));
     }
     
     @GetMapping(path = "/masterBooks", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -42,13 +41,13 @@ public class BookController extends LbmsResponseEntityBuilder{
         @RequestParam(required = false, defaultValue = "0") int pageNumber) 
         throws LbmsException{
         log.info( "{} getMasterBooks",BOOK_CONTROLLER_STR);
-        return getResponseEntityOk(bookService.findAllMasterBooks(pageNumber));
+        return ResponseEntity.ok(bookService.findAllMasterBooks(pageNumber));
     }
 
     @GetMapping(path = "/book/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> getBook(@PathVariable String id) throws LbmsException{
         log.info( "{} getBook {}",BOOK_CONTROLLER_STR, id);
-        return getResponseEntityOk(bookService.findBookById(id));
+        return ResponseEntity.ok(bookService.findBookById(id));
     }
     
     @GetMapping(path = "/books", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -56,7 +55,7 @@ public class BookController extends LbmsResponseEntityBuilder{
         @RequestParam(required = false, defaultValue = "0") int pageNumber) 
         throws LbmsException{
         log.info( "{} getBooks",BOOK_CONTROLLER_STR);
-        return getResponseEntityOk(bookService.findAllBooks(pageNumber));
+        return ResponseEntity.ok(bookService.findAllBooks(pageNumber));
     }
 
     @PostMapping(path = "/book", consumes = MediaType.APPLICATION_JSON_VALUE)
