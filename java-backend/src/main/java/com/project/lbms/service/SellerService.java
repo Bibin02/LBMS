@@ -1,5 +1,6 @@
 package com.project.lbms.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -87,6 +88,8 @@ public class SellerService {
     @Transactional
     public void placeSellerOrders(String cartId) {
         Map<Seller, Cart> sellerMap = new HashMap<>();
+        List<Cart> cartList = new ArrayList<>();
+        List<CartBook> cartBookList = new ArrayList<>();
         for (var userCartbook : cartBookRepository.findByIdBookCartUid(cartId)) {
             var book = userCartbook.getCartBookIdObject();
             var bookSeller = book.getBookSeller();
@@ -101,14 +104,14 @@ public class SellerService {
                 sellerCartBookId.setBookCartUid(cart.getCartId());
                 sellerCartBookId.setCartBookUid(book.getBookUid());
                 sellerCartBook.setCartBookId(sellerCartBookId);
-                cartBookRepository.save(sellerCartBook);
+                cartBookList.add(sellerCartBook);
             }
             else{
                 var cart = new Cart();
                 cart.setCartId(UUID.randomUUID().toString());
                 cart.setCartType(CartType.ORDER_CART);
                 cart.setCartUser(bookSeller.getSellerInfo());
-                cartRepository.save(cart);
+                cartList.add(cart);
                 
                 var sellerCartBook = new CartBook();
                 var sellerCartBookId = new CartBookId();
@@ -119,10 +122,12 @@ public class SellerService {
                 sellerCartBookId.setBookCartUid(cart.getCartId());
                 sellerCartBookId.setCartBookUid(book.getBookUid());
                 sellerCartBook.setCartBookId(sellerCartBookId);
-                cartBookRepository.save(sellerCartBook);
+                cartBookList.add(sellerCartBook);
                 
                 sellerMap.put(bookSeller, cart);
             }
         }
+        cartRepository.saveAll(cartList);
+        cartBookRepository.saveAll(cartBookList);
     }
 }
