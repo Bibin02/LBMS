@@ -22,24 +22,21 @@ import com.project.lbms.dto.UpdateUserDto;
 import com.project.lbms.exception.LbmsException;
 import com.project.lbms.service.UserService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@AllArgsConstructor
 @RestController
-@RequestMapping
-(
-    path = "/api/v1"
-)
+@RequestMapping("/api/v1")
+@Tag(name = "User Controller", description = "Endpoints related to Users")
 public class UserController{
 
     private UserService userService;
     private static final String USER_CONTROLLER_STR = "UserController";
-
-    public UserController(UserService userService){
-        this.userService = userService;
-    }
 
     @GetMapping(path = "/masterUser/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> getMasterUser(@PathVariable String id) throws LbmsException{

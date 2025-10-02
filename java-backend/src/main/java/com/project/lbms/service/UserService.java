@@ -19,20 +19,17 @@ import com.project.lbms.model.Users;
 import com.project.lbms.repository.SellerRepository;
 import com.project.lbms.repository.UsersRepository;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@AllArgsConstructor
 @Service
 public class UserService {
     
     private UsersRepository usersRepository;
     private SellerRepository sellerRepository;
     private static final String USER_SERVICE_STR = "UserService";
-
-    public UserService(UsersRepository usersRepository, SellerRepository sellerRepository){
-        this.usersRepository = usersRepository;
-        this.sellerRepository = sellerRepository;
-    }
 
     public Users findMasterUserById(String id) throws LbmsException{
         log.info("{} findMasterUserById {}", USER_SERVICE_STR, id);

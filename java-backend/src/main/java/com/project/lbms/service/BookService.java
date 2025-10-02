@@ -24,9 +24,11 @@ import com.project.lbms.repository.BookRepository;
 import com.project.lbms.repository.ReviewRepository;
 import com.project.lbms.repository.SellerRepository;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@AllArgsConstructor
 @Service
 public class BookService {
     
@@ -34,12 +36,6 @@ public class BookService {
     private ReviewRepository reviwRepository;
     private SellerRepository sellerRepository;
     private static final String BOOK_SERVICE_STR = "BookService";
-
-    public BookService(BookRepository bookRepository, SellerRepository sellerRepository, ReviewRepository reviewRepository){
-        this.bookRepository = bookRepository;
-        this.reviwRepository = reviewRepository;
-        this.sellerRepository = sellerRepository;
-    }
 
     public Book findMasterBookById(String id) throws LbmsException{
         log.info("{} findMasterBookById {}",BOOK_SERVICE_STR, id);

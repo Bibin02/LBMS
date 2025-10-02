@@ -11,18 +11,18 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.lbms.exception.LbmsException;
 import com.project.lbms.service.SellerService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@AllArgsConstructor
 @RestController
 @RequestMapping(path = "/api/v1/seller")
+@Tag(name = "Seller Controller", description = "Endpoints related to sellers")
 public class SellerController{
     private SellerService sellerService;
     private static final String SELLER_CONTROLLER_STR = "SellerController";
-
-    public SellerController(SellerService sellerService){
-        this.sellerService = sellerService;
-    }
 
     @GetMapping(path = "/{sellerId}/books", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> getSellerBooks(

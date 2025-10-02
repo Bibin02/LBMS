@@ -7,17 +7,15 @@ import org.springframework.stereotype.Service;
 import com.project.lbms.dto.ProjectResponseEntity;
 import com.project.lbms.repository.UsersRepository;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@Service
 @Slf4j
+@AllArgsConstructor
+@Service
 public class SecurityService {
 
     private UsersRepository usersRepository;
-
-    public SecurityService(UsersRepository usersRepository){
-        this.usersRepository = usersRepository;
-    }
 
     public ResponseEntity<Object> login(String userId, String password) {
         if (usersRepository.findByUserIdAndPass(userId, password).orElse(null) == null) {

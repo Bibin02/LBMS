@@ -21,9 +21,11 @@ import com.project.lbms.repository.BookRepository;
 import com.project.lbms.repository.ReviewRepository;
 import com.project.lbms.repository.UsersRepository;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@AllArgsConstructor
 @Service
 public class ReviewService {
     
@@ -31,12 +33,6 @@ public class ReviewService {
     private BookRepository bookRepository;
     private UsersRepository usersRepository;
     private static final String REVIEW_SERVICE_STR = "ReviewService";
-
-    public ReviewService(ReviewRepository reviewRepository, BookRepository bookRepository, UsersRepository usersRepository){
-        this.reviewRepository = reviewRepository;
-        this.bookRepository = bookRepository;
-        this.usersRepository = usersRepository;
-    }
 
     public PaginatedResponse getBookReviews(String bookUid, Integer pageNumber){
         log.info("{} getBookReviews {}", REVIEW_SERVICE_STR, bookUid);
