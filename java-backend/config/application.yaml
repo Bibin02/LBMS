@@ -48,6 +48,11 @@ management:
       exposure:
         include: '*'
 
+security:
+  jwt:
+    expiration-time: 3600000
+    secret-key: SECRETKEYASDFGLKJHQWERTYPOIUZXCVMNBOIFXJNIS
+
 # # Profiles for spring boot backend application
 # spring.profiles.active=prod,dev,test
 # spring.profiles.default=dev

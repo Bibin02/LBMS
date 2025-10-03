@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.lbms.dto.LoginUser;
 import com.project.lbms.dto.ProjectResponseEntity;
 import com.project.lbms.service.SecurityService;
+import com.project.lbms.util.JwtUtil;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -33,6 +36,8 @@ import lombok.extern.slf4j.Slf4j;
 public class RootController {
 
     private SecurityService securityService;
+    private AuthenticationManager authenticationManager;
+    private JwtUtil jwtUtil;
 
     @Operation(
         summary = "Home Page of the Application API",
@@ -74,11 +79,19 @@ public class RootController {
                 content = @Content(
                     schema = @Schema(implementation = ProjectResponseEntity.class)))
                 })
-    @PostMapping(path = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/auth/login", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> login(
         @Valid @RequestBody LoginUser loginUser
-    ){
+    ) throws Exception{
         log.info("Login Attempt by {}", loginUser.getUserId());
-        return securityService.login(loginUser.getUserId(), loginUser.getPassword());
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        loginUser.getUserId(),
+                        loginUser.getPassword()
+                )
+        );
+        return ResponseEntity.ok(Map.of("token", 
+            jwtUtil.generateToken(securityService.loadUserByUsername(loginUser.getUserId())),
+            "expireTime", jwtUtil.getExpirationTime()));
     }
 }

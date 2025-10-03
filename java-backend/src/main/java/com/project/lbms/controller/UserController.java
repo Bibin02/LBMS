@@ -67,7 +67,7 @@ public class UserController{
         return ResponseEntity.ok(userService.findAllUsers(pageNumber));
     }
 
-    @PostMapping(path = "/user", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/auth/user", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> registerUser(
         @Valid @RequestBody RegisterUser registerUser
     ) throws LbmsException, URISyntaxException{
