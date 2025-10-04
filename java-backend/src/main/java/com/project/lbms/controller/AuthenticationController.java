@@ -89,7 +89,7 @@ public class AuthenticationController{
         log.info("{} registerUser {}", AUTH_CONTROLLER_STR, registerUser.getUserId());
         String[] response = userService.registerUser(registerUser).split(",");
         return ResponseEntity
-                .created(LbmsConstants.getCreatedUri(String.format("/user/%s",response[0])))
+                .created(LbmsConstants.createUri(String.format("/user/%s",response[0])))
                 .body(Map.of("message", response[1], 
                 "responseCode", HttpStatus.CREATED.value()));
     }

@@ -21,9 +21,9 @@ public class LbmsConstants {
     public static final String COUNT_QUERY = "SELECT COUNT(*) from (";
     public static final String UNAUTHORIZED_USER = "Unauthorized User";
 
-    public static URI getCreatedUri(String id){
+    public static URI createUri(String uri){
         try {
-            return new URI(String.format("/cart/%s", id));
+            return new URI(uri);
         } catch (URISyntaxException e) {
             return null;
         }

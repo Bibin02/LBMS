@@ -37,6 +37,7 @@ public class CartService {
     private UsersRepository usersRepository;
     private BookRepository bookRepository;
     private static final String CART_SERVICE_STR = "CartService";
+    private static final String CART_URI = "/cart/";
 
     @Transactional
     public ResponseEntity<Object> getUserCart(String userId) throws LbmsException{
@@ -56,7 +57,7 @@ public class CartService {
             userCartBooks.add(UserCartBook.build(book, cartBook));
         }
         return ResponseEntity.ok()
-        .location(LbmsConstants.getCreatedUri(carts.get(0).getCartId()))
+        .location(LbmsConstants.createUri(CART_URI + carts.get(0).getCartId()))
         .body(userCartBooks);
     }
 
@@ -72,7 +73,7 @@ public class CartService {
             userCartBooks.add(UserCartBook.build(book, cartBook));
         }
         return ResponseEntity.ok()
-        .location(LbmsConstants.getCreatedUri(cartId))
+        .location(LbmsConstants.createUri(CART_URI + cartId))
         .body(userCartBooks);
     }
 
@@ -97,7 +98,7 @@ public class CartService {
             cart.setCartUser(user);
             cartRepository.save(cart);
             generateCartBook(book, cart, cartDto);
-            return ResponseEntity.created(LbmsConstants.getCreatedUri(cartId))
+            return ResponseEntity.created(LbmsConstants.createUri(CART_URI + cartId))
             .body(ProjectResponseEntity.getProjectResponseEntity(
             "Cart Created Successfully", HttpStatus.CREATED.value()));
         }
@@ -106,7 +107,7 @@ public class CartService {
         updateCartBook(book, cart, cartDto);
 
         return ResponseEntity.accepted()
-            .location(LbmsConstants.getCreatedUri(cart.getCartId()))
+            .location(LbmsConstants.createUri(CART_URI + cart.getCartId()))
             .body(ProjectResponseEntity.getProjectResponseEntity(
             "Cart Updated Successfully", HttpStatus.ACCEPTED.value()));
     }
