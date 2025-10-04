@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.project.lbms.dto.ProjectResponseEntity;
 
 @RestControllerAdvice
-public class ProjectErrorResponse{
+public class LbmsExceptionHandler{
 
     @ExceptionHandler(LbmsException.class)
     public ResponseEntity<Object> getErrorResponse(LbmsException lbmsException){

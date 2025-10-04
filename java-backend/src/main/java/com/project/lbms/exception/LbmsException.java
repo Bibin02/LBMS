@@ -11,4 +11,8 @@ public class LbmsException extends Exception{
     private final HttpStatusCode httpStatusCode;
     private final String message;
     
+    public LbmsException(HttpStatusCode statusCode, String message){
+        this.httpStatusCode = statusCode;
+        this.message = message;
+    }
 }
