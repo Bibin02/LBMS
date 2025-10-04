@@ -20,6 +20,11 @@ import com.project.lbms.service.SecurityService;
 @EnableWebSecurity
 public class LbmsSecurity {
 
+    private static final String[] whiteListUrls = {
+        "/auth/**", "/", "/scalar/**", "/v3/api-docs/**",
+        "/actuator/**"
+    };
+
     @Bean
     public SecurityFilterChain getFilterChain(HttpSecurity http, LbmsJwtFilter filter) throws Exception{
         return http
@@ -28,8 +33,7 @@ public class LbmsSecurity {
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         )
         .authorizeHttpRequests(authz -> authz
-            // Check this issue in url mismatching
-            .requestMatchers("/auth/**", "/", "/scalar/**").permitAll()
+            .requestMatchers(whiteListUrls).permitAll()
             .anyRequest().authenticated()
         )
         .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)

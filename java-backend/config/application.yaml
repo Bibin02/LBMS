@@ -48,6 +48,9 @@ management:
       exposure:
         include: '*'
 
+springdoc:
+  show-actuator: true
+
 security:
   jwt:
     expiration-time: 3600000

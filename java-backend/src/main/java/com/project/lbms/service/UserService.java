@@ -1,5 +1,7 @@
 package com.project.lbms.service;
 
+import java.util.List;
+
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -65,21 +67,22 @@ public class UserService {
 
     public String registerUser(RegisterUser registerUser) throws LbmsException{
         log.info("{} registerUser {}", USER_SERVICE_STR, registerUser.getUserId());
-        usersRepository.findById(registerUser.getUserId()).orElseThrow(()->
-            new LbmsException(HttpStatus.CONFLICT, "User already present for the given id " + registerUser.getUserId())
-        );
+        if (usersRepository.findById(registerUser.getUserId()).orElse(null) != null){
+            throw new LbmsException(HttpStatus.CONFLICT, "User already present for the given id " + registerUser.getUserId());
+        }
         Users user = new Users();
-        String regUserRole = registerUser.getRole();
+        ApplicationRole regUserRole = ApplicationRole.valueOf(registerUser.getRole());
         user.setUserId(registerUser.getUserId());user.setUserName(registerUser.getUserId());
         user.setPass(registerUser.getPassword());user.setUserAddress(registerUser.getAddress());
-        user.setUserDescription(registerUser.getAbout());user.setRole(ApplicationRole.valueOf(regUserRole));
+        user.setUserDescription(registerUser.getAbout());user.setRole(regUserRole);
         user = usersRepository.save(user);
-        if (regUserRole.equals(ApplicationRole.SELLER.toString()) || regUserRole.equals(ApplicationRole.ADMIN.toString())) {
+        if (List.of(ApplicationRole.ADMIN, ApplicationRole.SELLER).contains(regUserRole)) {
             Seller seller = new Seller();
             seller.setSellerInfo(user);
             sellerRepository.save(seller);
         }
-        return registerUser.getUserId() + "," + "User " + registerUser.getRole() + " Registered Successfully";
+        return String.format("%s,User -> %s Role -> %s Registered Successfully", 
+        registerUser.getUserId(), registerUser.getUserId(), regUserRole);
     }
 
     @Transactional
