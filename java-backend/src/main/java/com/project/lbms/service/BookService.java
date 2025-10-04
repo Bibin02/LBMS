@@ -120,12 +120,15 @@ public class BookService {
     }
 
     @Transactional
-    public ResponseEntity<Object> updateBook(BookDto bookDto, String bookUid) throws LbmsException{
+    public ResponseEntity<Object> updateBook(BookDto bookDto, String bookUid, String sellerId) throws LbmsException{
         Book book = bookRepository.findById(bookUid).orElseThrow(() -> 
             new LbmsException(HttpStatus.NOT_FOUND, LbmsConstants.BOOK_NOT_FOUND)
         );
-        mapToBook(book, bookDto, bookUid, null);
-        return ResponseEntity.ok().body(ProjectResponseEntity
-        .getProjectResponseEntity("Book Updated Successfully", HttpStatus.OK.value()));
+        if (sellerId.equals(book.getBookSeller().getSellerId())) {
+            mapToBook(book, bookDto, bookUid, null);
+            return ResponseEntity.ok().body(ProjectResponseEntity
+            .getProjectResponseEntity("Book Updated Successfully", HttpStatus.OK.value()));
+        }
+        throw new LbmsException(HttpStatus.UNAUTHORIZED, LbmsConstants.UNAUTHORIZED_USER);
     }
 }

@@ -2,6 +2,9 @@ package com.project.lbms.controller;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -49,6 +52,7 @@ public class BookController{
                 )
             )
     )
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(path = "/masterBook/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> getMasterBook(@PathVariable String id) throws LbmsException{
         log.info( "{} getMasterBook {}",BOOK_CONTROLLER_STR, id);
@@ -66,6 +70,7 @@ public class BookController{
                 content = @Content(
                     mediaType = "application/json"
                 ))})
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(path = "/masterBooks", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> getMasterBooks(
         @RequestParam(required = false, defaultValue = "0") int pageNumber) 
@@ -119,14 +124,15 @@ public class BookController{
                 responseCode = "201",
                 content = @Content(
                     schema = @Schema(implementation = ProjectResponseEntity.class)))})
+    @PreAuthorize("hasAnyRole('ADMIN', 'SELLER')")
     @PostMapping(path = "/book", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> addBook(
-        @Valid @RequestBody BookDto bookVO
-        // Decrypted token will have userId and role filtered based on role via method level security
+        @Valid @RequestBody BookDto bookVO,
+        @AuthenticationPrincipal UserDetails authToken
     ) throws Exception{
         log.info("{} addBook {}", BOOK_CONTROLLER_STR, bookVO.getBookName());
         return bookService.addBook(bookVO, 
-        "john@example.com" // Hardcoded Admin user
+        authToken.getUsername()
         );
     }
 
@@ -139,14 +145,15 @@ public class BookController{
                 responseCode = "201",
                 content = @Content(
                     schema = @Schema(implementation = ProjectResponseEntity.class)))})
+    @PreAuthorize("hasAnyRole('ADMIN', 'SELLER')")
     @PutMapping(path = "/book/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> updateBook(
         @Valid @RequestBody BookDto bookDto,
-        @PathVariable String id
-        // Decrypted token will have userId and role filtered based on role via method level security
+        @PathVariable String id,
+        @AuthenticationPrincipal UserDetails authToken
     ) throws Exception{
-        log.info("{} updateBook {}", BOOK_CONTROLLER_STR, id);
-        return bookService.updateBook(bookDto, id);
+        log.info("{} updateBook {} by {}", BOOK_CONTROLLER_STR, id, authToken.getUsername());
+        return bookService.updateBook(bookDto, id, authToken.getUsername());
     }
         
 }
