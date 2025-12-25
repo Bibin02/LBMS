@@ -52,9 +52,11 @@ public class BookService {
 
     public BookVO findBookById(String id) throws LbmsException{
         log.info("{} findBookById {}",BOOK_SERVICE_STR, id);
-        return BookVO.build(bookRepository.findById(id).orElseThrow(
+        var bookVO = BookVO.build(bookRepository.findById(id).orElseThrow(
                 ()-> new LbmsException(HttpStatus.NOT_FOUND, LbmsConstants.BOOK_NOT_FOUND + id)
             ));
+        bookVO.setRating(reviwRepository.findBookRating(id).orElse(0.0));
+        return bookVO;
     }
 
     /**
