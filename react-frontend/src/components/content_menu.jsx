@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom';
 
 import BookThumbnail from './book_thumbnail'
@@ -13,40 +13,39 @@ const ContentMenu = () => {
     const [pagesLoaded, setPagesLoaded] = useState(0);
 
     const [searchParams] = useSearchParams();
-    
+
     // adding debounce to the eventListner
     window.addEventListener("scroll", debounce(() => useHandleScroll(setNeedFeed), 500));
 
     async function getBookThumbnails() {
-        setIsLoading(true); 
-        const newFeed = await fetchJSONQuery("/bookthumbnail.json", {search: searchParams.get("search")});
-        setFeed((feed)=> [...feed, newFeed]);  
+        setIsLoading(true);
+        const newFeed = await fetchJSONQuery("/bookthumbnail.json", { search: searchParams.get("search") });
+        setFeed((feed) => [...feed, newFeed]);
         setIsLoading(false);
         setNeedFeed(false);
     }
 
-    useEffect(function (){
+    useEffect(function () {
         if (needFeed && pagesLoaded < 10) {
             getBookThumbnails();
-            setPagesLoaded(pagesLoaded+1);
+            setPagesLoaded(pagesLoaded + 1);
         }
     }, [needFeed]);
 
-  return (
-    <>
+    return (
         <div className="outer-container container">
             <div className="feeds-container">
-                {feed.map( (json, page)=>{
+                {feed.map((json, page) => {
                     return (
-                    <div className="single-feed-container" key={page}>
-                        {json.data.map((bkjson, index)=>(
-                            <BookThumbnail
-                                key = {index}
-                                imageSource = {bkjson.img_src}
-                                bkdata = {bkjson.bkdata}
-                            />
-                        ))}
-                    </div>
+                        <div className="single-feed-container" key={page}>
+                            {json.data.map((bkjson, index) => (
+                                <BookThumbnail
+                                    key={index}
+                                    imageSource={bkjson.img_src}
+                                    bkdata={bkjson.bkdata}
+                                />
+                            ))}
+                        </div>
                     )
                 })}
             </div>
@@ -55,9 +54,7 @@ const ContentMenu = () => {
             </div>
             }
         </div>
-        
-    </>
-  )
+    )
 }
 
 export default ContentMenu

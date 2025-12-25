@@ -4,14 +4,14 @@ import StarHollow from '../assets/images/star-hollow.svg'
 
 export function getRatingStars(rating) {
 
-    let isHalf = ((rating * 10) % 10) == 0 ? false : true;
+    let isHalf = ((rating * 10) % 10) != 0;
     let stars = []
 
     for(let i=1; i<=5; i++){
         if (i <= rating) {
             stars.push("*");
         }
-        else if (isHalf && (i-rating) < 1.0) {
+        else if (isHalf && (i-rating) < 1) {
             stars.push("/");
         }
         else{

@@ -6,7 +6,7 @@ export function defaultSubmitHandler(jsonData, destination, event, setPreviewMes
     submitEditDataForm(jsonData, destination).then((apiStatus)=>{
         setPreviewMessage(apiStatus);
     })
-    .catch((apiStatus)=>{
-        setPreviewMessage("! " + apiStatus);
+    .catch((error_)=>{
+        setPreviewMessage("! " + error_);
     })
 }

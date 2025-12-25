@@ -18,7 +18,7 @@ export function convertMilliSecToDateTime(milliseconds) {
 
 export function getLendRemainingDuration(orderDate, lendDuration) {
     let remaining = orderDate + lendDuration - (new Date().getMilliseconds());
-    remaining = remaining > 0 ? remaining : 0
+    remaining = Math.max(remaining, 0)
     return new Date(remaining).toDateString()  
 }
 

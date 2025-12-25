@@ -7,14 +7,10 @@ import '../styles/App.css';
 export function Home() {
 
     return (
-        <>
-            <main className="container">
-                <NavigationMenu/>
-
-                <ContentMenu/>
-
-                <FooterContent/>
-            </main>
-        </>
+        <main className="container">
+            <NavigationMenu />
+            <ContentMenu />
+            <FooterContent />
+        </main>
     )
 }
