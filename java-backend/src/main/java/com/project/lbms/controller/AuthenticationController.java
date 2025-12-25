@@ -7,6 +7,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +19,6 @@ import com.project.lbms.dto.LoginUser;
 import com.project.lbms.dto.ProjectResponseEntity;
 import com.project.lbms.dto.RegisterUser;
 import com.project.lbms.exception.LbmsException;
-import com.project.lbms.service.SecurityService;
 import com.project.lbms.service.UserService;
 import com.project.lbms.util.JwtUtil;
 
@@ -37,7 +38,6 @@ import lombok.extern.slf4j.Slf4j;
 @Tag(name = "Authentication Controller", description = "Used to add and authorize users")
 public class AuthenticationController{
 
-    private SecurityService securityService;
     private AuthenticationManager authenticationManager;
     private JwtUtil jwtUtil;
     private UserService userService;
@@ -62,15 +62,13 @@ public class AuthenticationController{
         @Valid @RequestBody LoginUser loginUser
     ) throws Exception{
         log.info("Login Attempt by {}", loginUser.getUserId());
-        authenticationManager.authenticate(
+        Authentication auth = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginUser.getUserId(),
                         loginUser.getPassword()
                 )
         );
-        return ResponseEntity.ok(Map.of("token", 
-            jwtUtil.generateToken(securityService.loadUserByUsername(loginUser.getUserId())),
-            "expireTime", jwtUtil.getExpirationTime()));
+        return ResponseEntity.ok(Map.of("token", jwtUtil.generateToken((User) auth.getPrincipal())));
     }
 
     @Operation(

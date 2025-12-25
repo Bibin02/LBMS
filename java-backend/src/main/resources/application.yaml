@@ -5,6 +5,9 @@ spring:
 
   application:
     name: java-backend
+  
+  security:
+    jwt-secret-key: "LBMS-JWT-SECRET-KEY-256-BITS-BOB-02-12345-asdf-;lkj"
 
   mvc:
     view:
