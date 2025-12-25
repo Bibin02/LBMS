@@ -1,0 +1,97 @@
+spring:
+  profiles:
+    active: prod,dev,test
+    default: dev
+
+  application:
+    name: java-backend
+  
+  security:
+    jwt-secret-key: "LBMS-JWT-SECRET-KEY-256-BITS-BOB-02-12345-asdf-;lkj"
+
+  mvc:
+    view:
+      prefix: /templates/
+      suffix: .html
+
+  datasource:
+    url: jdbc:postgresql://localhost:8000/lbms
+    username: system
+    password: pass
+
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+
+  sql:
+    init:
+      mode: always
+      data-locations: classpath:data.sql
+  
+  output:
+    ansi:
+      enabled: always
+
+server:
+  port: 8300
+  error:
+    path: /error
+
+logging:
+  level:
+    com.project.lbms: TRACE
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+springdoc:
+  show-actuator: true
+
+security:
+  jwt:
+    expiration-time: 3600000
+    secret-key: SECRETKEYASDFGLKJHQWERTYPOIUZXCVMNBOIFXJNIS
+
+# # Profiles for spring boot backend application
+# spring.profiles.active=prod,dev,test
+# spring.profiles.default=dev
+
+# server.port=8300
+# spring.application.name=java-backend
+# # This property is used to indicate the path of our template
+# spring.mvc.view.prefix=/templates/
+
+# # This property is used to indicate the extension or type of the templates
+# spring.mvc.view.suffix=.html
+
+# # This property set to false indicates that the we don't want to use the default whitelabel error page 
+# # server.error.whitelabel.enabled=false
+# # This property is used to specify the path of our error page
+# server.error.path=/error
+
+# # DataSource config
+# spring.datasource.url=jdbc:postgresql://localhost:8000/lbms
+# spring.datasource.username=system
+# spring.datasource.password=pass
+
+# # JPA Hibernate Config
+# spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
+# spring.jpa.hibernate.ddl-auto=update
+# spring.jpa.show-sql=true
+
+# logging.level.org.hibernate.SQL=DEBUG
+# logging.level.org.hibernate.type.descriptor.sql.BasicBinder=TRACE
+
+# # Loads schema.sql and data.sql
+# spring.sql.init.mode=always
+# # spring.sql.init.schema-locations=classpath:schema.sql
+# spring.sql.init.data-locations=classpath:data.sql
+
+

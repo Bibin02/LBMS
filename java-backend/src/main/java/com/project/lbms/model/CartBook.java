@@ -1,0 +1,62 @@
+package com.project.lbms.model;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity(name = "cart_book")
+@Data
+@NoArgsConstructor
+public class CartBook {
+
+    @EmbeddedId
+    private CartBookId cartBookId;
+
+    @Column(name = "book_count", columnDefinition = "INTEGER DEFAULT 1")
+    private int bookCount;
+
+    @Column(name = "is_lended", columnDefinition = "BOOLEAN DEFAULT FALSE")
+    private boolean isLended;
+
+    @ManyToOne
+    @MapsId(value = "cartBookUid")
+    @JoinColumn(name = "book_uid")
+    private Book cartBookIdObject;
+
+    @ManyToOne
+    @MapsId(value = "bookCartUid")
+    @JoinColumn(name = "cart_uid")
+    private Cart bookCartIdObject;
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        CartBook other = (CartBook) obj;
+        if (cartBookId == null) {
+            if (other.cartBookId != null)
+                return false;
+        } else if (!cartBookId.equals(other.cartBookId))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((cartBookId == null) ? 0 : cartBookId.hashCode());
+        return result;
+    }
+
+    
+}
